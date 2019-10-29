@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo box</title>
+  
+  <style type="text/css">
+    #wrap {
+        overflow: hidden;
+    }
+    .box {
+      width: 25%;
+      padding-bottom: 25%;
+      background: #00F;
+      color: #FFF;
+      position: relative;
+      float: left;
+    }
+    .innerContent {
+        position:absolute;
+        left:1px;
+        right: 1px;
+        top: 1px;
+        bottom: 1px;
+        background: #66F;
+        padding: 10px;
+    }
+    @media only screen and (max-width : 480px) {
+      /* Smartphone view: 1 tile */
+      .box {
+        width: 100%;
+        padding-bottom: 100%;
+      }
+    }
+    @media only screen and (max-width : 650px) and (min-width : 481px) {
+      /* Tablet view: 2 tiles */
+      .box {
+        width: 50%;
+        padding-bottom: 50%;
+      }
+    }
+    @media only screen and (max-width : 1050px) and (min-width : 651px) {
+      /* Small desktop / ipad view: 3 tiles */
+      .box {
+        width: 33.3%;
+        padding-bottom: 33.3%;
+      }
+    }
+    @media only screen and (max-width : 1290px) and (min-width : 1051px) {
+      /* Medium desktop: 4 tiles */
+      .box {
+        width: 25%;
+        padding-bottom: 25%;
+      }
+    }
+  </style>
+  <!-- Enable media queries for old IE -->
+  <!--[if lt IE 9]>
+	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+  <![endif]-->
+
+</head>
+<body>
+
+        <div id="wrap">
+                <div class="box">
+                  <div class="innerContent">
+                    Comcast
+                    Software Engineering - Xfi Team
+                    https://jobs.comcast.com
+                  </div>
+                </div>
+                <div class="box">
+                  <div class="innerContent">
+                    Adobe
+                    UX Designer
+                    https://www.adobe.com/careers.html
+                  </div>
+                </div>
+                <div class="box">
+                  <div class="innerContent">
+                    Google
+                    Engineering Residency Program
+                    https://careers.google.com/?src=Online/House%20Ads/BKWS_LOC2&gclid=EAIaIQobChMI49v74Ye-5QIVBJyzCh0c5wDuEAAYASAAEgLj-PD_BwE
+                  </div>
+                </div>
+                <div class="box">
+                  <div class="innerContent">
+                    Absolutely-positioned content isn't counted in the parent's height!
+                  </div>
+                </div>
+                <div class="box">
+                  <div class="innerContent">
+                    Absolutely-positioned content isn't counted in the parent's height!
+                  </div>
+                </div>
+                <div class="box">
+                  <div class="innerContent">
+                    Absolutely-positioned content isn't counted in the parent's height!
+                  </div>
+                </div>
+                <div class="box">
+                  <div class="innerContent">
+                    Absolutely-positioned content isn't counted in the parent's height!
+                  </div>
+                </div>
+                <div class="box">
+                  <div class="innerContent">
+                    Absolutely-positioned content isn't counted in the parent's height!
+                  </div>
+                </div>
+                <div class="box">
+                  <div class="innerContent">
+                    Absolutely-positioned content isn't counted in the parent's height!
+                  </div>
+                </div>
+                <div class="box">
+                  <div class="innerContent">
+                    Absolutely-positioned content isn't counted in the parent's height!
+                  </div>
+                </div>
+              </div>
+  
+</body>
+</html>
