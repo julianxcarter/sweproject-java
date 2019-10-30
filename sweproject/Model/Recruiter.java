@@ -23,6 +23,4 @@ public class Recruiter extends Profile {
     int index = companyJobListings.indexOf(expiredJob);
     this.companyJobListings.remove(index);
   }
-
-
 }
