@@ -7,13 +7,18 @@ import javax.swing.*;
 
 public class userProfileView extends javax.swing.JFrame {
 
+<<<<<<< HEAD
     //List of Amenities
+=======
+    //List of amenities
+>>>>>>> origin/userProfileView
     public static String[] amenities = {"Brail", "Ramps", "Elevators", 
     "Accessible toilet facilities", "Audio-visual fire alarms", 
     "Lowered lights switches and door handles", 
     "Specially modified equipment", "Wheelchair accessible", 
     "Adjustable desks and tables", "Stair rail", 
     "Service dog friendly"};
+<<<<<<< HEAD
     //List of Locations
     public static String[] desiredLocations = {"New York", "Los Angeles", 
     "San Francisco" ,"Atlanta", "D.C", "New Jersey", "Seattle", "Houston", "Austin"};
@@ -27,6 +32,22 @@ public class userProfileView extends javax.swing.JFrame {
        
         //Layout source: https://stackoverflow.com/questions/11790830/setting-jpanel-layout
         //source: https://www.javatpoint.com/java-awt-checkbox
+=======
+    //List of locations
+    public static String[] desiredLocations = {"New York", "Los Angeles", 
+    "San Francisco" ,"Atlanta", "D.C", "New Jersey", "Seattle", "Houston", "Austin"};
+
+
+    public userProfileView() {
+        //create frame for the userProfile Page
+        JFrame profilePage = new JFrame("Profile");
+        // make sure the page exits when the red x is pressed
+        profilePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //set the dimmensions of the home page
+        profilePage.setBounds(0, 0, 800, 800);
+        profilePage.setLayout(null);  
+        profilePage.setVisible(true);  
+>>>>>>> origin/userProfileView
 
         //*****************_AMENITIES_**********************
         //Amenities Panel will be centered in the upper panel
@@ -39,13 +60,19 @@ public class userProfileView extends javax.swing.JFrame {
         //amenitiesLabel.setLocation(profilePage.getWidth()/2 - 50, 5);
         amenitiesLabel.setSize(100,100);
         amenitiesLabel.setText("Amenities");
+<<<<<<< HEAD
         amenitiesPanel.add(amenitiesLabel, BorderLayout.CENTER);
+=======
+        profilePage.add(amenitiesLabel);
+
+>>>>>>> origin/userProfileView
         //Configure the checkbox
         for (int i = 0; i < amenities.length; i++) {
             Checkbox checkbox = new Checkbox(amenities[i]);
             amenitiesPanel.add(checkbox, BorderLayout.CENTER);
         }
 
+<<<<<<< HEAD
         JPanel upperPanel = new JPanel(new BorderLayout());
         upperPanel.setBackground(Color.MAGENTA);
         upperPanel.add(amenitiesPanel, BorderLayout.CENTER);
@@ -63,34 +90,64 @@ public class userProfileView extends javax.swing.JFrame {
         locationsPanel.setBackground(Color.CYAN);
         // place label at the top of the panel
         locationsPanel.add(locationsLabel, BorderLayout.NORTH);
+=======
+        //Add a panel for the preferred locations
+        final JPanel locationsPanel = new JPanel();
+         JLabel locationsLabel = new JLabel("Preferred Locations:");
+
+        //Configure the panel
+        locationsPanel.setLayout(new BoxLayout(locationsPanel, BoxLayout.Y_AXIS));
+        locationsPanel.setBounds(50, 500, 400, 400);
+        // place label at the top of the panel
+        locationsPanel.add(locationsLabel, BorderLayout.NORTH);
+        locationsPanel.setVisible(true);
+
+>>>>>>> origin/userProfileView
         //add a button to add new locations
         JButton plusButton = new JButton("+");
         plusButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent event) {
+<<<<<<< HEAD
                 JPanel newLocationPanel = new JPanel();
                 newLocationPanel.setLayout(new GridLayout(0,2,20,20));
+=======
+                JPanel newLocation = new JPanel();
+                newLocation.setLayout(new GridLayout(0,2,20,20));
+>>>>>>> origin/userProfileView
                 JComboBox<String> userLocations = new JComboBox<>(desiredLocations);
                 //add a remove button
                 JButton removeButton = new JButton("Remove");  
                 removeButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
+<<<<<<< HEAD
                     newLocationPanel.getParent().remove(newLocationPanel);
+=======
+                    newLocation.getParent().remove(newLocation);
+>>>>>>> origin/userProfileView
                     locationsPanel.revalidate();
                     locationsPanel.repaint();
                 }
             });
 
+<<<<<<< HEAD
             newLocationPanel.add(userLocations);
             newLocationPanel.add(removeButton);
 
             locationsPanel.add(newLocationPanel);
+=======
+            newLocation.add(userLocations);
+            newLocation.add(removeButton);
+
+            locationsPanel.add(newLocation);
+>>>>>>> origin/userProfileView
             locationsPanel.revalidate();
             locationsPanel.repaint();
         }
     });
         locationsPanel.add(plusButton);
+<<<<<<< HEAD
 
         //*****************_POSITIONS_**********************
         //positions panel will be in on the right side of the lowerPanel
@@ -159,6 +216,58 @@ public class userProfileView extends javax.swing.JFrame {
 
 
 
+=======
+        plusButton.setBounds(locationsPanel.getX() + 50, locationsPanel.getY(), 50, 50);
+        //profilePage.add(locationsPanel);
+        profilePage.add(locationsPanel, BorderLayout.WEST);
+
+
+
+    //Add a panel for the preferred locations
+        final JPanel locationsPanel = new JPanel();
+         JLabel locationsLabel = new JLabel("Preferred Locations:");
+
+        //Configure the panel
+        locationsPanel.setLayout(new BoxLayout(locationsPanel, BoxLayout.Y_AXIS));
+        locationsPanel.setBounds(50, 500, 400, 400);
+        // place label at the top of the panel
+        locationsPanel.add(locationsLabel, BorderLayout.NORTH);
+        locationsPanel.setVisible(true);
+
+        //add a button to add new locations
+        JButton plusButton = new JButton("+");
+        plusButton.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent event) {
+                JPanel newLocation = new JPanel();
+                newLocation.setLayout(new GridLayout(0,2,20,20));
+                JComboBox<String> userLocations = new JComboBox<>(desiredLocations);
+                //add a remove button
+                JButton removeButton = new JButton("Remove");  
+                removeButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    newLocation.getParent().remove(newLocation);
+                    locationsPanel.revalidate();
+                    locationsPanel.repaint();
+                }
+            });
+
+            newLocation.add(userLocations);
+            newLocation.add(removeButton);
+
+            locationsPanel.add(newLocation);
+            locationsPanel.revalidate();
+            locationsPanel.repaint();
+        }
+    });
+        locationsPanel.add(plusButton);
+        plusButton.setBounds(locationsPanel.getX() + 50, locationsPanel.getY(), 50, 50);
+        //profilePage.add(locationsPanel);
+        profilePage.add(locationsPanel, BorderLayout.WEST);
+
+       
+>>>>>>> origin/userProfileView
      }  
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
