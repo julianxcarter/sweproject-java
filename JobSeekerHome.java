@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
+//import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 
 import java.awt.*;
 import java.lang.*;
@@ -11,7 +11,7 @@ class JobSeekerHome{
         //create the frame
        JFrame frame = new JFrame("Home Page");
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       frame.setSize(1000,1000);
+       frame.setSize(500,500);
     
        //Create search panel
        JPanel panel = new JPanel();
@@ -22,14 +22,16 @@ class JobSeekerHome{
 
 
        //section header
+       JPanel jobRecPanel = new JPanel();
        JLabel jobListings = new JLabel("Recommended Jobs for You");
-       //job listings panels
+       //job listing panels
        JTextArea jobListing1 = new JTextArea(5, 20);
        jobListing1.setPreferredSize(new Dimension(200,5));
        jobListing1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
        StringBuffer jobList1 = new StringBuffer();
        jobList1.append("Comcast");
        jobList1.append("\nSoftware Engineer - Xfi Team");
+       jobList1.append("\nPhiladelphia, PA");
        jobList1.append("\nDescription?");
        jobList1.append("\nhttps://jobs.comcast.com");
 
@@ -42,6 +44,7 @@ class JobSeekerHome{
        StringBuffer jobList2 = new StringBuffer();
        jobList2.append("Adobe");
        jobList2.append("\nUX Design");
+       jobList2.append("\nSan Fransisco, CA");
        jobList2.append("\nDescription?");
        jobList2.append("\nhttps://www.adobe.com/careers.html");
 
@@ -54,12 +57,19 @@ class JobSeekerHome{
        StringBuffer jobList3 = new StringBuffer();
        jobList3.append("Google");
        jobList3.append("\nEngineering Rotational Program");
+       jobList3.append("\nNew York City, New York");
        jobList3.append("\nDescription?");
        jobList3.append("\nhttps://careers.google.com");
 
        jobListing3.setText(jobList3.toString());
+       jobRecPanel.add(jobListings);
+       jobRecPanel.add(jobListing1);
+       jobRecPanel.add(jobListing2);
+       jobRecPanel.add(jobListing3);
 
        //top rated companies panel
+       JPanel topComPanel = new JPanel();
+       JLabel topCompanies = new JLabel("Top Companies");
        JTextArea topCompany1 = new JTextArea(5, 20);
        topCompany1.setPreferredSize(new Dimension(200,5));
        topCompany1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
@@ -68,14 +78,40 @@ class JobSeekerHome{
        company1.append("\nSeattle, WA");
 
 
-       jobListing1.setText(jobList1.toString());
+       topCompany1.setText(company1.toString());
+
+        JTextArea topCompany2 = new JTextArea(5, 20);
+        topCompany2.setPreferredSize(new Dimension(200,5));
+        topCompany2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
+        StringBuffer company2 = new StringBuffer();
+        company2.append("Pivotal");
+        company2.append("\nNew York, NY");
+
+
+        topCompany2.setText(company2.toString());
+
+        //top rated companies panel
+       JTextArea topCompany3 = new JTextArea(5, 20);
+       topCompany3.setPreferredSize(new Dimension(200,5));
+       topCompany3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
+       StringBuffer company3 = new StringBuffer();
+       company3.append("Coca-cola");
+       company3.append("\nAtlanta, GA");
+
+
+       topCompany3.setText(company3.toString());
+       topComPanel.add(topCompany1);
+       topComPanel.add(topCompany2);
+       topComPanel.add(topCompany3);
 
        //Add components to the frame
        frame.getContentPane().add(BorderLayout.NORTH, panel);
-       frame.getContentPane().add(BorderLayout.LINE_START,jobListing1);
-       frame.getContentPane().add(BorderLayout.CENTER,jobListing2);
-       frame.getContentPane().add(BorderLayout.LINE_END,jobListing3);
-       frame.getContentPane().add(BorderLayout.AFTER_LAST_LINE, topCompany1);
+       frame.getContentPane().add(BorderLayout.CENTER,jobRecPanel);
+       //frame.getContentPane().add(BorderLayout.CENTER,jobListing2);
+       //frame.getContentPane().add(BorderLayout.LINE_END,jobListing3);
+       frame.getContentPane().add(BorderLayout.SOUTH, topCompPanel);
+       //frame.getContentPane().add(BorderLayout.CENTER, topCompany2);
+       //frame.getContentPane().add(BorderLayout.LINE_END, topCompany3);
        //frame.getContentPane().add(BorderLayout.CENTER, ta);
        frame.setVisible(true);
     }
