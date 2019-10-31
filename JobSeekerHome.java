@@ -15,15 +15,23 @@ class JobSeekerHome{
     
        //Create search panel
        JPanel panel = new JPanel();
+       JButton profile = new JButton("Profile");
        JTextField universalSearchBox = new JTextField("Search Company", 20);
        JButton search = new JButton("Search");
+       panel.add(profile);
        panel.add(universalSearchBox);
        panel.add(search);
 
-
        //section header
-       JPanel jobRecPanel = new JPanel();
+       //JPanel jText = new JPanel();
        JLabel jobListings = new JLabel("Recommended Jobs for You");
+       JLabel blank = new JLabel("");
+       JLabel anotherBlank = new JLabel("");
+       //jText.add(jobListings);
+       
+       
+       JPanel jobRecPanel = new JPanel();
+       jobRecPanel.setLayout(new GridLayout(2,3));
        //job listing panels
        JTextArea jobListing1 = new JTextArea(5, 20);
        jobListing1.setPreferredSize(new Dimension(200,5));
@@ -36,7 +44,7 @@ class JobSeekerHome{
        jobList1.append("\nhttps://jobs.comcast.com");
 
        jobListing1.setText(jobList1.toString());
-       panel.add(jobListings);
+       //jobRecPanel.add(jobListing1);
 
        JTextArea jobListing2 = new JTextArea(5, 20);
        jobListing2.setPreferredSize(new Dimension(200,5));
@@ -63,13 +71,18 @@ class JobSeekerHome{
 
        jobListing3.setText(jobList3.toString());
        jobRecPanel.add(jobListings);
+       jobRecPanel.add(blank);
+       jobRecPanel.add(anotherBlank);
        jobRecPanel.add(jobListing1);
        jobRecPanel.add(jobListing2);
        jobRecPanel.add(jobListing3);
-
+        
        //top rated companies panel
        JPanel topComPanel = new JPanel();
+       topComPanel.setLayout(new GridLayout(2,3));
        JLabel topCompanies = new JLabel("Top Companies");
+       JLabel thisBlank = new JLabel("");
+       JLabel thatBlank = new JLabel("");
        JTextArea topCompany1 = new JTextArea(5, 20);
        topCompany1.setPreferredSize(new Dimension(200,5));
        topCompany1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
@@ -100,19 +113,24 @@ class JobSeekerHome{
 
 
        topCompany3.setText(company3.toString());
+       topComPanel.add(topCompanies);
+       topComPanel.add(thisBlank);
+       topComPanel.add(thatBlank);
        topComPanel.add(topCompany1);
        topComPanel.add(topCompany2);
        topComPanel.add(topCompany3);
 
        //Add components to the frame
        frame.getContentPane().add(BorderLayout.NORTH, panel);
-       frame.getContentPane().add(BorderLayout.CENTER,jobRecPanel);
-       //frame.getContentPane().add(BorderLayout.CENTER,jobListing2);
+       frame.getContentPane().add(BorderLayout.EAST,jobRecPanel);
+       frame.getContentPane().add(BorderLayout.SOUTH, topComPanel);
+       //frame.add(jobRecPanel);
        //frame.getContentPane().add(BorderLayout.LINE_END,jobListing3);
-       frame.getContentPane().add(BorderLayout.SOUTH, topCompPanel);
+       //frame.getContentPane().add(BorderLayout.SOUTH, topCompPanel);
        //frame.getContentPane().add(BorderLayout.CENTER, topCompany2);
        //frame.getContentPane().add(BorderLayout.LINE_END, topCompany3);
        //frame.getContentPane().add(BorderLayout.CENTER, ta);
+       frame.pack();
        frame.setVisible(true);
     }
 }
