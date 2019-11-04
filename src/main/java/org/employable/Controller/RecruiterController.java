@@ -1,17 +1,17 @@
 package org.employable.Controller;
 
 import org.employable.Model.JobListingModel;
-import org.employable.Model.Recruiter;
+import org.employable.Model.RecruiterModel;
 import org.employable.View.RecruiterView;
 
 
 
 public class RecruiterController {
-  private Recruiter model;
+  private RecruiterModel model;
   private RecruiterView view;
   private JobListingModel jlModel;
 
-  public RecruiterController(Recruiter model, RecruiterView view){
+  public RecruiterController(RecruiterModel model, RecruiterView view){
     this.model = model;
     this.view = view;
     //this.jlModel = jobListingModel;
