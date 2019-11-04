@@ -6,7 +6,7 @@ import View.*;
 public class RecruiterController {
   private Recruiter model;
   private RecruiterView view;
-  private JobListing jlModel;
+  private JobListingModel jlModel;
 
   public RecruiterController(Recruiter model, RecruiterView view){
     this.model = model;
@@ -26,13 +26,13 @@ public class RecruiterController {
     model.setContactInfo(email);
   }
 
-  public void createJobListing(String position, String company, String link, String location){
-    JobListing model = new JobListing (position, company, link, location);
+  public static void createJobListing(String position, String company, String link, String location){
+    JobListingModel model = new JobListingModel (position, company, link, location);
   }
 
   //method to remove JobListing
-  public void removeJobListing(JobListing expiredJob){
-    expiredJob.removeJobListing(expiredJob);
+  public void removeJobListing(JobListingModel expiredJob){
+    // expiredJob.removeJobListing(expiredJob);
   }
   //show new interaction/notificiation. Dev later.
 }

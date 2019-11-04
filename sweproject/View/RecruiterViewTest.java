@@ -1,5 +1,5 @@
 import View.RecruiterView;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import java.TestUtils;
 
 public class RecruiterViewTest {
