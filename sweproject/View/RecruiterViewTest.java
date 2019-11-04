@@ -6,7 +6,7 @@ public class RecruiterViewTest {
     @Test 
     public void AddNewListingTest() {
         // instantiate the home page
-        RecruiterView.RecruiterView();
+        RecruiterView recruiter = new RecruiterView();
 
     }
 

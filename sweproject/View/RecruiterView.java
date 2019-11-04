@@ -1,5 +1,5 @@
 package View;
-// import Controller.RecruiterController;
+import Controller.RecruiterController;
 // import Model.Recruiter;
 
 import java.awt.*;
@@ -137,6 +137,7 @@ public class RecruiterView extends  javax.swing.JFrame{
               }
            };
 
+           // add document listener to text box
            textBox.getDocument().addDocumentListener(checkText);
 
                 // add all relevant components to the new listing panel
