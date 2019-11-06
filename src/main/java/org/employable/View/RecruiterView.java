@@ -1,39 +1,41 @@
 package org.employable.View;
+import Controller.RecruiterController;
+// import Model.Recruiter;
+
 
 
 import java.awt.*;
-// import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
  
 /*from   w w w. j a  v a  2 s  .c om*/
 import javax.swing.*;
-// import javax.swing.JCheckBox;
-// import javax.swing.JFrame;
-// import javax.swing.JList;
-// import javax.swing.JPanel;
-// import javax.swing.JLabel;
-// import javax.swing.JButton;
-// import javax.swing.JComboBox;
-// import javax.swing.JScrollPane;
-// import java.awt.BorderLayout;
-// import javax.swing.ListCellRenderer;g
-// import javax.swing.ListSelectionModel;
  
 public class RecruiterView extends  javax.swing.JFrame{
    /**
     *
     */
    private static final long serialVersionUID = 1L;
-   // //Options for the JComboBox
+   //** components to be shown on the new listings panel **// 
+
+   // lists of strings for location options
    public static String[] locationOptions = {"New York", "Los Angeles", "San Francisco"
    ,"Atlanta", "D.C", "New Jersey", "Seattle", "Houston", "Austin"};
+   // list of strings for position options
    public static String[] positionOptions = {"Software Engineer", "Accountant", "Data Analyst"
    ,"Consultant", "Account Manager", "Human Resources Personnel", "Receptionist", "Assistant", "Project Manager"};
-   public static javax.swing.JTextField text; //array of JTextFields
- 
+   // text box
+   public static javax.swing.JTextField text;
+
+   // create a panel for the bottom of the page containing interaction notifications
+   public static final JPanel notificationsPanel = new JPanel();
+   // create a label for the notifications column
+   JLabel notificationsLbl = new JLabel("New Notifications For You:");
+   
    public RecruiterView() {
       
        // create a new jframe object for the home page
@@ -56,40 +58,128 @@ public class RecruiterView extends  javax.swing.JFrame{
        JButton addButton = new JButton( "Add Listings");
        addButton.addActionListener(new ActionListener() {
            @Override
+           // add button should add a new listing, including the ui components below:
            public void actionPerformed(ActionEvent event) {
+               // create new listing panel and set layout
                JPanel newListing = new JPanel();
-               newListing.setLayout(new GridLayout(0,4,20,20));
+               newListing.setLayout(new GridLayout(0,5,20,20));
+               // initialize locations combo box
                JComboBox<String> locations = new JComboBox<>(locationOptions);
+               // initialize positions combo box
                JComboBox<String> positions = new JComboBox<>(positionOptions);
+               // initialize job app link text field
                javax.swing.JTextField textBox = new javax.swing.JTextField();
+                
  
+               // create a remove button
                JButton removeButton = new JButton("remove");  
                removeButton.addActionListener(new ActionListener() {
+                //remove button should remove the listing from the listings panel
                @Override
                public void actionPerformed(ActionEvent event) {
+                    // remove the job listing from the database
+
+                   // remove the job listing from the UI
                    newListing.getParent().remove(newListing);
                    listingsPanel.revalidate();
                    listingsPanel.repaint();
                }
-           });            
- 
+           });        
+           
+            // create an update button
+            JButton updateButton = new JButton("update");  
+
+            // update button sould be diabled by default. will be enabled if text is present in the
+            // application link text box
+            updateButton.setEnabled(false);
+
+               updateButton.addActionListener(new ActionListener() {
+               @Override
+               // update button should add listing to the database by calling the controller method
+               public void actionPerformed(ActionEvent event) {
+                   //collect text containing job application link   
+                    String appLink = textBox.getText();
+                   
+                   // collect listing location
+                   String chosenLocation = locations.getSelectedItem().toString();
+
+                   //collect listing position
+                   String chosenPosition = positions.getSelectedItem().toString();
+
+                   // call the controller to update the database with the new listing
+                   Controller.RecruiterController.createJobListing(chosenPosition, "company", appLink, chosenLocation);
+
+                   // show a pop up message to alert user that the listing has been added
+                   JFrame frame = new JFrame();
+                   JOptionPane.showMessageDialog(frame, "Listing Updated!");
+               }
+           });  
+
+           // include a listener for the application link textbox that will disable the update button
+           // if the text is empty
+           DocumentListener checkText = new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                changed();
+              }
+              public void removeUpdate(DocumentEvent e) {
+                changed();
+              }
+              public void insertUpdate(DocumentEvent e) {
+                changed();
+              }
+            
+              public void changed() {
+                 if (textBox.getText().equals("")){
+                   updateButton.setEnabled(false);
+                 }
+                 else {
+                   updateButton.setEnabled(true);
+                }
+            
+              }
+           };
+
+           // add document listener to text box
+           textBox.getDocument().addDocumentListener(checkText);
+
+                // add all relevant components to the new listing panel
                newListing.add(locations);
                newListing.add(positions);
                newListing.add(textBox);
                newListing.add(removeButton);
  
+               // add the new listing to the listing panel, and revalidate/repaint the UI
                listingsPanel.add(newListing);
                listingsPanel.revalidate();
                listingsPanel.repaint();
            }
        });
-      
+
+      // add Add Listings button to listings panel
        listingsPanel.add(addButton);
  
        //add listings panel to the top of the page
        homePage.add(listingsPanel, BorderLayout.NORTH);
+
+       notificationsPanel.add(notificationsLbl, BorderLayout.NORTH);
+       homePage.add(notificationsPanel);
+
        homePage.setVisible(true);
    }
+
+   public static void addNotification() {
+       // create string for notification label
+       String name = "jobSeeker";
+       JLabel notificationLbl = new JLabel(name);
+
+       // create a notification box
+       final JPanel newNotification = new JPanel();
+       newNotification.add(notificationLbl);
+
+       //add the new notification to the notification panel
+       notificationsPanel.add(newNotification);
+   }
+   
  
    public static void main(String args[]) {
      java.awt.EventQueue.invokeLater(new Runnable() {
