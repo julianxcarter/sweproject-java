@@ -30,7 +30,7 @@ public class RecruiterController {
   }
 
   public void createJobListing(String position, String company, String link, String location){
-    JobListingModel model = new JobListingModel(position, company, link, location);
+    model.addJobListing(position, company, link, location);
   }
 
   //method to remove JobListing
