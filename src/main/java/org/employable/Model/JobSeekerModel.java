@@ -35,6 +35,9 @@ public class JobSeekerModel extends ProfileModel {
     this.desiredAmenities.add(amenity);
   }
 
+  //method to remove amenity
+  public void removeAmenity(String amenity) {this.desiredAmenities.remove(amenity);}
+
   //method to add location
   public void addLocation (String location){
     this.desiredLocations.add(location);
