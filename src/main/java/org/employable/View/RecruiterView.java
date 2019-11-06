@@ -3,6 +3,7 @@ import Controller.RecruiterController;
 // import Model.Recruiter;
 
 
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -146,7 +147,6 @@ public class RecruiterView extends  javax.swing.JFrame{
                newListing.add(positions);
                newListing.add(textBox);
                newListing.add(removeButton);
-               newListing.add(updateButton);
  
                // add the new listing to the listing panel, and revalidate/repaint the UI
                listingsPanel.add(newListing);
