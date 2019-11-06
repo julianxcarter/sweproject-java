@@ -30,7 +30,7 @@ import org.bson.types.ObjectId;
    String ObjectId;
 
    //unique connection string for our database
-   MongoClientURI uri = new MongoClientURI("mongodb+srv://julianxcarter:Bruiserdog1@cluster0-8etim.mongodb.net/test?retryWrites=true&w=majority");
+   MongoClientURI uri = new MongoClientURI("mongodb+srv://cboyd7:EmployAble@employable-wlgg9.gcp.mongodb.net/test?retryWrites=true&w=majority");
 
    //An instance of 
    MongoClient mongoClient;
@@ -48,7 +48,7 @@ import org.bson.types.ObjectId;
    //Uploads a job Listing to the database
    public void createListing() {
     this.mongoClient = new MongoClient(this.uri);
-    this.database = this.mongoClient.getDatabase("Employable");
+    this.database = this.mongoClient.getDatabase("EmployAble");
     ObjectId id = new ObjectId();
     this.ObjectId = id.toString();
 
@@ -67,7 +67,7 @@ import org.bson.types.ObjectId;
 public void deleteListing() {
 
   this.mongoClient = new MongoClient(this.uri);
-  this.database = this.mongoClient.getDatabase("Employable");
+  this.database = this.mongoClient.getDatabase("EmployAble");
   MongoCollection<Document> collection = this.database.getCollection("Listings");
 
   collection.deleteOne(Filters.eq("_id", this.ObjectId));
@@ -79,7 +79,7 @@ public void deleteListing() {
   public List<JobListingModel> getAllListings() {
 
     this.mongoClient = new MongoClient(this.uri);
-    this.database = this.mongoClient.getDatabase("Employable");
+    this.database = this.mongoClient.getDatabase("EmployAble");
   
     MongoCollection<Document> collection = this.database.getCollection("Listings");
     FindIterable<Document> iterDoc = collection.find();

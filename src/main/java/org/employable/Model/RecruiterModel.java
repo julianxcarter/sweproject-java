@@ -21,7 +21,7 @@ public class RecruiterModel extends ProfileModel {
 
   String ObjectId;
 
-  MongoClientURI uri = new MongoClientURI("mongodb+srv://julianxcarter:Bruiserdog1@cluster0-8etim.mongodb.net/test?retryWrites=true&w=majority");
+  MongoClientURI uri = new MongoClientURI("mongodb+srv://cboyd7:EmployAble@employable-wlgg9.gcp.mongodb.net/test?retryWrites=true&w=majority");
   MongoClient mongoClient;
   MongoDatabase database;
 
@@ -32,7 +32,7 @@ public class RecruiterModel extends ProfileModel {
   //Uploads a recruiter to the database
   public void createRecruiter() {
     this.mongoClient = new MongoClient(this.uri);
-    this.database = this.mongoClient.getDatabase("Employable");
+    this.database = this.mongoClient.getDatabase("EmployAble");
     ObjectId id = new ObjectId();
     this.ObjectId = id.toString();
 
@@ -49,7 +49,7 @@ public class RecruiterModel extends ProfileModel {
   public void deleteRecruiter() {
 
     this.mongoClient = new MongoClient(this.uri);
-    this.database = this.mongoClient.getDatabase("Employable");
+    this.database = this.mongoClient.getDatabase("EmployAble");
     MongoCollection<Document> collection = this.database.getCollection("Recruiters");
 
     collection.deleteOne(Filters.eq("_id", this.ObjectId));
@@ -60,7 +60,7 @@ public class RecruiterModel extends ProfileModel {
 //queries the database for all recruiters
 public List<Document> getRecruiters() {
   this.mongoClient = new MongoClient(this.uri);
-  this.database = this.mongoClient.getDatabase("Employable");
+  this.database = this.mongoClient.getDatabase("EmployAble");
 
   MongoCollection<Document> collection = this.database.getCollection("Recruiters");
   FindIterable<Document> iterDoc = collection.find();
@@ -100,7 +100,7 @@ public List<Document> getRecruiters() {
 public void getCompanyListings() {
 
   this.mongoClient = new MongoClient(this.uri);
-  this.database = this.mongoClient.getDatabase("Employable");
+  this.database = this.mongoClient.getDatabase("EmployAble");
 
   MongoCollection<Document> collection = this.database.getCollection("Listings");
   FindIterable<Document> iterDoc = collection.find(Filters.eq("company", this.company));
