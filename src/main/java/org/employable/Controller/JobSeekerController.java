@@ -1,6 +1,6 @@
 package org.employable.Controller;
-import org.Employable.Model.*;
-import org.Employable.View.*;
+import org.employable.Model.*;
+import org.employable.View.*;
 
 
 public class JobSeekerController {
