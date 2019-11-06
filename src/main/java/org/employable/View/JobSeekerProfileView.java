@@ -1,6 +1,8 @@
-package org.employable.View;
+package main.java.org.employable.View;
 
-import org.employable.Controller.*;
+import org.employable.Controller.JobSeekerController;
+
+import jdk.jfr.events.ActiveRecordingEvent;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -31,6 +33,8 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
     public static ArrayList<String> chosenLocations;
     public static ArrayList<String> chosenPositions;
 
+    JobSeekerController controller = new JobSeekerController();
+
 
     public JobSeekerProfileView() {
        
@@ -53,6 +57,7 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
             amenitiesPanel.add(checkbox, BorderLayout.CENTER);
         }
 
+        
         //***************_SAVE-BUTTON_************************
         //Save button will be centered in the upper panel
         JPanel savePanel = new JPanel();
@@ -90,21 +95,35 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
            @Override
            public void actionPerformed(ActionEvent event) {
                 JPanel newLocationPanel = new JPanel();
-                newLocationPanel.setLayout(new GridLayout(0,2,20,20));
+                newLocationPanel.setLayout(new GridLayout(0,3,20,20));
                 JComboBox<String> userLocations = new JComboBox<>(desiredLocations);
+
                 //add a remove button
                 JButton removeButton = new JButton("Remove");  
                 removeButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent event) {
+                    chosenLocations.remove(userLocations.getSelectedItem().toString());
                     newLocationPanel.getParent().remove(newLocationPanel);
                     locationsPanel.revalidate();
                     locationsPanel.repaint();
+                }
+                
+            });
+
+            //add a save button
+            JButton saveLocButton = new JButton("Save");
+            savelocButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    
+                    chosenLocations.add(userLocations.getSelectedItem().toString());
                 }
             });
 
             newLocationPanel.add(userLocations);
             newLocationPanel.add(removeButton);
+            newLocationPanel.add(saveLocButton);
 
             locationsPanel.add(newLocationPanel);
             locationsPanel.revalidate();

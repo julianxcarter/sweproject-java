@@ -15,7 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+<<<<<<< HEAD
+public class Recruiter extends ProfileModel {
+=======
 public class RecruiterModel extends ProfileModel {
+>>>>>>> a28208664fc31b4f2bc8a80d4c177361956245cc
   public String company;
   public List <JobListingModel> companyJobListings;
 
@@ -82,10 +86,17 @@ public List<Document> getRecruiters() {
   public void addJobListing(String position, String company, String link, String location){
     //make instance of job listing object
     JobListingModel newJob = new JobListingModel(position, company, link, location);
+<<<<<<< HEAD
+<<<<<<< HEAD:sweproject/Model/Recruiter.java
+    //add this new job to the recruiter's job listing page
+=======
+=======
 
     //add new listing to the data base
     newJob.createListing();
+>>>>>>> a28208664fc31b4f2bc8a80d4c177361956245cc
     // add this new job to the recruiter's job listing page
+>>>>>>> d03c876dcdf06534be59958f165e83aabf37b9d8:src/main/java/org/employable/Model/RecruiterModel.java
     companyJobListings.add(newJob);
   }
 

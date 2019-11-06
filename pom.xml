@@ -51,6 +51,23 @@
                         <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
                 </plugin>
+                                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                        <archive>
+                            <index>true</index>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <mainClass>org.employable.App</mainClass>
+                            </manifest>
+                        </archive>
+                        <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+                        </configuration>
+                    </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -59,6 +76,29 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
             <plugin>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <version>2.5.5</version>
+    <configuration>
+        <archive>
+            <manifest>
+                <mainClass>org.employable.App</mainClass>
+            </manifest>
+        </archive>
+        <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
+    </configuration>
+    <executions>
+        <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+                <goal>single</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
@@ -66,11 +106,6 @@
           <target>1.8</target>
         </configuration>
             </plugin>
-
-            <!--
-                You can run jacoco in the default profile with:
-                mvn jacoco:prepare-agent test jacoco:report
-            -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -161,19 +196,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <version>2.4</version>
-                        <configuration>
-                        <archive>
-                            <index>true</index>
-                            <manifest>
-                                <mainClass>org.employable.App</mainClass>
-                            </manifest>
-                        </archive>
-                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.eluder.coveralls</groupId>

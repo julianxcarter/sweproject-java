@@ -6,13 +6,13 @@ import java.util.List;
  * The JobSeeker class is for the user who is on the employee side
  */
 
-public class JobSeeker extends Profile {
+public class JobSeekerModel extends ProfileModel {
   public List<String> desiredRoles;
   public List<String> desiredAmenities;
   public List<String> desiredLocations;
 
-  //constructor declaration
-  public JobSeeker(List<String> roles, List<String> locations, List<String> amenities)
+  // constructor declaration
+  public JobSeekerModel(List<String> roles, List<String> locations, List<String> amenities)
   {
     this.desiredRoles = roles;
     this.desiredAmenities = amenities;
@@ -34,6 +34,9 @@ public class JobSeeker extends Profile {
   public void addAmenity (String amenity){
     this.desiredAmenities.add(amenity);
   }
+
+  //method to remove amenity
+  public void removeAmenity(String amenity) {this.desiredAmenities.remove(amenity);}
 
   //method to add location
   public void addLocation (String location){
