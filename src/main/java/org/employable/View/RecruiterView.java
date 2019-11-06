@@ -1,5 +1,6 @@
 package org.employable.View;
 
+
 import java.awt.*;
 // import java.awt.Component;
 import java.awt.event.MouseAdapter;
@@ -57,7 +58,7 @@ public class RecruiterView extends  javax.swing.JFrame{
            @Override
            public void actionPerformed(ActionEvent event) {
                JPanel newListing = new JPanel();
-               newListing.setLayout(new GridLayout(0,5,20,20));
+               newListing.setLayout(new GridLayout(0,4,20,20));
                JComboBox<String> locations = new JComboBox<>(locationOptions);
                JComboBox<String> positions = new JComboBox<>(positionOptions);
                javax.swing.JTextField textBox = new javax.swing.JTextField();
@@ -70,51 +71,24 @@ public class RecruiterView extends  javax.swing.JFrame{
                    listingsPanel.revalidate();
                    listingsPanel.repaint();
                }
-           });        
-           
-            //add update button to update database. include a notification
-            JButton updateButton = new JButton("update");  
-               updateButton.addActionListener(new ActionListener() {
-               @Override
-               public void actionPerformed(ActionEvent event) {
-                   // update listings database
-                   JFrame frame = new JFrame();
-                   JOptionPane.showMessageDialog(frame, "Listing added!");
-               }
-           });  
+           });            
  
                newListing.add(locations);
                newListing.add(positions);
                newListing.add(textBox);
                newListing.add(removeButton);
-               newListing.add(updateButton);
  
                listingsPanel.add(newListing);
                listingsPanel.revalidate();
                listingsPanel.repaint();
            }
        });
-
-      // add Add button to listings panel
+      
        listingsPanel.add(addButton);
  
        //add listings panel to the top of the page
        homePage.add(listingsPanel, BorderLayout.NORTH);
-
-       // create a panel for the bottom of the page containing interaction notifications
-       final JPanel notificationsPanel = new JPanel();
-       // create a label for the notifications column
-       JLabel notificationsLbl = new JLabel("New Notifications For You:");
-       notificationsPanel.add(notificationsLbl, BorderLayout.NORTH);
-
-
-       homePage.add(notificationsPanel);
-
        homePage.setVisible(true);
-   }
-
-   public static void addNotification() {
-
    }
  
    public static void main(String args[]) {
