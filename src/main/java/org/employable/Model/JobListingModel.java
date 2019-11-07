@@ -46,7 +46,7 @@ import org.bson.types.ObjectId;
    }
 
    //Uploads a job Listing to the database
-   public void createListing() {
+   public void createListing(String position, String company, String link, String location) {
     this.mongoClient = new MongoClient(this.uri);
     this.database = this.mongoClient.getDatabase("EmployAble");
     ObjectId id = new ObjectId();

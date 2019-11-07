@@ -9,8 +9,7 @@ public class JobSeekerController {
   JobSeekerProfileView view;
 
   public JobSeekerController() {
-    this.model = model;
-    this.view = view;
+  
   }
 
   public void setName(String name){model.setName(name);}

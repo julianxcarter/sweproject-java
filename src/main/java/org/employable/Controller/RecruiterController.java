@@ -11,9 +11,9 @@ public class RecruiterController {
   private RecruiterView view;
   private JobListingModel jlModel;
 
-  public RecruiterController(RecruiterModel model, RecruiterView view){
-    this.model = model;
-    this.view = view;
+  public RecruiterController(){
+    // this.model = model;
+    // this.view = view;
     //this.jlModel = jobListingModel;
   }
 
@@ -30,6 +30,7 @@ public class RecruiterController {
   }
 
   public void createJobListing(String position, String company, String link, String location){
+    model = new RecruiterModel(company);
     model.addJobListing(position, company, link, location);
   }
 
