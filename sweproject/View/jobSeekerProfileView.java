@@ -1,13 +1,11 @@
-package org.employable.View;
+package View;
 
 import java.awt.*;
 import java.awt.event.*;  
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 
-public class JobSeekerProfileView extends javax.swing.JFrame {
+public class jobSeekerProfileView extends javax.swing.JFrame {
 
     //List of Amenities
     public static String[] amenities = {"Brail", "Ramps", "Elevators", 
@@ -25,7 +23,7 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
     "Receptionist", "Assistant", "Project Manager"};
 
 
-    public JobSeekerProfileView() {
+    public jobSeekerProfileView() {
        
         //Layout source: https://stackoverflow.com/questions/11790830/setting-jpanel-layout
         //source: https://www.javatpoint.com/java-awt-checkbox
@@ -34,13 +32,13 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
         //Amenities Panel will be centered in the upper panel
         JPanel amenitiesPanel = new JPanel();
         amenitiesPanel.setBackground(Color.red);
+        //Create a label for the amenities checkbox
         BoxLayout boxLayoutA = new BoxLayout(amenitiesPanel, BoxLayout.Y_AXIS);
         amenitiesPanel.setLayout(boxLayoutA);
-        //Create a label for the amenities checkbox
         final Label amenitiesLabel = new Label();          
         //amenitiesLabel.setLocation(profilePage.getWidth()/2 - 50, 5);
-        //amenitiesLabel.setSize(100,100);
-        amenitiesLabel.setText(" Amenities");
+        amenitiesLabel.setSize(100,100);
+        amenitiesLabel.setText("Amenities");
         amenitiesPanel.add(amenitiesLabel, BorderLayout.CENTER);
         //Configure the checkbox
         for (int i = 0; i < amenities.length; i++) {
@@ -48,25 +46,9 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
             amenitiesPanel.add(checkbox, BorderLayout.CENTER);
         }
 
-        //***************_SAVE-BUTTON_************************
-        //Save button will be centered in the upper panel
-        JPanel savePanel = new JPanel();
-        savePanel.setBackground(Color.YELLOW);
-        //Create the save button
-        JButton saveButton = new JButton("Save");
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                save();
-            }
-        });
-        savePanel.add(saveButton);
-
-        //Add the save and amenities panel to the upper panel
         JPanel upperPanel = new JPanel(new BorderLayout());
         upperPanel.setBackground(Color.MAGENTA);
-        upperPanel.add(amenitiesPanel, BorderLayout.WEST);
-        upperPanel.add(savePanel, BorderLayout.EAST);
+        upperPanel.add(amenitiesPanel, BorderLayout.CENTER);
 
         //*****************_LOCATIONS_**********************
         //locations panel will be in on the left side of the lowerPanel
@@ -76,6 +58,8 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
         //Configure the panel
         BoxLayout boxLayout = new BoxLayout(locationsPanel, BoxLayout.Y_AXIS);
         locationsPanel.setLayout(boxLayout);
+        //locationsPanel.setLayout(new BoxLayout(locationsPanel, BoxLayout.Y_AXIS));
+        //locationsPanel.setBounds(50, 500, 300, 400);
         locationsPanel.setBackground(Color.CYAN);
         // place label at the top of the panel
         locationsPanel.add(locationsLabel, BorderLayout.NORTH);
@@ -183,7 +167,7 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JobSeekerProfileView().setVisible(true);
+                new jobSeekerProfileView().setVisible(true);
             }
         });
 
