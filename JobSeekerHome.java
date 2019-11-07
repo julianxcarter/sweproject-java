@@ -1,118 +1,184 @@
 import javax.swing.*;
-
-//import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
-
+import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
 import java.lang.*;
 import java.net.URI;
 
-class JobSeekerHome{
+public class JobSeekerHome {
+
     public static void main(String args[]){
         //create the frame
-       JFrame frame = new JFrame("Home Page");
-       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       frame.setSize(500,500);
-    
-       //Create search panel
-       JPanel panel = new JPanel();
-       JTextField universalSearchBox = new JTextField("Search Company", 20);
-       JButton search = new JButton("Search");
-       panel.add(universalSearchBox);
-       panel.add(search);
+        JFrame frame = new JFrame("Home Page");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500,500);
+
+        //Create search panel
+        JPanel panel = new JPanel();
+        //Profile button
+        JButton profile = new JButton("Profile");
+        JTextField universalSearchBox = new JTextField("Search Company", 20);
+        //Search button
+        JButton search = new JButton("Search");
+        panel.add(profile);
+        panel.add(universalSearchBox);
+        panel.add(search);
 
 
-       //section header
-       JPanel jobRecPanel = new JPanel();
-       JLabel jobListings = new JLabel("Recommended Jobs for You");
-       //job listing panels
-       JTextArea jobListing1 = new JTextArea(5, 20);
-       jobListing1.setPreferredSize(new Dimension(200,5));
-       jobListing1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
-       StringBuffer jobList1 = new StringBuffer();
-       jobList1.append("Comcast");
-       jobList1.append("\nSoftware Engineer - Xfi Team");
-       jobList1.append("\nPhiladelphia, PA");
-       jobList1.append("\nDescription?");
-       jobList1.append("\nhttps://jobs.comcast.com");
+        //create panel for job listings
+        JPanel jobRecPanel = new JPanel();
+        JEditorPane jobLink1 = new JEditorPane();
 
-       jobListing1.setText(jobList1.toString());
-       panel.add(jobListings);
+        jobRecPanel.setLayout(new GridLayout(2,3));
 
-       JTextArea jobListing2 = new JTextArea(5, 20);
-       jobListing2.setPreferredSize(new Dimension(200,5));
-       jobListing2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
-       StringBuffer jobList2 = new StringBuffer();
-       jobList2.append("Adobe");
-       jobList2.append("\nUX Design");
-       jobList2.append("\nSan Fransisco, CA");
-       jobList2.append("\nDescription?");
-       jobList2.append("\nhttps://www.adobe.com/careers.html");
+        //section header with left justification
+        JLabel jobListings = new JLabel("Recommended Jobs for You");
+        JLabel blank = new JLabel("");
+        JLabel anotherBlank = new JLabel("");
+        jobRecPanel.add(jobListings);
+        jobRecPanel.add(blank);
+        jobRecPanel.add(anotherBlank);
 
-       jobListing2.setText(jobList2.toString());
+        //add listing with links
+        jobLink1.setEditable(false);//make text box uneditable
+        jobLink1.setContentType("text/html");
+        StringBuilder link1 = new StringBuilder();
+        link1.append("Comcast<br>");
+        link1.append("Software Engineer - Xfi Team<br>");
+        link1.append("Philadelphia, PA<br>");
+        link1.append("<a href='https://jobs.comcast.com'>https://jobs.comcast.com</a>");
+        jobLink1.setText(link1.toString());
+        //allow the hyperlink to be clickable
+        jobLink1.addHyperlinkListener(e ->{
+            if(HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType())){
+                System.out.println(e.getURL());
+                Desktop desktop = Desktop.getDesktop();
+                try{
+                    desktop.browse(e.getURL().toURI());
+                } catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
+        //format the text pane
+        jobLink1.setPreferredSize(new Dimension(300,100));
+        jobLink1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
+        //add the pane to the panel
+        jobRecPanel.add(jobLink1);
 
-       
-       JTextArea jobListing3 = new JTextArea(5,20);
-       jobListing3.setPreferredSize(new Dimension(200,5));
-       jobListing3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
-       StringBuffer jobList3 = new StringBuffer();
-       jobList3.append("Google");
-       jobList3.append("\nEngineering Rotational Program");
-       jobList3.append("\nNew York City, New York");
-       jobList3.append("\nDescription?");
-       jobList3.append("\nhttps://careers.google.com");
+        //second job listing with link
+        JEditorPane jobLink2 = new JEditorPane();
+        jobLink2.setEditable(false); //noneditable
+        jobLink2.setContentType("text/html");
+        StringBuilder link2 = new StringBuilder();
+        link2.append("Adobe<br>");
+        link2.append("UX Designer<br>");
+        link2.append("San Fransisco, CA<br>");
+        link2.append("<a href='https://www.adobe.com/careers.html'>https://www.adobe.com/careers.html</a>");
+        jobLink2.setText(link2.toString());
+        //make link clickable
+        jobLink2.addHyperlinkListener(e ->{
+            if(HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType())){
+                System.out.println(e.getURL());
+                Desktop desktop = Desktop.getDesktop();
+                try{
+                    desktop.browse(e.getURL().toURI());
+                } catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
+        //format the text pane
+        jobLink2.setPreferredSize(new Dimension(200,100));
+        jobLink2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
+        //add the pane to the panel
+        jobRecPanel.add(jobLink2);
 
-       jobListing3.setText(jobList3.toString());
-       jobRecPanel.add(jobListings);
-       jobRecPanel.add(jobListing1);
-       jobRecPanel.add(jobListing2);
-       jobRecPanel.add(jobListing3);
+        //third job listing with link 
+        JEditorPane jobLink3 = new JEditorPane();
+        jobLink3.setEditable(false);//noneditable
+        jobLink3.setContentType("text/html");
+        StringBuilder link3 = new StringBuilder();
+        link3.append("Google<br>");
+        link3.append("Engineering Rotational Program<br>");
+        link3.append("New York City, NY<br>");
+        link3.append("<a href='https://careers.google.com'>https://careers.google.com  </a>");
+        jobLink3.setText(link3.toString());
+        //make link clickable
+        jobLink3.addHyperlinkListener(e ->{
+            if(HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType())){
+                System.out.println(e.getURL());
+                Desktop desktop = Desktop.getDesktop();
+                try{
+                    desktop.browse(e.getURL().toURI());
+                } catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
+        //format the pane
+        jobLink3.setPreferredSize(new Dimension(200,100));
+        jobLink3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
+        //add pane to the area
+        jobRecPanel.add(jobLink3);
 
-       //top rated companies panel
-       JPanel topComPanel = new JPanel();
-       JLabel topCompanies = new JLabel("Top Companies");
-       JTextArea topCompany1 = new JTextArea(5, 20);
-       topCompany1.setPreferredSize(new Dimension(200,5));
-       topCompany1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
-       StringBuffer company1 = new StringBuffer();
-       company1.append("Adobe");
-       company1.append("\nSeattle, WA");
+        //top rated companies panel with heading left justified
+        JPanel topCompPanel = new JPanel();
+        topCompPanel.setLayout(new GridLayout(2,3));
+        JLabel topCompanies = new JLabel("Top Companies");
+        JLabel thisBlank = new JLabel("");
+        JLabel thatBlank = new JLabel("");
+        JTextArea topCompany1 = new JTextArea(5, 20);
+        topCompany1.setEditable(false);//noneditable
+        //format area
+        topCompany1.setPreferredSize(new Dimension(200,5));
+        topCompany1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
+        StringBuffer company1 = new StringBuffer();
+        company1.append("Adobe");
+        company1.append("\nSeattle, WA");
 
+        //add text to the area
+        topCompany1.setText(company1.toString());
 
-       topCompany1.setText(company1.toString());
-
+        //second company
         JTextArea topCompany2 = new JTextArea(5, 20);
+        topCompany2.setEditable(false);//noneditable
+        //format area
         topCompany2.setPreferredSize(new Dimension(200,5));
         topCompany2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
         StringBuffer company2 = new StringBuffer();
         company2.append("Pivotal");
         company2.append("\nNew York, NY");
 
-
+        //add text to the area
         topCompany2.setText(company2.toString());
 
-        //top rated companies panel
-       JTextArea topCompany3 = new JTextArea(5, 20);
-       topCompany3.setPreferredSize(new Dimension(200,5));
-       topCompany3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
-       StringBuffer company3 = new StringBuffer();
-       company3.append("Coca-cola");
-       company3.append("\nAtlanta, GA");
+        //thrid company
+        JTextArea topCompany3 = new JTextArea(5, 20);
+        topCompany3.setEditable(false); //noneditable
+        //format area
+        topCompany3.setPreferredSize(new Dimension(200,5));
+        topCompany3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
+        StringBuffer company3 = new StringBuffer();
+        company3.append("Coca-Cola");
+        company3.append("\nAtlanta, GA");
 
+        //add taxt to the area
+        topCompany3.setText(company3.toString());
+        //add the heading and the companies to the panel
+        topCompPanel.add(topCompanies);
+        topCompPanel.add(thisBlank);
+        topCompPanel.add(thatBlank);
+        topCompPanel.add(topCompany1);
+        topCompPanel.add(topCompany2);
+        topCompPanel.add(topCompany3);
 
-       topCompany3.setText(company3.toString());
-       topComPanel.add(topCompany1);
-       topComPanel.add(topCompany2);
-       topComPanel.add(topCompany3);
-
-       //Add components to the frame
-       frame.getContentPane().add(BorderLayout.NORTH, panel);
-       frame.getContentPane().add(BorderLayout.CENTER,jobRecPanel);
-       //frame.getContentPane().add(BorderLayout.CENTER,jobListing2);
-       //frame.getContentPane().add(BorderLayout.LINE_END,jobListing3);
-       frame.getContentPane().add(BorderLayout.SOUTH, topCompPanel);
-       //frame.getContentPane().add(BorderLayout.CENTER, topCompany2);
-       //frame.getContentPane().add(BorderLayout.LINE_END, topCompany3);
-       //frame.getContentPane().add(BorderLayout.CENTER, ta);
-       frame.setVisible(true);
+        //add all of the panels to the frame and with layout specifications
+        frame.getContentPane().add(BorderLayout.NORTH, panel);
+        frame.getContentPane().add(BorderLayout.WEST, jobRecPanel);
+        frame.getContentPane().add(BorderLayout.SOUTH, topCompPanel);
+        //make everything visible and pack frame
+        frame.setVisible(true);
+        frame.pack();
     }
 }
+
