@@ -25,7 +25,9 @@ public class RecruiterModel extends ProfileModel {
   MongoClient mongoClient;
   MongoDatabase database;
 
-  public RecruiterModel(String company){
+  public RecruiterModel(){ }
+
+  public void setCompany(String company) {
     this.company = company;
   }
 
@@ -46,31 +48,43 @@ public class RecruiterModel extends ProfileModel {
   }
 
   //deletes a recruiter from the database
-  public void deleteRecruiter() {
+  public void deleteRecruiter(String name) {
 
     this.mongoClient = new MongoClient(this.uri);
     this.database = this.mongoClient.getDatabase("EmployAble");
     MongoCollection<Document> collection = this.database.getCollection("Recruiters");
 
-    collection.deleteOne(Filters.eq("_id", this.ObjectId));
+    collection.deleteOne(Filters.eq("name", name));
 
     // mongoClient.close();
 }
 
 //queries the database for all recruiters
-public List<Document> getRecruiters() {
+public List<RecruiterModel> getRecruiters() {
   this.mongoClient = new MongoClient(this.uri);
   this.database = this.mongoClient.getDatabase("EmployAble");
 
   MongoCollection<Document> collection = this.database.getCollection("Recruiters");
   FindIterable<Document> iterDoc = collection.find();
 
-  List<Document> recruiters = new ArrayList<Document>();
+  List<RecruiterModel> recruiters = new ArrayList<RecruiterModel>();
 
   MongoCursor<Document> cursor = iterDoc.iterator(); 
 
-  while (cursor.hasNext()) {  
-     recruiters.add(cursor.next());
+  while (cursor.hasNext()) {
+    Document temp = cursor.next();  
+    String name = temp.get("name").toString();
+    String email = temp.get("email").toString();
+    String password = temp.get("password").toString();
+    String company = temp.get("company").toString();
+
+    RecruiterModel tempRecruiter = new RecruiterModel();
+    tempRecruiter.setName(name);
+    tempRecruiter.setContactInfo(email);
+    tempRecruiter.setPassword(password);
+    tempRecruiter.setCompany(company);
+
+    recruiters.add(tempRecruiter);
   }
 
   // mongoClient.close();
@@ -95,39 +109,38 @@ public List<Document> getRecruiters() {
   public void removeJobListing(JobListingModel expiredJob){
     int index = companyJobListings.indexOf(expiredJob);
     this.companyJobListings.remove(index);
+    expiredJob.deleteListing();
   }
 
 //method which queries the database for a recruiters job listings
 //stores the list of Job Listings in companyJobListings
-// public void getCompanyListings() {
+public void getCompanyListings() {
 
-//   this.mongoClient = new MongoClient(this.uri);
-//   this.database = this.mongoClient.getDatabase("EmployAble");
+  this.mongoClient = new MongoClient(this.uri);
+  this.database = this.mongoClient.getDatabase("EmployAble");
 
-//   MongoCollection<Document> collection = this.database.getCollection("Listings");
-//   FindIterable<Document> iterDoc = collection.find(Filters.eq("company", this.company));
+  MongoCollection<Document> collection = this.database.getCollection("Listings");
+  FindIterable<Document> iterDoc = collection.find(Filters.eq("company", this.company));
 
-//   List<JobListingModel> listings = new ArrayList<JobListingModel>();
+  List<JobListingModel> listings = new ArrayList<JobListingModel>();
 
-//   MongoCursor<Document> cursor = iterDoc.iterator(); 
+  MongoCursor<Document> cursor = iterDoc.iterator(); 
 
-//   while (cursor.hasNext()) {
-//     Document temp = cursor.next();
+  while (cursor.hasNext()) {
+    Document temp = cursor.next();
 
-//     String title = temp.get("title").toString();
-//     String company = temp.get("company").toString();
-//     String hyperLink = temp.get("link").toString();
-//     String location = temp.get("location").toString();
+    String title = temp.get("title").toString();
+    String company = temp.get("company").toString();
+    String hyperLink = temp.get("link").toString();
+    String location = temp.get("location").toString();
 
-//     // JobListingModel tempJob = new Job.JobListingModel(title, company, hyperLink, location);
-//      listings.add(tempJob);
-//   }
+    JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
+     listings.add(tempJob);
+  }
 
-//   // mongoClient.close();
+  // mongoClient.close();
 
-//   this.companyJobListings = listings;
-// }
-
-
+  this.companyJobListings = listings;
+}
 
 }

@@ -19,6 +19,8 @@ import org.employable.View.RecruiterView;
 // import java.lang.Object;
 import org.employable.Model.RecruiterModel;
 
+// import com.mongodb.client.MongoCursor;
+// import com.mongodb.client.result.DeleteResult;
 
 /**
  * Hello world!
@@ -38,24 +40,26 @@ public final class App {
 
         // System.out.println("----------------- Recruiters -----------------");
 
-        // RecruiterModel model = new RecruiterModel("Google");
-        // model.setName("Julian Carter");
-        // model.setPassword("Password");
-        // model.setContactInfo("email.email@email.com");
+        RecruiterModel model = new RecruiterModel();
+        model.setName("Julian Carter");
+        model.setPassword("Password");
+        model.setContactInfo("email.email@email.com");
 
-        // model.createRecruiter();
+        model.createRecruiter();
 
         System.out.println("----------------- Listings -----------------");
 
+        List<RecruiterModel> recruiters = new ArrayList<RecruiterModel>();
         List<JobListingModel> listings = new ArrayList<JobListingModel>();
         JobListingModel model2 = new JobListingModel("position", "link", "title", "bleh");
         listings = model2.getAllListings();
+        recruiters = model.getRecruiters();
 
-        for (JobListingModel x : listings){
-           System.out.println("Company Name: " + x.companyName);
-           System.out.println("Link: " + x.hyperLink);
-           System.out.println("Location: " + x.location);
-           System.out.println("Position: " + x.positionName);
+        for (RecruiterModel x : recruiters){
+           System.out.println(x);
+        //    System.out.println("Link: " + x.hyperLink);
+        //    System.out.println("Location: " + x.location);
+        //    System.out.println("Position: " + x.positionName);
            
            System.out.println(" ");
         }

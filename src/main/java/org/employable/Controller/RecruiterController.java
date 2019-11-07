@@ -12,7 +12,7 @@ public class RecruiterController {
   private JobListingModel jlModel;
 
   public RecruiterController(){
-    // this.model = model;
+    this.model = new RecruiterModel();
     // this.view = view;
     //this.jlModel = jobListingModel;
   }
@@ -29,9 +29,21 @@ public class RecruiterController {
     model.setContactInfo(email);
   }
 
+  public void setCompany(String company) {
+    model.setCompany(company);
+  }
+
   public void createJobListing(String position, String company, String link, String location){
-    model = new RecruiterModel(company);
+
     model.addJobListing(position, company, link, location);
+  }
+
+  public void createRecruiter(){
+    model.createRecruiter();
+  }
+
+  public void deleteRecruiter(String name){
+    model.deleteRecruiter(name);
   }
 
   //method to remove JobListing
