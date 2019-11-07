@@ -1,25 +1,21 @@
 package org.employable.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.FindIterable; 
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import java.util.ArrayList;
-
-import java.util.List;
 
 
-<<<<<<< HEAD
-public class Recruiter extends ProfileModel {
-=======
 public class RecruiterModel extends ProfileModel {
->>>>>>> a28208664fc31b4f2bc8a80d4c177361956245cc
   public String company;
   public List <JobListingModel> companyJobListings;
 
@@ -85,18 +81,13 @@ public List<Document> getRecruiters() {
   //method for adding job listing
   public void addJobListing(String position, String company, String link, String location){
     //make instance of job listing object
-    JobListingModel newJob = new JobListingModel(position, company, link, location);
-<<<<<<< HEAD
-<<<<<<< HEAD:sweproject/Model/Recruiter.java
-    //add this new job to the recruiter's job listing page
-=======
-=======
 
+    //add this new job to the recruiter's job listing page
+
+    JobListingModel newJob = new JobListingModel(position, company, link, location);
     //add new listing to the data base
-    newJob.createListing();
->>>>>>> a28208664fc31b4f2bc8a80d4c177361956245cc
+    newJob.createListing(position, company, link, location);
     // add this new job to the recruiter's job listing page
->>>>>>> d03c876dcdf06534be59958f165e83aabf37b9d8:src/main/java/org/employable/Model/RecruiterModel.java
     companyJobListings.add(newJob);
   }
 
@@ -108,34 +99,34 @@ public List<Document> getRecruiters() {
 
 //method which queries the database for a recruiters job listings
 //stores the list of Job Listings in companyJobListings
-public void getCompanyListings() {
+// public void getCompanyListings() {
 
-  this.mongoClient = new MongoClient(this.uri);
-  this.database = this.mongoClient.getDatabase("EmployAble");
+//   this.mongoClient = new MongoClient(this.uri);
+//   this.database = this.mongoClient.getDatabase("EmployAble");
 
-  MongoCollection<Document> collection = this.database.getCollection("Listings");
-  FindIterable<Document> iterDoc = collection.find(Filters.eq("company", this.company));
+//   MongoCollection<Document> collection = this.database.getCollection("Listings");
+//   FindIterable<Document> iterDoc = collection.find(Filters.eq("company", this.company));
 
-  List<JobListingModel> listings = new ArrayList<JobListingModel>();
+//   List<JobListingModel> listings = new ArrayList<JobListingModel>();
 
-  MongoCursor<Document> cursor = iterDoc.iterator(); 
+//   MongoCursor<Document> cursor = iterDoc.iterator(); 
 
-  while (cursor.hasNext()) {
-    Document temp = cursor.next();
+//   while (cursor.hasNext()) {
+//     Document temp = cursor.next();
 
-    String title = temp.get("title").toString();
-    String company = temp.get("company").toString();
-    String hyperLink = temp.get("link").toString();
-    String location = temp.get("location").toString();
+//     String title = temp.get("title").toString();
+//     String company = temp.get("company").toString();
+//     String hyperLink = temp.get("link").toString();
+//     String location = temp.get("location").toString();
 
-    JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
-     listings.add(tempJob);
-  }
+//     // JobListingModel tempJob = new Job.JobListingModel(title, company, hyperLink, location);
+//      listings.add(tempJob);
+//   }
 
-  // mongoClient.close();
+//   // mongoClient.close();
 
-  this.companyJobListings = listings;
-}
+//   this.companyJobListings = listings;
+// }
 
 
 

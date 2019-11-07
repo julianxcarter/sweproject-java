@@ -1,16 +1,14 @@
 package org.employable.View;
-import Controller.RecruiterController;
-// import Model.Recruiter;
+import org.employable.Controller.RecruiterController;
 
 
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
+import java.net.URL;
  
 /*from   w w w. j a  v a  2 s  .c om*/
 import javax.swing.*;
@@ -35,6 +33,9 @@ public class RecruiterView extends  javax.swing.JFrame{
    public static final JPanel notificationsPanel = new JPanel();
    // create a label for the notifications column
    JLabel notificationsLbl = new JLabel("New Notifications For You:");
+
+   // create an instance of the recruiter controller
+   RecruiterController controller = new RecruiterController();
    
    public RecruiterView() {
       
@@ -99,6 +100,14 @@ public class RecruiterView extends  javax.swing.JFrame{
                public void actionPerformed(ActionEvent event) {
                    //collect text containing job application link   
                     String appLink = textBox.getText();
+
+                    // check if the text in the textbox is a valid URL
+                    if (!isValid(appLink)) {
+                      // show a pop up message to alert user that the listing has been added
+                      JFrame frame = new JFrame();
+                      JOptionPane.showMessageDialog(frame, "Invalid Link!");
+                      return;
+                    }
                    
                    // collect listing location
                    String chosenLocation = locations.getSelectedItem().toString();
@@ -107,7 +116,7 @@ public class RecruiterView extends  javax.swing.JFrame{
                    String chosenPosition = positions.getSelectedItem().toString();
 
                    // call the controller to update the database with the new listing
-                   Controller.RecruiterController.createJobListing(chosenPosition, "company", appLink, chosenLocation);
+                   controller.createJobListing(chosenPosition, "company", appLink, chosenLocation);
 
                    // show a pop up message to alert user that the listing has been added
                    JFrame frame = new JFrame();
@@ -147,6 +156,7 @@ public class RecruiterView extends  javax.swing.JFrame{
                newListing.add(positions);
                newListing.add(textBox);
                newListing.add(removeButton);
+               newListing.add(updateButton);
  
                // add the new listing to the listing panel, and revalidate/repaint the UI
                listingsPanel.add(newListing);
@@ -180,7 +190,22 @@ public class RecruiterView extends  javax.swing.JFrame{
        notificationsPanel.add(newNotification);
    }
    
- 
+    // function to check if the text box text is a valid URL
+    public static boolean isValid(String url) 
+    { 
+        // try creating a valid URL 
+        try { 
+            new URL(url).toURI(); 
+            return true; 
+        } 
+          
+        // If there was an Exception 
+        // while creating URL object 
+        catch (Exception e) { 
+            return false; 
+        }
+        }
+  
    public static void main(String args[]) {
      java.awt.EventQueue.invokeLater(new Runnable() {
            public void run() {
