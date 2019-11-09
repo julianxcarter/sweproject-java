@@ -59,7 +59,7 @@ import org.bson.types.ObjectId;
         .append("link", this.hyperLink)
         .append("location", this.location);
     collection.insertOne(doc);
-
+    
     // mongoClient.close();
 }
 

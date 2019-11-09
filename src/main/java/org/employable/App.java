@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 
 import org.bson.Document;
 import org.employable.Model.JobListingModel;
+import org.employable.View.JobSeekerProfileView;
 import org.employable.View.RecruiterView;
 // import java.util.Arrays;
 // import com.mongodb.Block;
@@ -87,7 +88,7 @@ public final class App {
         jButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent event) {
-            // new RecruiterView().setVisible(true);
+            JobSeekerProfileView jobseeker = new JobSeekerProfileView();
         }
     });   
     
@@ -97,5 +98,5 @@ public final class App {
     openPage.add(selectionPanel);
     openPage.setVisible(true);
     
-}
+    }
 }
