@@ -12,9 +12,6 @@ public class RecruiterController {
   private JobListingModel jlModel;
 
   public RecruiterController(){
-    // this.model = model;
-    // this.view = view;
-    //this.jlModel = jobListingModel;
   }
 
   public void setName (String name){
@@ -32,6 +29,7 @@ public class RecruiterController {
   public void createJobListing(String position, String company, String link, String location){
     model = new RecruiterModel(company);
     model.addJobListing(position, company, link, location);
+    // return;
   }
 
   //method to remove JobListing

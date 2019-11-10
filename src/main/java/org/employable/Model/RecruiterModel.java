@@ -85,10 +85,12 @@ public List<Document> getRecruiters() {
     //add this new job to the recruiter's job listing page
 
     JobListingModel newJob = new JobListingModel(position, company, link, location);
+
     //add new listing to the data base
     newJob.createListing(position, company, link, location);
+    
     // add this new job to the recruiter's job listing page
-    companyJobListings.add(newJob);
+    
   }
 
   //method for removing joblisting
