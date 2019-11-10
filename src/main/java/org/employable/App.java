@@ -20,7 +20,6 @@ import org.employable.View.RecruiterView;
 // import java.lang.Object;
 import org.employable.Model.RecruiterModel;
 
-
 /**
  * Hello world!
  */
@@ -34,8 +33,6 @@ public final class App {
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
-
-        
 
         // System.out.println("----------------- Recruiters -----------------");
 
@@ -52,43 +49,48 @@ public final class App {
         JobListingModel model2 = new JobListingModel("position", "link", "title", "bleh");
         listings = model2.getAllListings();
 
-        for (JobListingModel x : listings){
-           System.out.println("Company Name: " + x.companyName);
-           System.out.println("Link: " + x.hyperLink);
-           System.out.println("Location: " + x.location);
-           System.out.println("Position: " + x.positionName);
-           
-           System.out.println(" ");
+        for (JobListingModel x : listings) {
+            System.out.println("Company Name: " + x.companyName);
+            System.out.println("Link: " + x.hyperLink);
+            System.out.println("Location: " + x.location);
+            System.out.println("Position: " + x.positionName);
+
+            System.out.println(" ");
         }
 
         // create a new jframe object for the home page
-        JFrame openPage = new JFrame("First Open Page View"); 
+        JFrame openPage = new JFrame("First Open Page View");
         // make sure the page exits when the red x is pressed
         openPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //set the dimmensions of the home page
-        openPage.setSize(800,800);
+        // set the dimmensions of the home page
+        openPage.setSize(800, 800);
 
-        //create panel for sign on
+        // create panel for sign on
         final JPanel selectionPanel = new JPanel();
         // create a label for the open positions column
         JLabel selectionLabel = new JLabel("Which kind of user are you?");
         selectionPanel.add(selectionLabel);
 
         // create a recruiter button to open recruiter view
-        JButton rButton = new JButton("Recruiter");  
+        JButton rButton = new JButton("Recruiter");
         rButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent event) {
-            RecruiterView recruiter = new RecruiterView();
-        }
-    });
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                RecruiterView recruiter = new RecruiterView();
+            }
+        });
 
         // create a recruiter button to open recruiter view
-        JButton jButton = new JButton("Job Seeker");  
+        JButton jButton = new JButton("Job Seeker");
         jButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent event) {
-            JobSeekerProfileView jobseeker = new JobSeekerProfileView();
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    JobSeekerProfileView jobseeker = new JobSeekerProfileView();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
         }
     });   
     

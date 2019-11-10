@@ -1,10 +1,9 @@
-package org.employable;
+package org.employable.View;
 
 import java.awt.*;
 import javax.swing.*;
 
 import org.junit.Test;
-import org.employable.TestUtils;
 import org.employable.View.RecruiterView;
 
 import static org.junit.Assert.*;

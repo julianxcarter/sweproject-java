@@ -7,11 +7,12 @@ import org.employable.View.RecruiterView;
 
 
 public class RecruiterController {
-  private RecruiterModel model;
+  public RecruiterModel model;
   private RecruiterView view;
   private JobListingModel jlModel;
 
   public RecruiterController(){
+    
   }
 
   public void setName (String name){

@@ -8,8 +8,7 @@ public class JobSeekerController {
  
  public JobSeekerController() {
    model = new JobSeekerModel();
-
-   
+  
   }
  
  public void setName(String name){model.setName(name);}
@@ -19,7 +18,7 @@ public class JobSeekerController {
  public void setContactInfo(String email){model.setContactInfo(email);}
  
  //the add amenities method to call the model add amenity
- public void addAmenity(String amenity){
+ public void addAmenity(String amenity) throws Exception {
    model.addAmenity(amenity);
   }
  
