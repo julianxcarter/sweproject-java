@@ -37,21 +37,23 @@ public class JobListingModelTest {
  
     }
 
+    //Tests that the Job Lisrting Model was instantiated as expected
     @Test
     public void testInstantiation() {
-    
         assertEquals(this.model.positionName, "Staff Software Engineer");
         assertEquals(this.model.companyName, "Facebook");
         assertEquals(this.model.hyperLink, "facebook.com");
         assertEquals(this.model.location, "Menlo Park");
     }
 
+    //Tests that an IllegalArgumentException is being thrown when the JobListingModel is instantiated without paramaters
     @Test(expected = IllegalArgumentException.class)
     public void testEmptyInstantiation() throws Exception {
 
             JobListingModel model2 = new JobListingModel();
     }
 
+    //Tests that the createListing method actually uploads a job listing to the database
     @Test
     public void joblistingCreateListing() {
 
@@ -71,6 +73,7 @@ public class JobListingModelTest {
 
     }
 
+    //Tests that the deleteListing method actually deletes a Job Listing from the database
     @Test
     public void joblistingDeleteListing() {
         this.model.deleteListing();
