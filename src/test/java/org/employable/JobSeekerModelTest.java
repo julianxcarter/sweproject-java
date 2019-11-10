@@ -16,7 +16,7 @@ import java.util.List;
 //JobSeeker jobSeeker = new Jobseeker()
 
 //create A test that will instantiate the JobSeekerModel object with valid (non-empty) strings; expected to succeed
-public class JobSeekerModelTest(){
+public class JobSeekerModelTest{
 //This method executes once before all of the test methods
   @BeforeClass
   public static void testSetupClass(){
