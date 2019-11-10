@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="org.employable.Controller.JobSeekerControllerTest" time="0.133" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="org.employable.Controller.JobSeekerControllerTest" time="0.144" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/jre/lib"/>
@@ -65,7 +65,7 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase classname="org.employable.Controller.JobSeekerControllerTest" name="jobseekerSetMethods" time="0.026"/>
-  <testcase classname="org.employable.Controller.JobSeekerControllerTest" name="jobseekerRemoveMethods" time="0.048"/>
-  <testcase classname="org.employable.Controller.JobSeekerControllerTest" name="testInstantiation" time="0.042"/>
-  <testcase classname="org.employable.Controller.JobSeekerControllerTest" name="jobseekerAddMethods" time="0.017"/>
+  <testcase classname="org.employable.Controller.JobSeekerControllerTest" name="jobseekerRemoveMethods" time="0.036"/>
+  <testcase classname="org.employable.Controller.JobSeekerControllerTest" name="testInstantiation" time="0.043"/>
+  <testcase classname="org.employable.Controller.JobSeekerControllerTest" name="jobseekerAddMethods" time="0.039"/>
 </testsuite>

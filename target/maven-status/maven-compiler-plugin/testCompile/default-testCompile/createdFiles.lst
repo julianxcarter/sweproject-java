@@ -1,7 +1,6 @@
+org/employable/Controller/JobSeekerControllerTest.class
 org/employable/Model/JobListingModelTest.class
 org/employable/Controller/RecruiterControllerTest.class
-org/employable/Model/RecruiterModelTest.class
-org/employable/View/RecruiterViewTest.class
-org/employable/AppTest.class
-org/employable/Controller/JobSeekerControllerTest.class
 org/employable/Model/JobSeekerModelTest.class
+org/employable/Model/RecruiterModelTest.class
+org/employable/AppTest.class
