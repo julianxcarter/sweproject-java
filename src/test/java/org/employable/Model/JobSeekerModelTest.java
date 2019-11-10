@@ -1,11 +1,17 @@
-package org.employable;
+package org.employable.Model;
 
 import java.awt.*;
 import javax.swing.*;
 
 import org.junit.Test;
-import org.employable.TestUtils;
 import org.employable.Model.*;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 
 import static org.junit.Assert.*;
 
@@ -15,8 +21,9 @@ import java.util.List;
 //instantiate testmodel
 //JobSeeker jobSeeker = new Jobseeker()
 
+
 //create A test that will instantiate the JobSeekerModel object with valid (non-empty) strings; expected to succeed
-public class JobSeekerModelTest(){
+public class JobSeekerModelTest() {
 //This method executes once before all of the test methods
   @BeforeClass
   public static void testSetupClass(){
@@ -30,7 +37,7 @@ public class JobSeekerModelTest(){
 
   //executes before each test. nice to conatin objects used by all classes
   @Before
-  public void testSetup(){
+  public void testSetup() {
     JobSeeker jobSeeker = new JobSeeker();
 
   }
