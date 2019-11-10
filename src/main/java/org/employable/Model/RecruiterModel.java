@@ -16,59 +16,72 @@ import org.bson.types.ObjectId;
 
 
 public class RecruiterModel extends ProfileModel {
-  public String company;
-  public List <JobListingModel> companyJobListings;
+  public String company; // The Company that the recruiter belongs to
+  public List <JobListingModel> companyJobListings; // A list of Job Listings that the Recruiter owns
 
-  String ObjectId;
+  String ObjectId; // Unique Id that the recruiter holds in the database
 
+  //unique connection string for our database
   MongoClientURI uri = new MongoClientURI("mongodb+srv://cboyd7:EmployAble@employable-wlgg9.gcp.mongodb.net/test?retryWrites=true&w=majority");
+
+  //Instanciates a client to the mongoDB database
   MongoClient mongoClient;
+
+  //Creates an instance of a mongoDb database
   MongoDatabase database;
 
+  // Contructor for the class, takes the recruiter's company as an argument
   public RecruiterModel(String company){
     this.company = company;
   }
 
   //Uploads a recruiter to the database
   public void createRecruiter() {
-    this.mongoClient = new MongoClient(this.uri);
-    this.database = this.mongoClient.getDatabase("EmployAble");
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
+
+    //Creating a unique Id for the Job Listing to be inserted into the database 
     ObjectId id = new ObjectId();
     this.ObjectId = id.toString();
 
-    MongoCollection<Document> collection = this.database.getCollection("Recruiters");
+    MongoCollection<Document> collection = this.database.getCollection("Recruiters"); //Setting the collection to the approproate collection
+
+    //Creating the document to be uploaded to the database
     Document doc = new Document("_id", id)
         .append("name", this.name)
         .append("password", this.password)
         .append("email", this.email)
         .append("company", this.company);
-    collection.insertOne(doc);
+
+    collection.insertOne(doc); //Inserting the document to the database
   }
 
   //deletes a recruiter from the database
   public void deleteRecruiter() {
 
-    this.mongoClient = new MongoClient(this.uri);
-    this.database = this.mongoClient.getDatabase("EmployAble");
-    MongoCollection<Document> collection = this.database.getCollection("Recruiters");
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
+    MongoCollection<Document> collection = this.database.getCollection("Recruiters"); //Setting the collection to the approproate collection
 
-    collection.deleteOne(Filters.eq("_id", this.ObjectId));
+    collection.deleteOne(Filters.eq("_id", this.ObjectId)); //Deletes the document in the database with the same unique id
 
     // mongoClient.close();
 }
 
 //queries the database for all recruiters
 public List<Document> getRecruiters() {
-  this.mongoClient = new MongoClient(this.uri);
-  this.database = this.mongoClient.getDatabase("EmployAble");
+  this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+  this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
 
-  MongoCollection<Document> collection = this.database.getCollection("Recruiters");
-  FindIterable<Document> iterDoc = collection.find();
+  MongoCollection<Document> collection = this.database.getCollection("Recruiters"); //Setting the collection to the approproate collection
+  FindIterable<Document> iterDoc = collection.find(); //Retrieves all listings from the database and returns them as a list of documents
+  
 
   List<Document> recruiters = new ArrayList<Document>();
 
   MongoCursor<Document> cursor = iterDoc.iterator(); 
 
+  //Iterates through the list of documents and appends them to a list of Documents
   while (cursor.hasNext()) {  
      recruiters.add(cursor.next());
   }

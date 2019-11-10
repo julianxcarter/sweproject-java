@@ -23,9 +23,14 @@ public class JobSeekerModel extends ProfileModel {
   public List<String> desiredRoles = new ArrayList<String>();
   public List<String> desiredAmenities = new ArrayList<String>();
   public List<String> desiredLocations = new ArrayList<String>();
- 
-  MongoClientURI uri = new MongoClientURI("mongodb+srv://cboyd7:EmployAble@employable-wlgg9.gcp.mongodb.net/test?retryWrites=true&w=majority");
+
+ //unique connection string for our database
+  MongoClientURI uri = new MongoClientURI("mongodb+srv://cboyd7:EmployAble@employable-wlgg9.gcp.mongodb.net/test?retryWrites=true&w=majority"); //unique connection string for our database
+  
+  //Instanciates a client to the mongoDB database
   MongoClient mongoClient;
+
+  //Creates an instance of a mongoDb database
   MongoDatabase database;
  
   // constructor declaration
@@ -48,9 +53,21 @@ public class JobSeekerModel extends ProfileModel {
   }
  
   //method to add amenity
-  public void addAmenity (String amenity){
-    this.desiredAmenities.add(amenity);
-    System.out.println("this is the ammenity from the model" + this.desiredAmenities);
+  public void addAmenity(String amenity) throws Exception{
+    boolean alreadyThere = false;
+
+    //checks if the ammenity being added is already there
+    for (String x : this.desiredAmenities) {
+      if (x == amenity) {
+        alreadyThere = true;
+        throw new IllegalArgumentException();
+      }
+    }
+
+    if (!alreadyThere) {
+      this.desiredAmenities.add(amenity);
+    }
+
   }
  
   //method to remove amenity
@@ -69,14 +86,18 @@ public class JobSeekerModel extends ProfileModel {
     this.desiredLocations.remove(index);
   }
  
+  //Method to upload JobSeeker to the database
   public void createJobSeeker() {
-    this.mongoClient = new MongoClient(this.uri);
-    this.database = this.mongoClient.getDatabase("EmployAble");
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("Employable"); // Pointing the mongo database to our EmployAble database
+
+    //Create the unique id that the document will have in the database
     ObjectId id = new ObjectId();
     this.ObjectId = id.toString();
-    // BasicDBObject desiredRoles = new BasicDBObject();
- 
-    MongoCollection<Document> collection = this.database.getCollection("JobSeekers");
+
+    MongoCollection<Document> collection = this.database.getCollection("JobSeekers"); //Setting the collection to the approproate collection
+
+    //Creating the document to be uploaded to the database
     Document doc = new Document("_id", id)
         .append("name", "cameron")
         // .append("password", this.password)
@@ -84,20 +105,21 @@ public class JobSeekerModel extends ProfileModel {
         .append("roles", this.desiredRoles)
         .append("amenities", this.desiredAmenities)
         .append("locations", this.desiredLocations);
-    collection.insertOne(doc);
 
-    System.out.println("This is the document going to the database: " + doc);
-    System.out.println("These are the locations that the document should have: " + this.desiredLocations);
+    collection.insertOne(doc); //Uploading the document to the database
   }
  
   public void updateJobSeeker() {
-    this.mongoClient = new MongoClient(this.uri);
-    this.database = this.mongoClient.getDatabase("EmployAble");
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("Employable"); // Pointing the mongo database to our EmployAble database
  
-    MongoCollection<Document> collection = this.database.getCollection("JobSeekers");
+    MongoCollection<Document> collection = this.database.getCollection("JobSeekers"); //Setting the collection to the approproate collection
+
+    //Create the unique id that the document will have in the database
     ObjectId id = new ObjectId();
     this.ObjectId = id.toString();
  
+    //Creating the document to be uploaded to the database
     Document doc = new Document("_id", id)
         .append("name", "cameron")
         // .append("password", password)
@@ -105,16 +127,18 @@ public class JobSeekerModel extends ProfileModel {
         .append("roles", desiredRoles)
         .append("amenities", desiredAmenities)
         .append("locations", desiredLocations);
-    collection.replaceOne(Filters.eq("name", name), doc);
+
+    collection.replaceOne(Filters.eq("name", name), doc); // Replaces the document in the database with the same name
   }
  
   public void deleteJobSeeker(String name) {
  
-    this.mongoClient = new MongoClient(this.uri);
-    this.database = this.mongoClient.getDatabase("EmployAble");
-    MongoCollection<Document> collection = this.database.getCollection("JobSeekers");
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("Employable"); // Pointing the mongo database to our EmployAble database
+
+    MongoCollection<Document> collection = this.database.getCollection("JobSeekers"); //Setting the collection to the approproate collection
  
-    collection.deleteOne(Filters.eq("name", name));
+    collection.deleteOne(Filters.eq("name", name)); //Deletes the document in the database with the same name
  
     // mongoClient.close();
 }
