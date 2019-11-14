@@ -58,7 +58,6 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
                         try {
                             controller.addAmenity(amenities[j].toString());
                         } catch (Exception e1) {
-                            // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
                         System.out.println("This is the amenity from the view: " + amenities[j]);
@@ -223,7 +222,6 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
                 try {
                     new JobSeekerProfileView().setVisible(true);
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
            }
