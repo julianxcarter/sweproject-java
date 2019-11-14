@@ -58,6 +58,43 @@ public final class App {
             System.out.println(" ");
         }
 
+        List<JobListingModel> listingsByCompany = new ArrayList<JobListingModel>();
+        listingsByCompany = model2.getListingsByCompany("Google");
+        System.out.println("Listings from Google");
+        for (JobListingModel x : listingsByCompany) {
+            System.out.println("Company Name: " + x.companyName);
+            System.out.println("Link: " + x.hyperLink);
+            System.out.println("Location: " + x.location);
+            System.out.println("Position: " + x.positionName);
+
+            System.out.println(" ");
+        }
+
+        List<JobListingModel> listingsByLocation = new ArrayList<JobListingModel>();
+        listingsByLocation = model2.getListingsByLocation("Los Angeles");
+        System.out.println("Listings in Los Angeles");
+        for (JobListingModel x : listingsByLocation) {
+            System.out.println("Company Name: " + x.companyName);
+            System.out.println("Link: " + x.hyperLink);
+            System.out.println("Location: " + x.location);
+            System.out.println("Position: " + x.positionName);
+
+            System.out.println(" ");
+        }
+
+        List<JobListingModel> listingsByTitle = new ArrayList<JobListingModel>();
+        listingsByTitle = model2.getListingsByPosition("Staff Software Engineer");
+        System.out.println("Listings from Google");
+        for (JobListingModel x : listingsByTitle) {
+            System.out.println("Company Name: " + x.companyName);
+            System.out.println("Link: " + x.hyperLink);
+            System.out.println("Location: " + x.location);
+            System.out.println("Position: " + x.positionName);
+
+            System.out.println(" ");
+        }
+
+
         // create a new jframe object for the home page
         JFrame openPage = new JFrame("First Open Page View");
         // make sure the page exits when the red x is pressed
@@ -88,7 +125,6 @@ public final class App {
                 try {
                     JobSeekerProfileView jobseeker = new JobSeekerProfileView();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
         }
