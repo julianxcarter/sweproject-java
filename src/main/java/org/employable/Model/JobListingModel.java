@@ -32,12 +32,13 @@ import org.bson.types.ObjectId;
    //unique connection string for our database
    MongoClientURI uri = new MongoClientURI("mongodb+srv://cboyd7:EmployAble@employable-wlgg9.gcp.mongodb.net/test?retryWrites=true&w=majority");
 
-   //An instance of 
+   //Instanciates a client to the mongoDB database
    MongoClient mongoClient;
 
-
+  //Creates an instance of a mongoDb database
    MongoDatabase database;
 
+  //Contructor for the JobListingModel
    public JobListingModel(String position, String company, String link, String location){
      this.positionName = position;
      this.companyName = company;
@@ -45,20 +46,33 @@ import org.bson.types.ObjectId;
      this.location = location;
    }
 
+   //Throws an IllegalArgumentException if the constructor is passed no arguments
+   public JobListingModel() throws Exception {
+      throw new IllegalArgumentException();
+   }
+
    //Uploads a job Listing to the database
    public void createListing(String position, String company, String link, String location) {
-    this.mongoClient = new MongoClient(this.uri);
-    this.database = this.mongoClient.getDatabase("EmployAble");
+    
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
+
+    //Creating a unique Id for the Job Listing to be inserted inti tge database 
     ObjectId id = new ObjectId();
     this.ObjectId = id.toString();
 
-    MongoCollection<Document> collection = this.database.getCollection("Listings");
+    
+
+    MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
+
+    //Creating the document to be uploaded to the database
     Document doc = new Document("_id", id)
         .append("title", this.positionName)
         .append("company", this.companyName)
         .append("link", this.hyperLink)
         .append("location", this.location);
-    collection.insertOne(doc);
+
+    collection.insertOne(doc); //Inserting the document to the database
     
     // mongoClient.close();
 }
@@ -66,11 +80,12 @@ import org.bson.types.ObjectId;
 // Method to delete a listing from the database
 public void deleteListing() {
 
-  this.mongoClient = new MongoClient(this.uri);
-  this.database = this.mongoClient.getDatabase("EmployAble");
-  MongoCollection<Document> collection = this.database.getCollection("Listings");
+  this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+  this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
 
-  collection.deleteOne(Filters.eq("_id", this.ObjectId));
+    MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
+
+  collection.deleteOne(Filters.eq("_id", this.ObjectId)); //Deletes the document in the database with the same unique id
 
   // mongoClient.close();
 }
@@ -78,24 +93,127 @@ public void deleteListing() {
   //method which returns all job listings in the database
   public List<JobListingModel> getAllListings() {
 
-    this.mongoClient = new MongoClient(this.uri);
-    this.database = this.mongoClient.getDatabase("EmployAble");
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
   
-    MongoCollection<Document> collection = this.database.getCollection("Listings");
-    FindIterable<Document> iterDoc = collection.find();
+    MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
+
+    FindIterable<Document> iterDoc = collection.find(); //Retrieves all listings from the database and returns them as a list of documents
   
-    List<JobListingModel> listings = new ArrayList<JobListingModel>();
+    List<JobListingModel> listings = new ArrayList<JobListingModel>(); 
   
     MongoCursor<Document> cursor = iterDoc.iterator(); 
   
+    //Iterates through the list of documents and appends them to a list of Job Listing Models
     while (cursor.hasNext()) {
       Document temp = cursor.next();
       String title = temp.get("title").toString();
       String company = temp.get("company").toString();
       String hyperLink = temp.get("link").toString();
       String location = temp.get("location").toString();
+      String id = temp.get("_id").toString();
   
       JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
+      tempJob.ObjectId = id;
+       listings.add(tempJob);
+    }
+  
+    // mongoClient.close();
+  
+    return listings;
+  }
+
+  public List<JobListingModel> getListingsByCompany(String companyName) {
+      
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
+  
+    MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
+
+    //Retrieves listings from the database with the desired company name and returns them as a list of documents
+    FindIterable<Document> iterDoc = collection.find(Filters.eq("company", companyName)); 
+  
+    List<JobListingModel> listings = new ArrayList<JobListingModel>(); 
+  
+    MongoCursor<Document> cursor = iterDoc.iterator(); 
+  
+    //Iterates through the list of documents and appends them to a list of Job Listing Models
+    while (cursor.hasNext()) {
+      Document temp = cursor.next();
+      String title = temp.get("title").toString();
+      String company = temp.get("company").toString();
+      String hyperLink = temp.get("link").toString();
+      String location = temp.get("location").toString();
+      String id = temp.get("_id").toString();
+  
+      JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
+      tempJob.ObjectId = id;
+       listings.add(tempJob);
+    }
+  
+    // mongoClient.close();
+  
+    return listings;
+  }
+
+  public List<JobListingModel> getListingsByPosition(String positionName) {
+      
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
+  
+    MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
+
+    //Retrieves listings from the database with the desired job title and returns them as a list of documents
+    FindIterable<Document> iterDoc = collection.find(Filters.eq("title", positionName)); 
+  
+    List<JobListingModel> listings = new ArrayList<JobListingModel>(); 
+  
+    MongoCursor<Document> cursor = iterDoc.iterator(); 
+  
+    //Iterates through the list of documents and appends them to a list of Job Listing Models
+    while (cursor.hasNext()) {
+      Document temp = cursor.next();
+      String title = temp.get("title").toString();
+      String company = temp.get("company").toString();
+      String hyperLink = temp.get("link").toString();
+      String location = temp.get("location").toString();
+      String id = temp.get("_id").toString();
+  
+      JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
+      tempJob.ObjectId = id;
+       listings.add(tempJob);
+    }
+  
+    // mongoClient.close();
+  
+    return listings;
+  }
+
+  public List<JobListingModel> getListingsByLocation(String locationName) {
+      
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
+  
+    MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
+
+    //Retrieves listings from the database with the desired location and returns them as a list of documents
+    FindIterable<Document> iterDoc = collection.find(Filters.eq("location", locationName)); 
+  
+    List<JobListingModel> listings = new ArrayList<JobListingModel>(); 
+  
+    MongoCursor<Document> cursor = iterDoc.iterator(); 
+  
+    //Iterates through the list of documents and appends them to a list of Job Listing Models
+    while (cursor.hasNext()) {
+      Document temp = cursor.next();
+      String title = temp.get("title").toString();
+      String company = temp.get("company").toString();
+      String hyperLink = temp.get("link").toString();
+      String location = temp.get("location").toString();
+      String id = temp.get("_id").toString();
+  
+      JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
+      tempJob.ObjectId = id;
        listings.add(tempJob);
     }
   

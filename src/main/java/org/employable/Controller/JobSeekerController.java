@@ -1,15 +1,17 @@
 package org.employable.Controller;
 import org.employable.Model.JobSeekerModel;
+import org.employable.Model.JobListingModel;
 import java.util.List;
  
  
 public class JobSeekerController {
  JobSeekerModel model;
+ JobListingModel listing;
  
  public JobSeekerController() {
    model = new JobSeekerModel();
-
-   
+   listing = new JobListingModel("bleh", "bleh", "bleh", "bleh");
+  
   }
  
  public void setName(String name){model.setName(name);}
@@ -19,7 +21,7 @@ public class JobSeekerController {
  public void setContactInfo(String email){model.setContactInfo(email);}
  
  //the add amenities method to call the model add amenity
- public void addAmenity(String amenity){
+ public void addAmenity(String amenity) throws Exception {
    model.addAmenity(amenity);
   }
  
@@ -42,9 +44,28 @@ public class JobSeekerController {
  public void updateModel() {
    model.createJobSeeker();
   }
+
+  public List<JobListingModel> searchCompanies(String company) {
+    List<JobListingModel> listings = listing.getListingsByCompany(company);
+
+    return listings;
+    
+  }
+
+  public List<JobListingModel> searchTitles(String position) {
+    List<JobListingModel> listings = listing.getListingsByPosition(position);
+
+    return listings;
+
+  }
+
+  public List<JobListingModel> searchLocation(String city) {
+    List<JobListingModel> listings = listing.getListingsByLocation(city);
+
+    return listings;
+
+  }
  
  
  
 }
- 
-
