@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - GoogleCompanyView",
+            "request": "launch",
+            "mainClass": "org.employable.View.GoogleCompanyView",
+            "projectName": "employable"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - RecruiterView",
             "request": "launch",
             "mainClass": "org.employable.View.RecruiterView",

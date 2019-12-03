@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.*;
 import javax.swing.JLabel;
+
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,6 +37,9 @@ public final class App {
      * 
      * @param args The arguments of the program.
      */
+    // lists of strings for company options
+   public static String[] companyOptions = {"Google", "Amazon", "JP Morgan"
+   ,"Wendy's"};
     public static void main(String[] args) {
 
         
@@ -46,20 +53,20 @@ public final class App {
 
         // model.createRecruiter();
 
-        System.out.println("----------------- Listings -----------------");
+        // System.out.println("----------------- Listings -----------------");
 
-        List<JobListingModel> listings = new ArrayList<JobListingModel>();
-        JobListingModel model2 = new JobListingModel("position", "link", "title", "bleh");
-        listings = model2.getAllListings();
+        // List<JobListingModel> listings = new ArrayList<JobListingModel>();
+        // JobListingModel model2 = new JobListingModel("position", "link", "title", "bleh");
+        // listings = model2.getAllListings();
 
-        for (JobListingModel x : listings){
-           System.out.println("Company Name: " + x.companyName);
-           System.out.println("Link: " + x.hyperLink);
-           System.out.println("Location: " + x.location);
-           System.out.println("Position: " + x.positionName);
+        // for (JobListingModel x : listings){
+        //    System.out.println("Company Name: " + x.companyName);
+        //    System.out.println("Link: " + x.hyperLink);
+        //    System.out.println("Location: " + x.location);
+        //    System.out.println("Position: " + x.positionName);
            
-           System.out.println(" ");
-        }
+        //    System.out.println(" ");
+        // }
 
         // create a new jframe object for the home page
         JFrame openPage = new JFrame("First Open Page View"); 
@@ -74,14 +81,34 @@ public final class App {
         JLabel selectionLabel = new JLabel("Which kind of user are you?");
         selectionPanel.add(selectionLabel);
 
+        //create an invisible panel  for recruiter company info
+        JPanel rPanel = new JPanel();
+        // initialize companies combo box
+        JComboBox<String> companies = new JComboBox<>(companyOptions);
+        rPanel.add(companies);
+        //create an enter button
+        JButton enterRecruiter = new JButton("Enter");
+        enterRecruiter.addActionListener(new ActionListener() {
+
+          @Override
+                public void actionPerformed(ActionEvent e) {
+                    // TODO Auto-generated method stub
+                    RecruiterView recruiter = new RecruiterView();
+                }
+        });
+        rPanel.add(enterRecruiter);
+        rPanel.setVisible(false);
+    
+
         // create a recruiter button to open recruiter view
         JButton rButton = new JButton("Recruiter");  
         rButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent event) {
-            RecruiterView recruiter = new RecruiterView();
-        }
-    });
+            //make recruiter selection panel visible
+            rPanel.setVisible(true);
+        }});
+
 
         // create a recruiter button to open recruiter view
         JButton jButton = new JButton("Job Seeker");  
@@ -95,7 +122,8 @@ public final class App {
     selectionPanel.add(rButton);
     selectionPanel.add(jButton);
     
-    openPage.add(selectionPanel);
+    openPage.add(selectionPanel, BorderLayout.NORTH);
+    openPage.add(rPanel, BorderLayout.CENTER);
     openPage.setVisible(true);
     
     }
