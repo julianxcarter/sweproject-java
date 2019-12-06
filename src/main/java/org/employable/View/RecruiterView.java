@@ -1,7 +1,6 @@
 package org.employable.View;
+
 import org.employable.Controller.RecruiterController;
-
-
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,9 +8,10 @@ import java.awt.event.ActionListener;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
 import java.net.URL;
- 
+
 /*from   w w w. j a  v a  2 s  .c om*/
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
  
 public class RecruiterView extends  javax.swing.JFrame{
    /**
@@ -30,17 +30,17 @@ public class RecruiterView extends  javax.swing.JFrame{
    public static javax.swing.JTextField text;
 
    // create a panel for the bottom of the page containing interaction notifications
-   public static final JPanel notificationsPanel = new JPanel();
+   public static final JPanel notificationsPane = new JPanel();
    // create a label for the notifications column
    JLabel notificationsLbl = new JLabel("New Notifications For You:");
 
    // create an instance of the recruiter controller
    RecruiterController controller = new RecruiterController();
    
-   public RecruiterView() {
+   public RecruiterView(String company) {
       
        // create a new jframe object for the home page
-       JFrame homePage= new JFrame("Home Page View"); 
+       JFrame homePage= new JFrame(company + " Recruiter"); 
        // make sure the page exits when the red x is pressed
        homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        //set the dimmensions of the home page
@@ -171,23 +171,22 @@ public class RecruiterView extends  javax.swing.JFrame{
        //add listings panel to the top of the page
        homePage.add(listingsPanel, BorderLayout.NORTH);
 
-       notificationsPanel.add(notificationsLbl, BorderLayout.NORTH);
-       homePage.add(notificationsPanel);
+       // allow notifications to be scrollable; if job listings push notifications panel off of
+       // the page, they should still be viewable to the user
+       JScrollPane notificationsPanel = new JScrollPane(notificationsPane);
+       notificationsPanel.setLayout(new ScrollPaneLayout());
+       
+       //add dummy notifications for user views
+       notificationsPane.add(notificationsLbl);
+       notificationsPane.add(new NewNotification("Cameron Womack"));
+       notificationsPane.add(new NewNotification("Julian Carter"));
+       notificationsPane.add(new NewNotification("Ariel Turnley"));
+       notificationsPane.add(new NewNotification("Thulani Vereen"));
+       notificationsPane.add(new NewNotification("Cameryn Boyd"));
+    
+       homePage.getContentPane().add(notificationsPanel);
 
        homePage.setVisible(true);
-   }
-
-   public static void addNotification() {
-       // create string for notification label
-       String name = "jobSeeker";
-       JLabel notificationLbl = new JLabel(name);
-
-       // create a notification box
-       final JPanel newNotification = new JPanel();
-       newNotification.add(notificationLbl);
-
-       //add the new notification to the notification panel
-       notificationsPanel.add(newNotification);
    }
    
     // function to check if the text box text is a valid URL
@@ -204,7 +203,38 @@ public class RecruiterView extends  javax.swing.JFrame{
         catch (Exception e) { 
             return false; 
         }
-        }
+    }
+
+    // create a notification class that will create boxes to show 
+    // user interactions with job listing in the notifications panel
+    public class NewNotification extends JPanel {
+      /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    public NewNotification(String n) {
+          setLayout(new BorderLayout());
+          setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
+          String label = "<html>A new user, " + n + " viewed a job listing posted by this company.</html>";
+          add(new JLabel(label, JLabel.CENTER));
+      }
+
+      @Override
+      public Dimension getMinimumSize() {
+          return getPreferredSize();
+      }
+
+      @Override
+      public Dimension getMaximumSize() {
+          return getPreferredSize();
+      }
+
+      @Override
+      public Dimension getPreferredSize() {
+          return new Dimension(150, 150);
+      }
+  }
   
    public static void main(String args[]) {
      java.awt.EventQueue.invokeLater(new Runnable() {
