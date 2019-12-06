@@ -1,13 +1,23 @@
 package org.employable.Model; //CampusModel is in the model package
+
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class CampusModel extends CompanyModel{
   String campusLocation;
-  String [] mediaIds = new String[10];
-  String[] amenities = new String [40];
+  List<String> mediaIds = new ArrayList<String>();
+  List<String> amenities = new ArrayList<String>();
+
   public CampusModel (String[] pictures, String[] amenities){
-    this.mediaIds = pictures;
-    this.amenities = amenities;
+
+    for (String picture : pictures) {
+      this.mediaIds.add(picture);
+    }
+    
+    for (String amenity : amenities) {
+      this.amenities.add(amenity);
+    }
   }
 
   public List<String> getAmenities(){
