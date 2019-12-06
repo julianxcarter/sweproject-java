@@ -15,7 +15,7 @@ import java.net.URI;
 public class JobSeekerHomeView extends javax.swing.JFrame{
 
     private static final long serialVersionUID = 1L;
-    public static String[] searchParamaters = {"Company", "Location", "Position"};
+    public static String[] searchParamaters = {"Company", "Location", "Role", "Industry"};
 
     public JobSeekerHomeView(){
         //create the frame
@@ -157,12 +157,13 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                 }
             }
         });
+        
         //format the pane
         jobLink3.setPreferredSize(new Dimension(200,100));
         jobLink3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
         //add pane to the area
         jobRecPanel.add(jobLink3);
-
+/*
         //top rated companies panel with heading left justified
         JPanel topCompPanel = new JPanel();
         topCompPanel.setLayout(new GridLayout(2,3));
@@ -213,11 +214,11 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         topCompPanel.add(topCompany1);
         topCompPanel.add(topCompany2);
         topCompPanel.add(topCompany3);
-
+*/
         //add all of the panels to the frame and with layout specifications
         frame.getContentPane().add(BorderLayout.NORTH, panel);
         frame.getContentPane().add(BorderLayout.WEST, jobRecPanel);
-        frame.getContentPane().add(BorderLayout.SOUTH, topCompPanel);
+        //frame.getContentPane().add(BorderLayout.SOUTH, topCompPanel);
         //make everything visible and pack frame
         frame.setVisible(true);
         frame.pack();
