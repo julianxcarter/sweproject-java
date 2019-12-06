@@ -57,17 +57,8 @@ public class GoogleCompanyView extends javax.swing.JFrame {
             
         }
     });  
-    
-    //add 5 star buttons
-    JPanel ratings = new JPanel();
-    ratings.setLayout(new GridLayout(0,5,20,20));
-    for (int i = 1; i < 6; i++) {
-        JButton rating = new JButton(Integer.toString(i));
-        ratings.add(rating);
-    }
 
     companyButtons.add(policyButton);
-    companyButtons.add(ratings);
 
      
      // create a jpanel to hold all the campus images
@@ -122,8 +113,6 @@ public class GoogleCompanyView extends javax.swing.JFrame {
 
     
     // add components to the google home page
-    // googlePage.add(googleTitle, BorderLayout.NORTH);
-    // googlePage.add(googlePageHeader, BorderLayout.CENTER);
     googlePage.add(googleTopPage, BorderLayout.NORTH);
     googlePage.add(googleCampuses, BorderLayout.CENTER);
     googlePage.setVisible(true);

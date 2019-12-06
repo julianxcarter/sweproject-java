@@ -5,6 +5,10 @@
             "name": "CodeLens (Launch) - GoogleCompanyView",
             "request": "launch",
             "mainClass": "org.employable.View.GoogleCompanyView",
+            "projectName": "employable"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - JobSeekerProfileView",
             "request": "launch",
             "mainClass": "org.employable.View.JobSeekerProfileView",
