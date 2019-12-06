@@ -239,7 +239,11 @@ public class RecruiterView extends  javax.swing.JFrame{
    public static void main(String args[]) {
      java.awt.EventQueue.invokeLater(new Runnable() {
            public void run() {
+<<<<<<< HEAD
                new RecruiterView("company").setVisible(true);
+=======
+               new RecruiterView("Google").setVisible(true);
+>>>>>>> cf48881af6c0e7097333e591fd7f16ec2d6847b9
            }
        });
    }
