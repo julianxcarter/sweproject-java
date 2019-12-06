@@ -60,7 +60,7 @@
                             <index>true</index>
                             <manifest>
                                 <addClasspath>true</addClasspath>
-                                <mainClass>org.employable.App</mainClass>
+                                <mainClass>org.employable.View.RecruiterView</mainClass>
                             </manifest>
                         </archive>
                         <descriptorRefs>

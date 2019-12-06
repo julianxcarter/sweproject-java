@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-package main.java.org.employable.View;
- 
-=======
 package org.employable.View;
 
->>>>>>> abf3495ff525813495f41b6a81f122a990c9e2ce
 import org.employable.Controller.JobSeekerController;
 
 // import jdk.jfr.events.ActiveRecordingEvent;
@@ -22,25 +17,6 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
     /**
     *
     */
-<<<<<<< HEAD
-   private static final long serialVersionUID = 1L;
-   // List of Amenities
-   public static String[] amenities = {"Brail", "Ramps", "Elevators",
-   "Accessible toilet facilities", "Audio-visual fire alarms",
-   "Lowered lights switches and door handles",
-   "Specially modified equipment", "Wheelchair accessible",
-   "Adjustable desks and tables", "Stair rail",
-   "Service dog friendly"};
-   //List of Locations
-   public static String[] desiredLocations = {"New York", "Los Angeles",
-   "San Francisco" ,"Atlanta", "D.C", "New Jersey", "Seattle", "Houston", "Austin"};
-   //List of Positions
-   public static String[] desiredPositions = {"Software Engineer", "Accountant",
-   "Data Analyst","Consultant", "Account Manager", "Human Resources Personnel",
-   "Receptionist", "Assistant", "Project Manager"};
-   public static ArrayList<Checkbox> checkboxes;
-    
-=======
     private static final long serialVersionUID = 1L;
     // List of Amenities
     public static String[] amenities = { "Brail", "Ramps", "Elevators", "Accessible toilet facilities",
@@ -54,7 +30,6 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
             "Account Manager", "Human Resources Personnel", "Receptionist", "Assistant", "Project Manager" };
     public static ArrayList<Checkbox> checkboxes;
 
->>>>>>> abf3495ff525813495f41b6a81f122a990c9e2ce
     final JobSeekerController controller = new JobSeekerController();
 
     public JobSeekerProfileView() throws Exception {

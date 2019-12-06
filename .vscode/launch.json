@@ -2,9 +2,15 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< HEAD
+            "name": "CodeLens (Launch) - GoogleCompanyView",
+            "request": "launch",
+            "mainClass": "org.employable.View.GoogleCompanyView",
+=======
             "name": "CodeLens (Launch) - JobSeekerProfileView",
             "request": "launch",
             "mainClass": "org.employable.View.JobSeekerProfileView",
+>>>>>>> abf3495ff525813495f41b6a81f122a990c9e2ce
             "projectName": "employable"
         },
         {
