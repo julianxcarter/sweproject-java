@@ -24,7 +24,7 @@ public class RecruiterViewTest {
         // JPanel listingPanel;
         // JButton updateButton;
 
-        RecruiterView view = new RecruiterView();
+        RecruiterView view = new RecruiterView("TestCompany");
         // view.setVisible(true);
 
         addButton = (JButton)TestUtils.getChildNamed(view, "addButton");

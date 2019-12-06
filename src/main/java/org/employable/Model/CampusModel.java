@@ -1,7 +1,7 @@
 package org.employable.Model; //CampusModel is in the model package
 import java.util.List;
 
-public class CampusModel extends Company{
+public class CampusModel extends CompanyModel{
   String campusLocation;
   String [] mediaIds = new String[10];
   String[] amenities = new String [40];
