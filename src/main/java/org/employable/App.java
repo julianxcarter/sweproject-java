@@ -9,9 +9,15 @@ import javax.swing.JButton;
 import javax.swing.*;
 import javax.swing.JLabel;
 
+import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.MalformedURLException;
+
 
 // import com.mongodb.ServerAddress;
 
@@ -106,8 +112,70 @@ public final class App {
         JFrame openPage = new JFrame("First Open Page View");
         // make sure the page exits when the red x is pressed
         openPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        openPage.setLayout(new GridLayout(3, 1));
         // set the dimmensions of the home page
         openPage.setSize(800, 800);
+
+        // create a panel for the accessibility tool tutorials
+        JPanel accessibilityPanel = new JPanel();
+        // create a label for the accessibility panel
+        JLabel accessibilityLbl = new JLabel("Accessibility Tool Resources");
+        accessibilityPanel.add(accessibilityLbl);
+        accessibilityPanel.setLayout(new BoxLayout(accessibilityPanel, BoxLayout.Y_AXIS));
+        
+
+        //add button for chrome screen readers
+        JButton sReader = new JButton("Chrome Users: Screen Reader");
+        sReader.addActionListener(new ActionListener() {
+            @Override
+            // this button should direct a user to the company's accessibility policy page
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    openWebpage(new URL("https://chrome.google.com/webstore/detail/chromevox-classic-extensi/kgejglhpjiefppelpmljglcjbhoiplfn?hl=en").toURI());
+                } catch (MalformedURLException | URISyntaxException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            
+        }
+    });  
+        accessibilityPanel.add(sReader);
+
+        //add button for screen magnifier
+        JButton sMagnifier = new JButton("All Users: Download Screen Magnifier");
+        sMagnifier.addActionListener(new ActionListener() {
+            @Override
+            // this button should direct a user to the company's accessibility policy page
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    openWebpage(new URL("http://magnifier.sourceforge.net/").toURI());
+                } catch (MalformedURLException | URISyntaxException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            
+        }
+    });  
+
+    accessibilityPanel.add(sMagnifier);
+
+    //add button for screen magnifier
+    JButton sColors = new JButton("Chrome Users: Download Color Enhancer");
+    sColors.addActionListener(new ActionListener() {
+        @Override
+        // this button should direct a user to the company's accessibility policy page
+        public void actionPerformed(ActionEvent event) {
+            try {
+                openWebpage(new URL("https://chrome.google.com/webstore/detail/color-enhancer/ipkjmjaledkapilfdigkgfmpekpfnkih?hl=en").toURI());
+            } catch (MalformedURLException | URISyntaxException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        
+    }
+});  
+
+accessibilityPanel.add(sColors);
 
         // create panel for sign on
         final JPanel selectionPanel = new JPanel();
@@ -161,9 +229,34 @@ public final class App {
     selectionPanel.add(rButton);
     selectionPanel.add(jButton);
     
-    openPage.add(selectionPanel, BorderLayout.NORTH);
-    openPage.add(rPanel, BorderLayout.CENTER);
+    openPage.add(accessibilityPanel);
+    openPage.add(selectionPanel);
+    openPage.add(rPanel);
     openPage.setVisible(true);
     
     }
+
+    // method to support opening an external webpage
+   public static boolean openWebpage(URI uri) {
+    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+        try {
+            desktop.browse(uri);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    return false;
+}
+
+// method to open an external web page
+public static boolean openWebpage(URL url) {
+    try {
+        return openWebpage(url.toURI());
+    } catch (URISyntaxException e) {
+        e.printStackTrace();
+    }
+    return false;
+}
 }
