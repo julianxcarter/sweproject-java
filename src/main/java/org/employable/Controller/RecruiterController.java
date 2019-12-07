@@ -8,12 +8,11 @@ import org.employable.View.RecruiterView;
  
 
 public class RecruiterController {
-  RecruiterModel model = new RecruiterModel("");
+  public RecruiterModel model;
   private RecruiterView view;
   // private JobListingModel jlModel;
 
   public RecruiterController(){
-    
   }
 
   public void setName (String name){
@@ -29,13 +28,13 @@ public class RecruiterController {
   }
 
   public void createJobListing(String position, String company, String link, String location, List<String> amenities){
-    model = new RecruiterModel(company);
+    this.model = new RecruiterModel(company);
     model.addJobListing(position, company, link, location, amenities);
     // return;
   }
 
   public void createJobListing(String position, String company, String link, String location){
-    model = new RecruiterModel(company);
+    this.model = new RecruiterModel(company);
     model.addJobListing(position, company, link, location);
     // return;
   }
@@ -45,8 +44,8 @@ public class RecruiterController {
   }
 
   //method to remove JobListing
-  // public void removeJobListing(JobListingModel expiredJob){
-  //   expiredJob.removeJobListing(expiredJob);
-  // }
+  public void removeJobListing(JobListingModel expiredJob){
+    expiredJob.deleteListing();
+  }
   //show new interaction/notificiation. Dev later.
 }
