@@ -2,9 +2,15 @@ package org.employable.View;
 
 import org.employable.Controller.RecruiterController;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
 import java.net.URL;
@@ -12,80 +18,118 @@ import java.net.URL;
 /*from   w w w. j a  v a  2 s  .c om*/
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
- 
-public class RecruiterView extends  javax.swing.JFrame{
-   /**
-    *
-    */
-   private static final long serialVersionUID = 1L;
-   //** components to be shown on the new listings panel **// 
 
-   // lists of strings for location options
-   public static String[] locationOptions = {"New York", "Los Angeles", "San Francisco"
-   ,"Atlanta", "D.C", "New Jersey", "Seattle", "Houston", "Austin"};
-   // list of strings for position options
-   public static String[] positionOptions = {"Software Engineer", "Accountant", "Data Analyst"
-   ,"Consultant", "Account Manager", "Human Resources Personnel", "Receptionist", "Assistant", "Project Manager"};
-   // text box
-   public static javax.swing.JTextField text;
+public class RecruiterView extends javax.swing.JFrame {
+  /**
+   *
+   */
+  private static final long serialVersionUID = 1L;
+  // ** components to be shown on the new listings panel **//
 
-   // create a panel for the bottom of the page containing interaction notifications
-   public static final JPanel notificationsPane = new JPanel();
-   // create a label for the notifications column
-   JLabel notificationsLbl = new JLabel("New Notifications For You:");
+  // lists of strings for location options
+  public static String[] locationOptions = { "New York", "Los Angeles", "San Francisco", "Atlanta", "D.C", "New Jersey",
+      "Seattle", "Houston", "Austin" };
+  // list of strings for position options
+  public static String[] positionOptions = { "Software Engineer", "Accountant", "Data Analyst", "Consultant",
+      "Account Manager", "Human Resources Personnel", "Receptionist", "Assistant", "Project Manager" };
+  // list of strings for amenity options
+  public static String[] amenityOptions = { "Brail", "Ramps", "Elevators", "Accessible toilet facilities",
+      "Audio-visual fire alarms", "Lowered lights switches and door handles", "Specially modified equipment",
+      "Wheelchair accessible", "Adjustable desks and tables", "Stair rail", "Service dog friendly" };
+  // text box
+  public static javax.swing.JTextField text;
 
-   // create an instance of the recruiter controller
-   RecruiterController controller = new RecruiterController();
-   
-   public RecruiterView(String company) {
-      
-       // create a new jframe object for the home page
-       JFrame homePage= new JFrame(company + " Recruiter"); 
-       // make sure the page exits when the red x is pressed
-       homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       //set the dimmensions of the home page
-       homePage.setSize(800,800);
- 
-       // create a panel for the top of the page containing job listings
-       final JPanel listingsPanel = new JPanel();
-       // create a label for the open positions column
-       JLabel listingsLbl = new JLabel("Locations Available:");
-       listingsPanel.setLayout(new BoxLayout(listingsPanel, BoxLayout.Y_AXIS));
-       // place label at the top of the panel
-       listingsPanel.add(listingsLbl, BorderLayout.NORTH);
-       listingsPanel.setVisible(true);
- 
-       //add a button to add job listings
-       JButton addButton = new JButton( "Add Listings");
-       addButton.addActionListener(new ActionListener() {
-           @Override
-           // add button should add a new listing, including the ui components below:
-           public void actionPerformed(ActionEvent event) {
-               // create new listing panel and set layout
-               JPanel newListing = new JPanel();
-               newListing.setLayout(new GridLayout(0,5,20,20));
-               // initialize locations combo box
-               JComboBox<String> locations = new JComboBox<>(locationOptions);
-               // initialize positions combo box
-               JComboBox<String> positions = new JComboBox<>(positionOptions);
-               // initialize job app link text field
-               javax.swing.JTextField textBox = new javax.swing.JTextField();
-                
- 
-               // create a remove button
-               JButton removeButton = new JButton("remove");  
-               removeButton.addActionListener(new ActionListener() {
-                //remove button should remove the listing from the listings panel
-               @Override
-               public void actionPerformed(ActionEvent event) {
-                    // remove the job listing from the database
+  // create a panel for the bottom of the page containing interaction
+  // notifications
+  public static final JPanel notificationsPane = new JPanel();
+  // create a label for the notifications column
+  JLabel notificationsLbl = new JLabel("New Notifications For You:");
 
-                   // remove the job listing from the UI
-                   newListing.getParent().remove(newListing);
-                   listingsPanel.revalidate();
-                   listingsPanel.repaint();
-               }
-           });        
+  // create an instance of the recruiter controller
+  RecruiterController controller = new RecruiterController();
+
+  public RecruiterView(String company) {
+
+    // create a new jframe object for the home page
+    JFrame homePage = new JFrame(company + " Recruiter");
+    // make sure the page exits when the red x is pressed
+    homePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // set the dimmensions of the home page
+    homePage.setSize(800, 800);
+
+    // create a panel for the top of the page containing job listings
+    final JPanel listingsPanel = new JPanel();
+    // create a label for the open positions column
+    JLabel listingsLbl = new JLabel("Locations Available:");
+    listingsPanel.setLayout(new BoxLayout(listingsPanel, BoxLayout.Y_AXIS));
+    // place label at the top of the panel
+    listingsPanel.add(listingsLbl, BorderLayout.NORTH);
+    listingsPanel.setVisible(true);
+
+    // add a button to add job listings
+    JButton addButton = new JButton("Add Listings");
+    addButton.addActionListener(new ActionListener() {
+      @Override
+      // add button should add a new listing, including the ui components below:
+      public void actionPerformed(ActionEvent event) {
+        // create new listing panel and set layout
+        JPanel newListing = new JPanel();
+        newListing.setLayout(new GridLayout(0, 6, 20, 20));
+        // initialize locations combo box
+        JComboBox<String> locations = new JComboBox<>(locationOptions);
+        // initialize positions combo box
+        JComboBox<String> positions = new JComboBox<>(positionOptions);
+        // initialize job app link text field
+        javax.swing.JTextField textBox = new javax.swing.JTextField();
+        // initialize an empty list of strings for job amenities
+        List<String> amenities = new ArrayList<String>();
+
+        // create a remove button
+        JButton removeButton = new JButton("remove");
+        removeButton.addActionListener(new ActionListener() {
+          // remove button should remove the listing from the listings panel
+          @Override
+          public void actionPerformed(ActionEvent event) {
+            // remove the job listing from the database
+
+            // remove the job listing from the UI
+            newListing.getParent().remove(newListing);
+            listingsPanel.revalidate();
+            listingsPanel.repaint();
+          }
+        });
+
+        // create an add amenities button
+        JButton addAmenButton = new JButton("Add Amenities");
+        addAmenButton.addActionListener(new ActionListener() {
+          // remove button should remove the listing from the listings panel
+          @Override
+          public void actionPerformed(ActionEvent event) {
+            // create a pop up window for amenities
+            JPanel am = new JPanel();
+            am.setLayout(new BoxLayout(am, BoxLayout.Y_AXIS));
+            // add all amenity options to the checkbox panel
+            for (int i = 0; i < amenityOptions.length; i++) {
+              JCheckBox box = new JCheckBox(amenityOptions[i]);
+              box.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent event) {
+                  if (event.getStateChange() == 1) {
+                    amenities.add(box.getLabel());
+                    System.out.println(amenities);
+                  } else {
+                    amenities.remove(box.getLabel());
+                    System.out.println(amenities);
+                  }
+                }
+              });
+              am.add(box);
+            }
+            JOptionPane.showConfirmDialog(null, am);
+          }
+        });
+        
+
            
             // create an update button
             JButton updateButton = new JButton("update");  
@@ -116,7 +160,7 @@ public class RecruiterView extends  javax.swing.JFrame{
                    String chosenPosition = positions.getSelectedItem().toString();
 
                    // call the controller to update the database with the new listing
-                   controller.createJobListing(chosenPosition, company, appLink, chosenLocation);
+                   controller.createJobListing(chosenPosition, company, appLink, chosenLocation, amenities);
 
                    // show a pop up message to alert user that the listing has been added
                    JFrame frame = new JFrame();
@@ -156,6 +200,7 @@ public class RecruiterView extends  javax.swing.JFrame{
                newListing.add(positions);
                newListing.add(textBox);
                newListing.add(removeButton);
+               newListing.add(addAmenButton);
                newListing.add(updateButton);
  
                // add the new listing to the listing panel, and revalidate/repaint the UI
