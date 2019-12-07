@@ -46,12 +46,14 @@ public class JobSeekerModel extends ProfileModel {
     this.desiredRoles.add(role);
   }
  
+
+
   //method to remove Role
   public void removePosition(String role){
     int index = this.desiredRoles.indexOf(role);
     this.desiredRoles.remove(index);
   }
- 
+  
   //method to add amenity
   public void addAmenity(String amenity) throws Exception{
     boolean alreadyThere = false;
@@ -87,22 +89,22 @@ public class JobSeekerModel extends ProfileModel {
 
   //method to return locations
   public List<String> getLocations() {
-    return desiredLocations;
+    return this.desiredLocations;
   }
 
   //method to return desired roles
   public List<String> getRoles() {
-    return desiredRoles;
+    return this.desiredRoles;
   }
 
   //method to return top location
   public String getTopLocation(){
-    return desiredLocations[0];
+    return desiredLocations.get(0);
   }
 
   //method to return top role
   public String getTopRole(){
-    return desiredRoles[0];
+    return desiredRoles.get(0);
   }
 
   //method remove location

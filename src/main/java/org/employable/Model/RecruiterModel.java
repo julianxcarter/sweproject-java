@@ -92,12 +92,11 @@ public List<Document> getRecruiters() {
 }
 
   //method for adding job listing
-  public void addJobListing(String position, String company, String link, String location){
+  public void addJobListing(String position, String company, String link, String location, List<String> amenities) {
     //make instance of job listing object
 
     //add this new job to the recruiter's job listing page
-
-    JobListingModel newJob = new JobListingModel(position, company, link, location);
+    JobListingModel newJob = new JobListingModel(position, company, link, location, amenities);
 
     //add new listing to the data base
     newJob.createListing(position, company, link, location);
@@ -105,6 +104,20 @@ public List<Document> getRecruiters() {
     // add this new job to the recruiter's job listing page
     
   }
+
+    //method for adding job listing
+    public void addJobListing(String position, String company, String link, String location) {
+      //make instance of job listing object
+  
+      //add this new job to the recruiter's job listing page
+      JobListingModel newJob = new JobListingModel(position, company, link, location);
+  
+      //add new listing to the data base
+      newJob.createListing(position, company, link, location);
+      
+      // add this new job to the recruiter's job listing page
+      
+    }
 
   //method for removing joblisting
   public void removeJobListing(JobListingModel expiredJob){

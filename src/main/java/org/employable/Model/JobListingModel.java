@@ -42,13 +42,20 @@ import org.bson.types.ObjectId;
    MongoDatabase database;
 
   //Contructor for the JobListingModel
-   public JobListingModel(String position, String company, String link, String location){
+   public JobListingModel(String position, String company, String link, String location, List<String> amenities) {
      this.positionName = position;
      this.companyName = company;
      this.hyperLink = link;
      this.location = location;
-     this.amenities = campusModel.getAmenities();
+     this.amenities = amenities;
    }
+
+   public JobListingModel(String position, String company, String link, String location) {
+    this.positionName = position;
+    this.companyName = company;
+    this.hyperLink = link;
+    this.location = location;
+  }
 
    //Throws an IllegalArgumentException if the constructor is passed no arguments
    public JobListingModel() throws Exception {
@@ -264,12 +271,12 @@ public void deleteListing() {
       List<String> tmpAmenitites = job.amenities;
       //see if all the amenities for the job listing are in the job seeker's amenities list
       for (String amenity: tmpAmenitites){
-        if (jobSeekerAmenities.contains(amenity){
+        if (jobSeekerAmenities.contains(amenity)) {
           count++;
         }
       }
       if (count == jobSeekerAmenities.size() || count == (jobSeekerAmenities.size()-1)){
-        matched.add(job)
+        matched.add(job);
     }
     }
 

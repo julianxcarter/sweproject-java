@@ -1,6 +1,9 @@
 package org.employable.Controller;
+
 import org.employable.Model.JobSeekerModel;
 import org.employable.Model.JobListingModel;
+
+import java.util.ArrayList;
 import java.util.List;
 //doesn't org.employable.View.JobSeekerProfileView need to be imported for @Ariel to use?
  
@@ -11,7 +14,10 @@ public class JobSeekerController {
  
  public JobSeekerController() {
    model = new JobSeekerModel();
-   listing = new JobListingModel("bleh", "bleh", "bleh", "bleh");
+   List<String> bleh = new ArrayList<String>();
+   bleh.add("bleh");
+
+   listing = new JobListingModel("bleh", "bleh", "bleh", "bleh", bleh);
   
   }
  
@@ -74,7 +80,7 @@ public class JobSeekerController {
     //top Role
     String topRole = model.getTopRole();
     //call method in jobListing Model sending it amenitites, locations, and roles of the jobseeker
-    List<JobListingModel> matched = listing.match(model.getAmenities, topLocation, topRole);
+    List<JobListingModel> matched = listing.match(model.getAmenities(), topLocation, topRole);
     //return matched list
     return matched;
   }
