@@ -1,5 +1,7 @@
 package org.employable.Model; //JobListingModel is in the model package
 
+import org.employable.Model.CampusModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,8 @@ import org.bson.types.ObjectId;
    //job listing has location
    public String location;
    public List<String> amenities;
+
+   CampusModel campusModel = new CampusModel();
 
 
    //Id the job listing will have in the database

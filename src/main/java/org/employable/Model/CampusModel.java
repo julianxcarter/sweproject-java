@@ -20,18 +20,9 @@ public class CampusModel extends CompanyModel {
   List<String> amenities = new ArrayList<String>();
   String company;
 
-  //unique connection string for our database
-  MongoClientURI uri = new MongoClientURI("mongodb+srv://cboyd7:EmployAble@employable-wlgg9.gcp.mongodb.net/test?retryWrites=true&w=majority");
+  public CampusModel() {};
 
-  MongoClient mongoClient;
-      
-  MongoDatabase database;
-  
-
-  public CampusModel(String[] pictures, String[] amenities, String campusLocation, String company) {
-
-
-
+   public CampusModel (String[] pictures, String[] amenities, String campusLocation, String company) {
 
     this.campusLocation = campusLocation;
 

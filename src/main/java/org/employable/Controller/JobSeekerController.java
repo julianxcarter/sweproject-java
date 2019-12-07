@@ -11,6 +11,7 @@ import java.util.List;
 public class JobSeekerController {
  JobSeekerModel model;
  JobListingModel listing;
+ RecruiterController recruiter;
  
  public JobSeekerController() {
    model = new JobSeekerModel();
@@ -46,6 +47,11 @@ public class JobSeekerController {
  
  //remove position by calling method in model to remove position
  public void removePosition(String position){model.removePosition(position);}
+
+ //add a notification on the recruiter's home page
+ public void addNotification() {
+   recruiter.addNotification();
+ }
 
  //update the model
  public void updateModel() {

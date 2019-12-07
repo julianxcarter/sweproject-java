@@ -116,7 +116,7 @@ public class RecruiterView extends  javax.swing.JFrame{
                    String chosenPosition = positions.getSelectedItem().toString();
 
                    // call the controller to update the database with the new listing
-                   controller.createJobListing(chosenPosition, "company", appLink, chosenLocation);
+                   controller.createJobListing(chosenPosition, company, appLink, chosenLocation);
 
                    // show a pop up message to alert user that the listing has been added
                    JFrame frame = new JFrame();
@@ -205,9 +205,14 @@ public class RecruiterView extends  javax.swing.JFrame{
         }
     }
 
+    // method that adds a notification when a job listing button is clicked
+    public void addNotification() {
+      notificationsPane.add(new NewNotification("Fake Notification"));
+    }
+
     // create a notification class that will create boxes to show 
     // user interactions with job listing in the notifications panel
-    public class NewNotification extends JPanel {
+    static class NewNotification extends JPanel {
       /**
      *
      */
@@ -239,11 +244,7 @@ public class RecruiterView extends  javax.swing.JFrame{
    public static void main(String args[]) {
      java.awt.EventQueue.invokeLater(new Runnable() {
            public void run() {
-<<<<<<< HEAD
-               new RecruiterView("company").setVisible(true);
-=======
                new RecruiterView("Google").setVisible(true);
->>>>>>> cf48881af6c0e7097333e591fd7f16ec2d6847b9
            }
        });
    }
