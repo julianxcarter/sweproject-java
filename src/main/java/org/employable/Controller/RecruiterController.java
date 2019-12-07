@@ -1,15 +1,14 @@
 package org.employable.Controller;
 
-import org.employable.Model.JobListingModel;
+// import org.employable.Model.JobListingModel;
 import org.employable.Model.RecruiterModel;
 import org.employable.View.RecruiterView;
-
-
+ 
 
 public class RecruiterController {
-  public RecruiterModel model;
+  RecruiterModel model = new RecruiterModel("");
   private RecruiterView view;
-  private JobListingModel jlModel;
+  // private JobListingModel jlModel;
 
   public RecruiterController(){
     
@@ -31,6 +30,10 @@ public class RecruiterController {
     model = new RecruiterModel(company);
     model.addJobListing(position, company, link, location);
     // return;
+  }
+
+  public void addNotification() {
+    view.addNotification();
   }
 
   //method to remove JobListing

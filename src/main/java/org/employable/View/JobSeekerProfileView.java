@@ -1,5 +1,7 @@
 package org.employable.View;
 
+
+// import org.employable.View.JobSeekerHomeView;
 import org.employable.Controller.JobSeekerController;
 
 // import jdk.jfr.events.ActiveRecordingEvent;
@@ -76,6 +78,7 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
+                JobSeekerHomeView jSeeker = new JobSeekerHomeView();
                 save();
             }
         });

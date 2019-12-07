@@ -1,7 +1,7 @@
 package org.employable.View;
 
 //import org.employable.Controller;
-//import org.employable.Controller.JobSeekerController;
+import org.employable.Controller.JobSeekerController;
 //import org.employable.Controller.RecruiterController;
 
 import javax.swing.*;

@@ -50,7 +50,7 @@ public class GoogleCompanyView extends javax.swing.JFrame {
             // this button should direct a user to the company's accessibility policy page
             public void actionPerformed(ActionEvent event) {
                 try {
-                    openWebpage(new URL("https://www.google.com/accessibility/initiatives-research/").toURI());
+                    openWebpage(new URL("https://diversity.google/annual-report/#!#_inclusion").toURI());
                 } catch (MalformedURLException | URISyntaxException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -78,7 +78,7 @@ public class GoogleCompanyView extends javax.swing.JFrame {
         // add a button for the new york campus
         Icon nyOfficePic = new ImageIcon("googleny.jpeg");
         JButton nyOffice = new JButton(nyOfficePic);
-        // TODO: add a button listener to open the ny campus page
+        // add action listener to open the google new york page
         nyOffice.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -96,21 +96,21 @@ public class GoogleCompanyView extends javax.swing.JFrame {
      Icon kirOfficePic = new ImageIcon("googleKir.jpeg");
      JButton kirOffice = new JButton(kirOfficePic);
      kirOffice.addActionListener(new NotAvailable());
-     // TODO: add a button listener to open the ny campus page
+     
      googleCampuses.add(kirOffice);
 
      // add a button for the new york campus
      Icon mtvOfficePic = new ImageIcon("googleMtv.jpeg");
      JButton mtvOffice = new JButton(mtvOfficePic);
      mtvOffice.addActionListener(new NotAvailable());
-     // TODO: add a button listener to open the ny campus page
+
      googleCampuses.add(mtvOffice);
 
      // add a button for the new york campus
      Icon laxOfficePic = new ImageIcon("googleLax.jpeg");
      JButton laxOffice = new JButton(laxOfficePic);
      laxOffice.addActionListener(new NotAvailable());
-     // TODO: add a button listener to open the ny campus page
+
      googleCampuses.add(laxOffice);
 
 

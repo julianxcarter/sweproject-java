@@ -10,7 +10,9 @@ public class CampusModel extends CompanyModel{
   List<String> amenities = new ArrayList<String>();
   String company;
 
-  public CampusModel (String[] pictures, String[] amenities, String campusLocation, String company) {
+  public CampusModel() {};
+
+   public CampusModel (String[] pictures, String[] amenities, String campusLocation, String company) {
 
     this.campusLocation = campusLocation;
 

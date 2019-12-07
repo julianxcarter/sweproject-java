@@ -1,6 +1,7 @@
 package org.employable.Controller;
 import org.employable.Model.JobSeekerModel;
 import org.employable.Model.JobListingModel;
+import org.employable.Controller.RecruiterController;
 import java.util.List;
 //doesn't org.employable.View.JobSeekerProfileView need to be imported for @Ariel to use?
  
@@ -8,6 +9,7 @@ import java.util.List;
 public class JobSeekerController {
  JobSeekerModel model;
  JobListingModel listing;
+ RecruiterController recruiter;
  
  public JobSeekerController() {
    model = new JobSeekerModel();
@@ -40,6 +42,11 @@ public class JobSeekerController {
  
  //remove position by calling method in model to remove position
  public void removePosition(String position){model.removePosition(position);}
+
+ //add a notification on the recruiter's home page
+ public void addNotification() {
+   recruiter.addNotification();
+ }
 
  //update the model
  public void updateModel() {
@@ -74,7 +81,7 @@ public class JobSeekerController {
     //top Role
     String topRole = model.getTopRole();
     //call method in jobListing Model sending it amenitites, locations, and roles of the jobseeker
-    List<JobListingModel> matched = listing.match(model.getAmenities, topLocation, topRole);
+    List<JobListingModel> matched = listing.match(model.getAmenities(), topLocation, topRole);
     //return matched list
     return matched;
   }
