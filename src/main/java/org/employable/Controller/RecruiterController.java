@@ -1,6 +1,8 @@
 package org.employable.Controller;
 
-// import org.employable.Model.JobListingModel;
+import java.util.List;
+
+import org.employable.Model.JobListingModel;
 import org.employable.Model.RecruiterModel;
 import org.employable.View.RecruiterView;
  
@@ -24,6 +26,12 @@ public class RecruiterController {
 
   public void setContactInfo(String email){
     model.setContactInfo(email);
+  }
+
+  public void createJobListing(String position, String company, String link, String location, List<String> amenities){
+    model = new RecruiterModel(company);
+    model.addJobListing(position, company, link, location, amenities);
+    // return;
   }
 
   public void createJobListing(String position, String company, String link, String location){

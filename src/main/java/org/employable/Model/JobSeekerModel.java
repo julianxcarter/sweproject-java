@@ -46,12 +46,14 @@ public class JobSeekerModel extends ProfileModel {
     this.desiredRoles.add(role);
   }
  
+
+
   //method to remove Role
   public void removePosition(String role){
     int index = this.desiredRoles.indexOf(role);
     this.desiredRoles.remove(index);
   }
- 
+  
   //method to add amenity
   public void addAmenity(String amenity) throws Exception{
     boolean alreadyThere = false;

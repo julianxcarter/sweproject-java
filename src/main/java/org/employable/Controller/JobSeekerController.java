@@ -1,7 +1,9 @@
 package org.employable.Controller;
+
 import org.employable.Model.JobSeekerModel;
 import org.employable.Model.JobListingModel;
-import org.employable.Controller.RecruiterController;
+
+import java.util.ArrayList;
 import java.util.List;
 //doesn't org.employable.View.JobSeekerProfileView need to be imported for @Ariel to use?
  
@@ -13,7 +15,10 @@ public class JobSeekerController {
  
  public JobSeekerController() {
    model = new JobSeekerModel();
-   listing = new JobListingModel("bleh", "bleh", "bleh", "bleh");
+   List<String> bleh = new ArrayList<String>();
+   bleh.add("bleh");
+
+   listing = new JobListingModel("bleh", "bleh", "bleh", "bleh", bleh);
   
   }
  

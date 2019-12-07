@@ -46,13 +46,20 @@ import org.bson.types.ObjectId;
    MongoDatabase database;
 
   //Contructor for the JobListingModel
-   public JobListingModel(String position, String company, String link, String location){
+   public JobListingModel(String position, String company, String link, String location, List<String> amenities) {
      this.positionName = position;
      this.companyName = company;
      this.hyperLink = link;
      this.location = location;
-     this.amenities = campusModel.getAmenities();
+     this.amenities = amenities;
    }
+
+   public JobListingModel(String position, String company, String link, String location) {
+    this.positionName = position;
+    this.companyName = company;
+    this.hyperLink = link;
+    this.location = location;
+  }
 
    //Throws an IllegalArgumentException if the constructor is passed no arguments
    public JobListingModel() throws Exception {
