@@ -163,11 +163,11 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         jobLink3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
         //add pane to the area
         jobRecPanel.add(jobLink3);
-
+/*
         //top rated companies panel with heading left justified
         JPanel topCompPanel = new JPanel();
         topCompPanel.setLayout(new GridLayout(2,3));
-        JLabel topCompanies = new JLabel("Some Companies on EmployAble");
+        JLabel topCompanies = new JLabel("Top Companies");
         JLabel thisBlank = new JLabel("");
         JLabel thatBlank = new JLabel("");
         JTextArea topCompany1 = new JTextArea(5, 20);
@@ -189,7 +189,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         topCompany2.setPreferredSize(new Dimension(200,5));
         topCompany2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
         StringBuffer company2 = new StringBuffer();
-        company2.append("Google");
+        company2.append("Pivotal");
         company2.append("\nNew York, NY");
 
         //add text to the area
@@ -214,11 +214,11 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         topCompPanel.add(topCompany1);
         topCompPanel.add(topCompany2);
         topCompPanel.add(topCompany3);
-
+*/
         //add all of the panels to the frame and with layout specifications
         frame.getContentPane().add(BorderLayout.NORTH, panel);
         frame.getContentPane().add(BorderLayout.WEST, jobRecPanel);
-        frame.getContentPane().add(BorderLayout.SOUTH, topCompPanel);
+        //frame.getContentPane().add(BorderLayout.SOUTH, topCompPanel);
         //make everything visible and pack frame
         frame.setVisible(true);
         frame.pack();
