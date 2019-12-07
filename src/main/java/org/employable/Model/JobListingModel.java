@@ -221,5 +221,7 @@ public void deleteListing() {
   
     return listings;
   }
+
+  public List<JobListingModel> match(String amenities, String locations, String roles)
   
  }

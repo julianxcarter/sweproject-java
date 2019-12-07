@@ -69,9 +69,12 @@ public class JobSeekerController {
 
   //method to return the matching results to the job seeker home view
   public List<JobListingModel> newMatch() {
+    //top location
+    String topLocation = model.getTopLocation();
+    //top Role
+    String topRole = model.getTopRole();
     //call method in jobListing Model sending it amenitites, locations, and roles of the jobseeker
-    List<JobListingModel> listings = listing.match(model.getAmenities, model.getLocations, model.getRoles);
-
+    List<JobListingModel> listings = listing.match(model.getAmenities, topLocation, topRole;
   }
  
  

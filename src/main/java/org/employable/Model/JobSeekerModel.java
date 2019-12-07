@@ -95,6 +95,16 @@ public class JobSeekerModel extends ProfileModel {
     return desiredRoles;
   }
 
+  //method to return top location
+  public String getTopLocation(){
+    return desiredLocations[0];
+  }
+
+  //method to return top role
+  public String getTopRole(){
+    return desiredRoles[0];
+  }
+
   //method remove location
   public void removeLocation(String location){
     int index = this.desiredLocations.indexOf(location);
