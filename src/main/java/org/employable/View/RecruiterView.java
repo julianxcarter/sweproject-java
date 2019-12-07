@@ -1,6 +1,7 @@
 package org.employable.View;
 
 import org.employable.Controller.RecruiterController;
+import org.employable.Model.JobListingModel;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -223,12 +224,22 @@ public class RecruiterView extends javax.swing.JFrame {
        
        //add dummy notifications for user views
        notificationsPane.add(notificationsLbl);
+
+       List<JobListingModel> companyListings = controller.searchCompanies(company);
+       if (companyListings.size() > 0) {
+         System.out.println("company listings exists");
+       }
+       for (JobListingModel j : companyListings) {
+         if (j.recentlyEngaged == true) {
+          notificationsPane.add(new NewNotification(j.positionName));
+         }
+       }
       //  notificationsPane.add(new NewNotification("Cameron Womack"));
       //  notificationsPane.add(new NewNotification("Julian Carter"));
       //  notificationsPane.add(new NewNotification("Ariel Turnley"));
       //  notificationsPane.add(new NewNotification("Thulani Vereen"));
       //  notificationsPane.add(new NewNotification("Cameryn Boyd"));
-      
+
        homePage.getContentPane().add(notificationsPanel);
 
        homePage.setVisible(true);
@@ -269,7 +280,7 @@ public class RecruiterView extends javax.swing.JFrame {
     public NewNotification(String n) {
           setLayout(new BorderLayout());
           setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
-          String label = "<html>A new user, " + n + " viewed a job listing posted by this company.</html>";
+          String label = "<html> Your job listing, " + n + " has recently been engaged with.</html>";
           add(new JLabel(label, JLabel.CENTER));
       }
 

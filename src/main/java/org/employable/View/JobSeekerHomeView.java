@@ -20,6 +20,8 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
     private static final long serialVersionUID = 1L;
     public static String[] searchParamaters = {"Company", "Location", "Role", "Industry"};
 
+    // JobSeekerController controller = new JobSeekerController();
+
     public JobSeekerHomeView(){
         //create the frame
         JFrame frame = new JFrame("Home Page");
@@ -108,6 +110,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
             @Override
             //this button directs users to the external application
             public void actionPerformed(ActionEvent event) {
+                // controller.updateEngagements();
                 try {
                     openWebpage(new URL("https://jobs.comcast.com").toURI());
                 } catch(MalformedURLException | URISyntaxException e) {

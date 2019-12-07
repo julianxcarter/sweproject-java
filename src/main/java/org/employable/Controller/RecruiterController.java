@@ -8,12 +8,9 @@ import org.employable.View.RecruiterView;
  
 
 public class RecruiterController {
-<<<<<<< HEAD
-  RecruiterModel model = new RecruiterModel("");
-=======
   public RecruiterModel model;
   private RecruiterView view;
->>>>>>> a15bdf382c3d145151cb492b96db50cfcf2147f3
+  JobListingModel listing;
   // private JobListingModel jlModel;
 
   public RecruiterController(){
@@ -48,5 +45,12 @@ public class RecruiterController {
   public void removeJobListing(JobListingModel expiredJob){
     expiredJob.deleteListing();
   }
+
   //show new interaction/notificiation. Dev later.
+  public List<JobListingModel> searchCompanies(String company) {
+    List<JobListingModel> listings = listing.getListingsByCompany(company);
+
+    return listings;
+    
+  }
 }

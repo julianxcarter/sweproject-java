@@ -30,7 +30,10 @@ import org.bson.types.ObjectId;
    //job listing has location
    public String location;
 
+   // job listing has engagements and boolean for recently engaged
+
    public Integer engagements;
+   public boolean recentlyEngaged;
 
    public List<String> amenities;
 
@@ -110,7 +113,8 @@ public void updateListing() {
   .append("link", this.hyperLink)
   .append("location", this.location)
   .append("ammenities", this.amenities)
-  .append("engagements", this.engagements);
+  .append("engagements", this.engagements)
+  .append("recently_engaged", this.recentlyEngaged);
 
   collection.updateOne(Filters.eq("_id", this.ObjectId), doc);
 

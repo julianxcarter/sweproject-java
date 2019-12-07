@@ -47,13 +47,7 @@ public class JobSeekerController {
  //remove position by calling method in model to remove position
  public void removePosition(String position){model.removePosition(position);}
 
-<<<<<<< HEAD
-=======
- //add a notification on the recruiter's home page
- public void addNotification() {
-   recruiter.addNotification();
- }
-
+// update the number of times a job listing has been interacted with
  public void updateEngagements(JobListingModel listing) {
     if (listing.engagements == null) {
       listing.engagements = 1;
@@ -61,12 +55,13 @@ public class JobSeekerController {
     else {
       listing.engagements++;
     }
+
+    listing.recentlyEngaged = true;
     
     listing.updateListing();
 
   }
 
->>>>>>> a15bdf382c3d145151cb492b96db50cfcf2147f3
  //update the model
  public void updateModel() {
    model.createJobSeeker();

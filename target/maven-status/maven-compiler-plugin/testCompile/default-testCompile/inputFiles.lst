@@ -1,7 +1,10 @@
 /Users/cameronwomack/Desktop/sweproject-java/src/test/java/org/employable/Controller/RecruiterControllerTest.java
 /Users/cameronwomack/Desktop/sweproject-java/src/test/java/org/employable/Model/RecruiterModelTest.java
 /Users/cameronwomack/Desktop/sweproject-java/src/test/java/org/employable/Model/ProfileModelTest.java
+/Users/cameronwomack/Desktop/sweproject-java/src/it/java/org/employable/UseCase2IT.java
 /Users/cameronwomack/Desktop/sweproject-java/src/test/java/org/employable/Controller/JobSeekerControllerTest.java
+/Users/cameronwomack/Desktop/sweproject-java/src/it/java/org/employable/UseCase3IT.java
+/Users/cameronwomack/Desktop/sweproject-java/src/it/java/org/employable/UseCase1IT.java
 /Users/cameronwomack/Desktop/sweproject-java/src/test/java/org/employable/Model/JobListingModelTest.java
 /Users/cameronwomack/Desktop/sweproject-java/src/test/java/org/employable/TestUtils.java
 /Users/cameronwomack/Desktop/sweproject-java/src/test/java/org/employable/RecruiterViewTest.java
