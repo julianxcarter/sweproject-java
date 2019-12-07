@@ -1,7 +1,7 @@
 package org.employable.View;
 
-//import org.employable.Controller;
-//import org.employable.Controller.JobSeekerController;
+import org.employable.Controller.JobSeekerController;
+import org.employable.Model.JobListingModel;
 //import org.employable.Controller.RecruiterController;
 
 import javax.swing.*;
@@ -34,7 +34,6 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         //Combo box for search parameters
         JComboBox<String> searchList = new JComboBox<>(searchParamaters);
        
-
 
         //Search button
         JButton search = new JButton("Search");

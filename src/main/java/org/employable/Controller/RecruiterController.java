@@ -9,7 +9,6 @@ import org.employable.View.RecruiterView;
 
 public class RecruiterController {
   RecruiterModel model = new RecruiterModel("");
-  private RecruiterView view;
   // private JobListingModel jlModel;
 
   public RecruiterController(){
@@ -40,9 +39,6 @@ public class RecruiterController {
     // return;
   }
 
-  public void addNotification() {
-    view.addNotification();
-  }
 
   //method to remove JobListing
   // public void removeJobListing(JobListingModel expiredJob){

@@ -41,7 +41,7 @@ public class RecruiterView extends javax.swing.JFrame {
 
   // create a panel for the bottom of the page containing interaction
   // notifications
-  public static final JPanel notificationsPane = new JPanel();
+  public static JPanel notificationsPane = new JPanel();
   // create a label for the notifications column
   JLabel notificationsLbl = new JLabel("New Notifications For You:");
 
@@ -223,12 +223,12 @@ public class RecruiterView extends javax.swing.JFrame {
        
        //add dummy notifications for user views
        notificationsPane.add(notificationsLbl);
-       notificationsPane.add(new NewNotification("Cameron Womack"));
-       notificationsPane.add(new NewNotification("Julian Carter"));
-       notificationsPane.add(new NewNotification("Ariel Turnley"));
-       notificationsPane.add(new NewNotification("Thulani Vereen"));
-       notificationsPane.add(new NewNotification("Cameryn Boyd"));
-    
+      //  notificationsPane.add(new NewNotification("Cameron Womack"));
+      //  notificationsPane.add(new NewNotification("Julian Carter"));
+      //  notificationsPane.add(new NewNotification("Ariel Turnley"));
+      //  notificationsPane.add(new NewNotification("Thulani Vereen"));
+      //  notificationsPane.add(new NewNotification("Cameryn Boyd"));
+      
        homePage.getContentPane().add(notificationsPanel);
 
        homePage.setVisible(true);
@@ -252,7 +252,10 @@ public class RecruiterView extends javax.swing.JFrame {
 
     // method that adds a notification when a job listing button is clicked
     public void addNotification() {
+      System.out.println("view add notifiction");
       notificationsPane.add(new NewNotification("Fake Notification"));
+      notificationsPane.revalidate();
+      notificationsPane.repaint();
     }
 
     // create a notification class that will create boxes to show 
