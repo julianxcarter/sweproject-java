@@ -9,7 +9,7 @@ import java.util.List;
  
  
 public class JobSeekerController {
- JobSeekerModel model;
+ public JobSeekerModel model;
  JobListingModel listing;
  
  public JobSeekerController() {
@@ -47,6 +47,26 @@ public class JobSeekerController {
  //remove position by calling method in model to remove position
  public void removePosition(String position){model.removePosition(position);}
 
+<<<<<<< HEAD
+=======
+ //add a notification on the recruiter's home page
+ public void addNotification() {
+   recruiter.addNotification();
+ }
+
+ public void updateEngagements(JobListingModel listing) {
+    if (listing.engagements == null) {
+      listing.engagements = 1;
+    }
+    else {
+      listing.engagements++;
+    }
+    
+    listing.updateListing();
+
+  }
+
+>>>>>>> a15bdf382c3d145151cb492b96db50cfcf2147f3
  //update the model
  public void updateModel() {
    model.createJobSeeker();
