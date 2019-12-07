@@ -26,8 +26,12 @@ import org.bson.types.ObjectId;
    public String companyName;
    //job listing has hyper link to job posting on company's website
    public String hyperLink;
+
    //job listing has location
    public String location;
+
+   public Integer engagements;
+
    public List<String> amenities;
 
    CampusModel campusModel = new CampusModel();
@@ -93,13 +97,32 @@ import org.bson.types.ObjectId;
     // mongoClient.close();
 }
 
+public void updateListing() {
+
+  this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+  this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
+
+  MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
+
+  Document doc = new Document("_id", this.ObjectId)
+  .append("title", this.positionName)
+  .append("company", this.companyName)
+  .append("link", this.hyperLink)
+  .append("location", this.location)
+  .append("ammenities", this.amenities)
+  .append("engagements", this.engagements);
+
+  collection.updateOne(Filters.eq("_id", this.ObjectId), doc);
+
+}
+
 // Method to delete a listing from the database
 public void deleteListing() {
 
   this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
   this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
 
-    MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
+  MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
 
   collection.deleteOne(Filters.eq("_id", this.ObjectId)); //Deletes the document in the database with the same unique id
 
