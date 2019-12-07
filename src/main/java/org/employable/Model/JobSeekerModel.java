@@ -69,6 +69,11 @@ public class JobSeekerModel extends ProfileModel {
     }
 
   }
+
+  //method to return amenities
+  public List<String> getAmenities(){
+    return desiredAmenities;
+  }
  
   //method to remove amenity
   public void removeAmenity(String amenity) {
@@ -79,7 +84,27 @@ public class JobSeekerModel extends ProfileModel {
   public void addLocation (String location){
     this.desiredLocations.add(location);
   }
- 
+
+  //method to return locations
+  public List<String> getLocations() {
+    return desiredLocations;
+  }
+
+  //method to return desired roles
+  public List<String> getRoles() {
+    return desiredRoles;
+  }
+
+  //method to return top location
+  public String getTopLocation(){
+    return desiredLocations[0];
+  }
+
+  //method to return top role
+  public String getTopRole(){
+    return desiredRoles[0];
+  }
+
   //method remove location
   public void removeLocation(String location){
     int index = this.desiredLocations.indexOf(location);

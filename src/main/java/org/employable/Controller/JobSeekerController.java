@@ -2,6 +2,7 @@ package org.employable.Controller;
 import org.employable.Model.JobSeekerModel;
 import org.employable.Model.JobListingModel;
 import java.util.List;
+//doesn't org.employable.View.JobSeekerProfileView need to be imported for @Ariel to use?
  
  
 public class JobSeekerController {
@@ -64,6 +65,18 @@ public class JobSeekerController {
 
     return listings;
 
+  }
+
+  //method to return the matching results to the job seeker home view
+  public List<JobListingModel> newMatch() {
+    //top location
+    String topLocation = model.getTopLocation();
+    //top Role
+    String topRole = model.getTopRole();
+    //call method in jobListing Model sending it amenitites, locations, and roles of the jobseeker
+    List<JobListingModel> matched = listing.match(model.getAmenities, topLocation, topRole);
+    //return matched list
+    return matched;
   }
  
  

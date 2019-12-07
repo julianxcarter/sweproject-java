@@ -10,6 +10,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
+import org.employable.Model.*;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -25,6 +26,8 @@ import org.bson.types.ObjectId;
    public String hyperLink;
    //job listing has location
    public String location;
+   public List<String> amenities;
+
 
    //Id the job listing will have in the database
    String ObjectId;
@@ -44,6 +47,7 @@ import org.bson.types.ObjectId;
      this.companyName = company;
      this.hyperLink = link;
      this.location = location;
+     this.amenities = campusModel.getAmenities();
    }
 
    //Throws an IllegalArgumentException if the constructor is passed no arguments
@@ -70,7 +74,8 @@ import org.bson.types.ObjectId;
         .append("title", this.positionName)
         .append("company", this.companyName)
         .append("link", this.hyperLink)
-        .append("location", this.location);
+        .append("location", this.location)
+        .append("ammenities", this.amenities);
 
     collection.insertOne(doc); //Inserting the document to the database
     
@@ -124,7 +129,6 @@ public void deleteListing() {
   }
 
   public List<JobListingModel> getListingsByCompany(String companyName) {
-      
     this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
     this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
   
@@ -221,5 +225,118 @@ public void deleteListing() {
   
     return listings;
   }
-  
+
+  public List<JobListingModel> match(List<String> jobSeekerAmenities, String topLocation, String topRole){
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
+
+    MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
+
+    //get listings from the database with the desired locatoin and return them as a list of documents
+    FindIterable<Document> iterDoc = collection.find(Filters.and(Filters.eq("location", topLocation), Filters.eq("title",
+      topRole)));
+
+    //create list to hold all of the listings returned from the query
+    List<JobListingModel> listings = new ArrayList <JobListingModel>();
+
+    MongoCursor<Document> cursor = iterDoc.iterator();
+
+    //go through the documents list, converting the attributes to strings to instantiate new job listing then add to joblisting object list
+      while (cursor.hasNext()) {
+        Document temp = cursor.next();
+        String title = temp.get("title").toString();
+        String company = temp.get("company").toString();
+        String hyperLink = temp.get("link").toString();
+        String location = temp.get("location").toString();
+        String id = temp.get("_id").toString();
+
+        JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
+        tempJob.ObjectId = id;
+        listings.add(tempJob);
+      }
+
+      //create a list called matched to hold the job listing matched to the job seeker
+      List<JobListingModel> matched = new ArrayList<JobListingModel>();
+
+
+    for (JobListingModel job : listings) {
+      int count = 0;
+      List<String> tmpAmenitites = job.amenities;
+      //see if all the amenities for the job listing are in the job seeker's amenities list
+      for (String amenity: tmpAmenitites){
+        if (jobSeekerAmenities.contains(amenity){
+          count++;
+        }
+      }
+      if (count == jobSeekerAmenities.size() || count == (jobSeekerAmenities.size()-1)){
+        matched.add(job)
+    }
+    }
+
+    //return the matched list
+    return matched;
+  }
+
+
+
+
+
+
+
+
+
+
+//   public List<JobListingModel> sortJobListings (List<String> jobSeekerAmenities, List<JobListingModel> listings){
+//      List<JobListingModel> topThreeMatch = new ArrayList <JobListingModel>();
+//      this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+//      this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
+//
+//      MongoCollection<Document> collection = this.database.getCollection("Campuses"); //Setting the collection to the approproate collection
+//
+//     //iterate over the listings list to find the campus associated with the job listing
+//      for (JobListingModel job : listings) {
+//        //set the company name
+//        String company = job.companyName;
+//
+//        //location
+//        String location = job.location;
+//
+//        //for this job listing, find it's campus in the database. should return 1 campus document
+//        Document campusDocument = collection.find(Filters.and(Filters.eq("company", company), Filters.eq("location",
+//          location)));
+//
+//        //get attributes to use for campus object instantiation
+//        String [] pictures = campusDocument.get("pictures").toString();
+//        String [] amenitites = campusDocument.get("amenities").toString();
+//        String campusLocation = campusDocument.get("location").toString();
+//        String company = campusDocument.get("company").toString();
+//
+//        //instantiate new campus object
+//        CampusModel campus = new CampusModel(pictures, amenities, campusLocation, company);
+//
+//        //create a count for seeing how many amenities a listing has in common with job seeker amenities
+//        //now go over the amenities in the new campus object
+//        for (String amenity:campus.amenities) {
+//          if (jobSeekerAmenities.contains(amenity)) {
+//            count++;
+//          }
+//        }
+//        if (topThreeMatch.size() == 0) {
+//          topThreeMatch.add(job)
+//        }
+//        else{
+//          if ()
+//        }
+//          }
+//        }
+//
+//      }
+//
+//
+//
+//    }
+
+// public CampusModel (String[] pictures, String[] amenities, String campusLocation, String company)
+
  }
+
