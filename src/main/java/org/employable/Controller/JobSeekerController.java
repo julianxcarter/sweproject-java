@@ -74,7 +74,9 @@ public class JobSeekerController {
     //top Role
     String topRole = model.getTopRole();
     //call method in jobListing Model sending it amenitites, locations, and roles of the jobseeker
-    List<JobListingModel> listings = listing.match(model.getAmenities, topLocation, topRole;
+    List<JobListingModel> matched = listing.match(model.getAmenities, topLocation, topRole);
+    //return matched list
+    return matched;
   }
  
  
