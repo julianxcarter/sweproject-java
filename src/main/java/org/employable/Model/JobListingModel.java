@@ -222,6 +222,39 @@ public void deleteListing() {
     return listings;
   }
 
-  public List<JobListingModel> match(String amenities, String locations, String roles)
-  
+  public List<JobListingModel> match(List<String> amenities, String topLocation, String topRole){
+    this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
+    this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
+
+    MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
+
+    //get listings from the database with the desired locatoin and return them as a list of documents
+    FindIterable<Document> iterDoc = collection.find(Filters.and(Filters.eq("location", topLocation), Filters.eq("title",
+      topRole)));
+
+    List<JobListingModel> listings = new ArrayList <JobListingModel>();
+
+    MongoCursor<Document> cursor = iterDoc.iterator();
+
+    //go through the documents list, converting the attributes to strings to instantiate new job listing then add to joblisting object list
+      while (cursor.hasNext()) {
+        Document temp = cursor.next();
+        String title = temp.get("title").toString();
+        String company = temp.get("company").toString();
+        String hyperLink = temp.get("link").toString();
+        String location = temp.get("location").toString();
+        String id = temp.get("_id").toString();
+
+        JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
+        tempJob.ObjectId = id;
+        listings.add(tempJob);
+      }
+
+      //send the list of job listing objects to a function for sorting and send it amenities
+
+    }
+
+
+
  }
+
