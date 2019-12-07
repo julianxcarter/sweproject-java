@@ -68,7 +68,7 @@ public class JobSeekerController {
   }
 
   //method to return the matching results to the job seeker home view
-  public List<JobListingModel> newMatch(model.amenities) {
+  public List<JobListingModel> newMatch(model.getAmenities, model.getLocations) {
 
   }
  

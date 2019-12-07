@@ -72,7 +72,7 @@ public class JobSeekerModel extends ProfileModel {
 
   //method to return amenities
   public List<String> getAmenities(){
-    return this.desiredAmenities;
+    return desiredAmenities;
   }
  
   //method to remove amenity
@@ -84,7 +84,12 @@ public class JobSeekerModel extends ProfileModel {
   public void addLocation (String location){
     this.desiredLocations.add(location);
   }
- 
+
+  //method to return locations
+  public List<String> getDesiredLocations() {
+    return desiredLocations;
+  }
+
   //method remove location
   public void removeLocation(String location){
     int index = this.desiredLocations.indexOf(location);
