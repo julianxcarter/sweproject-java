@@ -69,6 +69,11 @@ public class JobSeekerModel extends ProfileModel {
     }
 
   }
+
+  //method to return amenities
+  public List<String> getAmenities(){
+    return this.desiredAmenities;
+  }
  
   //method to remove amenity
   public void removeAmenity(String amenity) {
