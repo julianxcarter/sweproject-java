@@ -1,5 +1,7 @@
 package org.employable.View;
 
+import org.employable.View.CampusView;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,10 +31,9 @@ public class GoogleCompanyView extends javax.swing.JFrame {
 
         // create a main jpanel to hold all the home page widgets
         JPanel googlePageHeader = new JPanel();
-        //set box layout so that elements are added one on top of the other
+        // set box layout so that elements are added one on top of the other
         googlePageHeader.setLayout(new BoxLayout(googlePageHeader, BoxLayout.X_AXIS));
         googlePageHeader.setVisible(true);
-        
 
         // create a panel for the company's name
         JPanel googleTitle = new JPanel();
@@ -42,7 +43,7 @@ public class GoogleCompanyView extends javax.swing.JFrame {
         // create a button panel for the company star rating and the policy button
         JPanel companyButtons = new JPanel();
 
-        //add company policy button
+        // add company policy button
         JButton policyButton = new JButton("view company policy");
         policyButton.addActionListener(new ActionListener() {
             @Override
@@ -54,31 +55,41 @@ public class GoogleCompanyView extends javax.swing.JFrame {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-            
-        }
-    });  
 
-    companyButtons.add(policyButton);
+            }
+        });
 
-     
-     // create a jpanel to hold all the campus images
-     JPanel googleCampuses = new JPanel();
-     
-     //set box layout so that elements are added together correctly
-     googleCampuses.setVisible(true);
+        companyButtons.add(policyButton);
 
-     //add a text box for campus search
-     JTextArea campusSearchBar = new JTextArea(1,50);
-     googleCampuses.add(campusSearchBar, BorderLayout.NORTH);
-     
-     //add a button to execute a search
-     JButton campusSearchButton = new JButton("Enter");
-     googleCampuses.add(campusSearchButton, BorderLayout.NORTH);
+        // create a jpanel to hold all the campus images
+        JPanel googleCampuses = new JPanel();
 
-     // add a button for the new york campus
-     Icon nyOfficePic = new ImageIcon("googleny.jpeg");
-     JButton nyOffice = new JButton(nyOfficePic);
-     // TODO: add a button listener to open the ny campus page
+        // set box layout so that elements are added together correctly
+        googleCampuses.setVisible(true);
+
+        // add a text box for campus search
+        JTextArea campusSearchBar = new JTextArea(1, 50);
+        googleCampuses.add(campusSearchBar, BorderLayout.NORTH);
+
+        // add a button to execute a search
+        JButton campusSearchButton = new JButton("Enter");
+        googleCampuses.add(campusSearchButton, BorderLayout.NORTH);
+
+        // add a button for the new york campus
+        Icon nyOfficePic = new ImageIcon("googleny.jpeg");
+        JButton nyOffice = new JButton(nyOfficePic);
+        // TODO: add a button listener to open the ny campus page
+        nyOffice.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    CampusView nyCampus = new CampusView();
+                } catch (Exception e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+              }
+      });
      googleCampuses.add(nyOffice);
 
      // add a button for the new york campus
