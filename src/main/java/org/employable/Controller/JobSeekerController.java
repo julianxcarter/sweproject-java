@@ -53,6 +53,18 @@ public class JobSeekerController {
    recruiter.addNotification();
  }
 
+ public void updateEngagements(JobListingModel listing) {
+    if (listing.engagements == null) {
+      listing.engagements = 1;
+    }
+    else {
+      listing.engagements++;
+    }
+    
+    listing.updateListing();
+
+  }
+
  //update the model
  public void updateModel() {
    model.createJobSeeker();
