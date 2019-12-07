@@ -63,13 +63,6 @@ public class RecruiterModelTest {
 
         List<Document> expected = new ArrayList<Document>();
 
-
-        Document doc = new Document("_id", this.model.ObjectId)
-        .append("name", this.model.name)
-        .append("password", this.model.password)
-        .append("email", this.model.email)
-        .append("company", this.model.company);
-
         expected = this.model.getRecruiters();
 
         assertEquals(expected.get(expected.size() - 1).get("name"), this.model.name);

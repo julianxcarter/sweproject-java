@@ -9,7 +9,7 @@ import java.util.List;
  
  
 public class JobSeekerController {
- JobSeekerModel model;
+ public JobSeekerModel model;
  JobListingModel listing;
  RecruiterController recruiter;
  
