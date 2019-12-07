@@ -86,8 +86,13 @@ public class JobSeekerModel extends ProfileModel {
   }
 
   //method to return locations
-  public List<String> getDesiredLocations() {
+  public List<String> getLocations() {
     return desiredLocations;
+  }
+
+  //method to return desired roles
+  public List<String> getRoles() {
+    return desiredRoles;
   }
 
   //method remove location
