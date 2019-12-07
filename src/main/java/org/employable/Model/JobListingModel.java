@@ -271,22 +271,29 @@ public void deleteListing() {
     MongoCollection<Document> collection = this.database.getCollection("Listings"); //Setting the collection to the approproate collection
 
     //get listings from the database with the desired locatoin and return them as a list of documents
-    FindIterable<Document> iterDoc = collection.find(Filters.and(Filters.eq("location", topLocation), Filters.eq("title",
-      topRole)));
+    FindIterable<Document> iterDoc = collection.find(Filters.eq("location", topLocation)); 
+    List<Document> iterDoc2= new ArrayList<Document>();
+    for (Document doc : iterDoc){
+      if (doc.get("title").toString()== topRole){
+        iterDoc2.add(doc);
+      } 
+    }
+    //FindIterable<Document> iterDoc2 = iterDoc.find(Filters.eq("title", topRole));
+    // FindIterable<Document> iterDoc = collection.find(Filters.and(Filters.eq("location", topLocation), Filters.eq("title",
+    //   topRole)));
 
     //create list to hold all of the listings returned from the query
     List<JobListingModel> listings = new ArrayList <JobListingModel>();
 
-    MongoCursor<Document> cursor = iterDoc.iterator();
+    //MongoCursor<Document> cursor = iterDoc2.iterator();
 
     //go through the documents list, converting the attributes to strings to instantiate new job listing then add to joblisting object list
-      while (cursor.hasNext()) {
-        Document temp = cursor.next();
-        String title = temp.get("title").toString();
-        String company = temp.get("company").toString();
-        String hyperLink = temp.get("link").toString();
-        String location = temp.get("location").toString();
-        String id = temp.get("_id").toString();
+      for (Document doc : iterDoc2) {
+        String title = doc.get("title").toString();
+        String company = doc.get("company").toString();
+        String hyperLink = doc.get("link").toString();
+        String location = doc.get("location").toString();
+        String id = doc.get("_id").toString();
 
         JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
         tempJob.ObjectId = id;
