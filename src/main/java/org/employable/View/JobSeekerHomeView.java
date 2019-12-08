@@ -1,15 +1,14 @@
 package org.employable.View;
 
-
+// import org.employable.View.GoogleCompanyView;
+//import org.employable.View.JobSeekerProfileView;
 import org.employable.Controller.JobSeekerController;
 import org.employable.Model.JobListingModel;
 
 
 import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.*;
 import java.net.URI;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -31,14 +30,9 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
     //create an instance of the job listing model
     JobListingModel model = new JobListingModel("bleh", "bleh", "bleh", "bleh", bleh);
 
-    // JobSeekerController controller = new JobSeekerController();
-
     public JobSeekerHomeView(){
         //retrieve the array of matched objects
         List<JobListingModel> match = jsController.newMatch();
-        for(int i = 0; i< match.size(); i++){
-            System.out.println(match.get(i));
-        }
         //create the frame
         JFrame frame = new JFrame("Home Page");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit when window closes
@@ -52,7 +46,11 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         JTextField universalSearchBox = new JTextField("Search Company", 10);
         //Combo box for search parameters
         JComboBox<String> searchList = new JComboBox<>(searchParamaters);
+        
+
+        
        
+
 
         //Search button
         JButton search = new JButton("Search");
@@ -75,10 +73,18 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
             //this button allows the user to search for job listings
             public void actionPerformed(ActionEvent e)
             {
-                // display/center the jdialog when the button is pressed
-                String company = universalSearchBox.getText();
-                //display job listings based on the user's search
-                JOptionPane.showMessageDialog(frame,"You searched for "+ company);
+                // search the entered text by the desired parameter
+                String jobListing = universalSearchBox.getText();
+                String item = searchList.getSelectedItem().toString();
+                if(item == "Company"){
+                    jsController.searchCompanies(jobListing);
+                }
+                else if(item == "Location"){
+                    jsController.searchLocation(jobListing);
+                }
+                else if(item == "Role"){
+                    jsController.searchTitles(jobListing);
+                }
             }
         });
         //add the profile button, search box, combo box and search button to the panel
@@ -107,13 +113,13 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         //first job listing
         JPanel recComp1 = new JPanel ();
         //get first company name
-        JButton firstCompPage = new JButton(match.get(0).companyName);
+        JButton firstCompPage = new JButton(/*match.get(0).companyName*/);
         firstCompPage.addActionListener(new ActionListener() {
             @Override
             //this button takes the user to the indicated company page
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JOptionPane.showMessageDialog(frame, match.get(0).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                    JOptionPane.showMessageDialog(frame, /*match.get(0).companyName+*/"'s company page is not available at this time. \nPlease try again later.");
                 } catch(Exception e0) {
                     //TODO Auto-generated catch block
                     e0.printStackTrace();
@@ -121,9 +127,9 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
             }
         });
         //get first position title
-        JLabel firstRole = new JLabel("\n" + match.get(0).positionName);
+        JLabel firstRole = new JLabel("\n" /*+ match.get(0).positionName*/);
         //get first position location
-        JLabel firstLocation = new JLabel("\n"+ match.get(0).location+"\n");
+        JLabel firstLocation = new JLabel("\n"/*+ match.get(0).location+"\n"*/);
         //adds an apply button for the external application link
         JButton firstLink = new JButton("Apply");
 
@@ -131,11 +137,10 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         recComp1.add(firstCompPage);
         recComp1.add(firstRole);
         recComp1.add(firstLocation);
-        firstLink.addActionListener(new ActionListener() {
+        /*firstLink.addActionListener(new ActionListener() {
             @Override
             //this button directs users to the external application
             public void actionPerformed(ActionEvent event) {
-                // controller.updateEngagements();
                 try {
                     openWebpage(new URL(match.get(0).hyperLink).toURI());
                 } catch(MalformedURLException | URISyntaxException e) {
@@ -143,7 +148,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
         recComp1.add(firstLink);
         
 
@@ -158,7 +163,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         //second job listing
         JPanel recComp2 = new JPanel ();
         //get the second company name
-        JButton secondCompPage = new JButton(match.get(1).companyName);
+        JButton secondCompPage = new JButton(/*match.get(1).companyName*/);
         /*googleCompPage.addActionListener(new ActionListener() {
             @Override
             //this button takes the user to the indicated company page
@@ -172,9 +177,9 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
             }
         });*/
         //get the second position title
-        JLabel secondRole = new JLabel("\n" + match.get(1).positionName);
+        JLabel secondRole = new JLabel("\n" /*+ match.get(1).positionName*/);
         //get the second location
-        JLabel secondLocation = new JLabel("\n"+match.get(1).location+"\n");
+        JLabel secondLocation = new JLabel("\n"/*+match.get(1).location+"\n"*/);
         //add an apply button for the external application
         JButton secondLink = new JButton("Apply");
         
@@ -182,7 +187,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         recComp2.add(secondCompPage);
         recComp2.add(secondRole);
         recComp2.add(secondLocation);
-        secondLink.addActionListener(new ActionListener() {
+        /*secondLink.addActionListener(new ActionListener() {
             @Override
             //this button directs users to the external application
             public void actionPerformed(ActionEvent event) {
@@ -193,7 +198,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
         //add link to the panel
         recComp2.add(secondLink);
 
@@ -208,13 +213,13 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         //third job listing
         JPanel recComp3 = new JPanel ();
         //get the third company name
-        JButton thirdCompPage = new JButton(match.get(2).companyName);
+        JButton thirdCompPage = new JButton(/*match.get(2).companyName*/);
         thirdCompPage.addActionListener(new ActionListener() {
             @Override
             //this button opens the indicated compnay page
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JOptionPane.showMessageDialog(frame, match.get(2).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                    JOptionPane.showMessageDialog(frame, /*match.get(2).companyName+*/"'s company page is not available at this time. \nPlease try again later.");
                 } catch(Exception e2) {
                     //TODO Auto-generated catch block
                     e2.printStackTrace();
@@ -222,9 +227,9 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
             }
         });
         //get the third position title
-        JLabel thirdRole = new JLabel("\n"+ match.get(2).positionName);
+        JLabel thirdRole = new JLabel("\n"/*+ match.get(2).positionName*/);
         //get the third location
-        JLabel thirdLocation = new JLabel("\n"+match.get(2).location+"\n");
+        JLabel thirdLocation = new JLabel("\n"/*+match.get(2).location+"\n"*/);
         //add the apply button for the external link
         JButton thirdLink = new JButton("Apply");
        
@@ -232,7 +237,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         recComp3.add(thirdCompPage);
         recComp3.add(thirdRole);
         recComp3.add(thirdLocation);
-        thirdLink.addActionListener(new ActionListener() {
+        /*thirdLink.addActionListener(new ActionListener() {
             @Override
             //this button directs users to the external application
             public void actionPerformed(ActionEvent event) {
@@ -243,7 +248,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
         //add the link to the panel
         recComp3.add(thirdLink);
          
