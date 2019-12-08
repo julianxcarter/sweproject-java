@@ -1,15 +1,14 @@
 package org.employable.View;
 
-
+// import org.employable.View.GoogleCompanyView;
+//import org.employable.View.JobSeekerProfileView;
 import org.employable.Controller.JobSeekerController;
 import org.employable.Model.JobListingModel;
 
 
 import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.*;
 import java.net.URI;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -31,14 +30,9 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
     //create an instance of the job listing model
     JobListingModel model = new JobListingModel("bleh", "bleh", "bleh", "bleh", bleh);
 
-    // JobSeekerController controller = new JobSeekerController();
-
     public JobSeekerHomeView(){
         //retrieve the array of matched objects
         List<JobListingModel> match = jsController.newMatch();
-        for(int i = 0; i< match.size(); i++){
-            System.out.println(match.get(i));
-        }
         //create the frame
         JFrame frame = new JFrame("Home Page");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit when window closes
@@ -52,10 +46,8 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         JTextField universalSearchBox = new JTextField("Search Company", 10);
         //Combo box for search parameters
         JComboBox<String> searchList = new JComboBox<>(searchParamaters);
-       
-
-        //Search button
-        JButton search = new JButton("Search");
+        
+        //profile button action listener
         profile.addActionListener(new ActionListener()
         {
             @Override
@@ -68,17 +60,507 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                 JOptionPane.showMessageDialog(frame,"You have chosen to go to your profile.");
             }
         });
-        
+        //Search button
+        JButton search = new JButton("Search");
+        String jobListing = universalSearchBox.getText();
         search.addActionListener(new ActionListener()
         {
             @Override
             //this button allows the user to search for job listings
             public void actionPerformed(ActionEvent e)
             {
-                // display/center the jdialog when the button is pressed
-                String company = universalSearchBox.getText();
-                //display job listings based on the user's search
-                JOptionPane.showMessageDialog(frame,"You searched for "+ company);
+                // search the entered text by the desired parameter
+                String item = searchList.getSelectedItem().toString();
+                if(item == "Company"){
+                    List<JobListingModel> list1 = new ArrayList<>();
+                    list1 = jsController.searchCompanies(jobListing);
+                    
+                    //section header with left justification
+                    JPanel searchedPanel = new JPanel();
+                    JLabel searched = new JLabel(jobListing + "Results");
+                    JLabel thisblank = new JLabel("");
+                    JLabel anotherOne = new JLabel("");
+                    searchedPanel.add(searched);
+                    searchedPanel.add(thisblank);
+                    searchedPanel.add(anotherOne);
+                    
+                    //get the listings from the model/controller
+                    //first job listing
+                    JPanel searchComp1 = new JPanel ();
+                    //get first company name
+                    JButton searchCompPage1 = new JButton(list1.get(0).companyName);
+                    searchCompPage1.addActionListener(new ActionListener() {
+                        @Override
+                        //this button takes the user to the indicated company page
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                JOptionPane.showMessageDialog(frame, list1.get(0).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                            } catch(Exception e0) {
+                                //TODO Auto-generated catch block
+                                e0.printStackTrace();
+                            }
+                        }
+                    });
+                    //get first position title
+                    JLabel firstSearchRole = new JLabel("\n" + list1.get(0).positionName);
+                    //get first position location
+                    JLabel firstSearchLocation = new JLabel("\n"+ list1.get(0).location+"\n");
+                    //adds an apply button for the external application link
+                    JButton firstSearchLink = new JButton("Apply");
+        
+                    //add each componenets to the panel
+                    searchComp1.add(searchCompPage1);
+                    searchComp1.add(firstSearchRole);
+                    searchComp1.add(firstSearchLocation);
+                    firstSearchLink.addActionListener(new ActionListener() {
+                        @Override
+                        //this button directs users to the external application
+                        public void actionPerformed(ActionEvent event) {
+                            try {
+                                openWebpage(new URL(list1.get(0).hyperLink).toURI());
+                            } catch(MalformedURLException | URISyntaxException e) {
+                                //TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    searchComp1.add(firstSearchLink);
+                    
+        
+                    //format the text pane
+                    searchComp1.setPreferredSize(new Dimension(300,100));//size
+                    searchComp1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
+                    //add the pane to the panel
+                    searchedPanel.add(searchComp1);
+                    
+        
+                    //get the listings from the model/controller
+                    //second job listing
+                    JPanel searchComp2 = new JPanel ();
+                    //get the second company name
+                    JButton searchCompPage2 = new JButton(list1.get(1).companyName);
+                    searchCompPage2.addActionListener(new ActionListener() {
+                        @Override
+                        //this button takes the user to the indicated company page
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                JOptionPane.showMessageDialog(frame, list1.get(1).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                            } catch (Exception e1){
+                                //TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            }
+                        }
+                    });
+                    //get the second position title
+                    JLabel secondSearchRole = new JLabel("\n" + list1.get(1).positionName);
+                    //get the second location
+                    JLabel secondSearchLocation = new JLabel("\n"+list1.get(1).location+"\n");
+                    //add an apply button for the external application
+                    JButton secondSearchLink = new JButton("Apply");
+                    
+                    //add each component to the panel
+                    searchComp2.add(searchCompPage1);
+                    searchComp2.add(secondSearchRole);
+                    searchComp2.add(secondSearchLocation);
+                    secondSearchLink.addActionListener(new ActionListener() {
+                        @Override
+                        //this button directs users to the external application
+                        public void actionPerformed(ActionEvent event) {
+                            try {
+                                openWebpage(new URL(list1.get(1).hyperLink).toURI());
+                            } catch(MalformedURLException | URISyntaxException e) {
+                                //TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    //add link to the panel
+                    searchComp2.add(secondSearchLink);
+        
+                    //format the text pane
+                    searchComp2.setPreferredSize(new Dimension(300,100));//size
+                    searchComp2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
+                    //add the pane to the panel
+                    searchedPanel.add(searchComp2);
+        
+        
+                    //get the listings from the model/controller
+                    //third job listing
+                    JPanel searchComp3 = new JPanel ();
+                    //get the third company name
+                    JButton searchCompPage3 = new JButton(list1.get(2).companyName);
+                    searchCompPage3.addActionListener(new ActionListener() {
+                        @Override
+                        //this button opens the indicated compnay page
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                JOptionPane.showMessageDialog(frame, list1.get(2).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                            } catch(Exception e2) {
+                                //TODO Auto-generated catch block
+                                e2.printStackTrace();
+                            }
+                        }
+                    });
+                    //get the third position title
+                    JLabel thirdSearchRole = new JLabel("\n"+ list1.get(2).positionName);
+                    //get the third location
+                    JLabel thirdSearchLocation = new JLabel("\n"+list1.get(2).location+"\n");
+                    //add the apply button for the external link
+                    JButton thirdSearchLink = new JButton("Apply");
+                
+                    //get the listings from the model/controller
+                    searchComp3.add(searchCompPage3);
+                    searchComp3.add(thirdSearchRole);
+                    searchComp3.add(thirdSearchLocation);
+                    thirdSearchLink.addActionListener(new ActionListener() {
+                        @Override
+                        //this button directs users to the external application
+                        public void actionPerformed(ActionEvent event) {
+                            try {
+                                openWebpage(new URL(list1.get(2).hyperLink).toURI());
+                            } catch(MalformedURLException | URISyntaxException e) {
+                                //TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    //add the link to the panel
+                    searchComp3.add(thirdSearchLink);
+                    
+                    //format the text pane
+                    searchComp3.setPreferredSize(new Dimension(300,100));//size
+                    searchComp3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
+                    //add the pane to the panel
+                    searchedPanel.add(searchComp3);
+                
+                    JOptionPane.showMessageDialog(frame, searchedPanel);
+                
+                }
+                else if(item == "Location"){
+                    List<JobListingModel> list2 = new ArrayList<>();
+                    list2 = jsController.searchLocation(jobListing);
+                    //section header with left justification
+                    JPanel searchedPanel = new JPanel();
+                    JLabel searched = new JLabel(jobListing + "Results");
+                    JLabel thisblank = new JLabel("");
+                    JLabel anotherOne = new JLabel("");
+                    searchedPanel.add(searched);
+                    searchedPanel.add(thisblank);
+                    searchedPanel.add(anotherOne);
+                    
+                    //get the listings from the model/controller
+                    //first job listing
+                    JPanel searchComp1 = new JPanel ();
+                    //get first company name
+                    JButton searchCompPage1 = new JButton(list2.get(0).companyName);
+                    searchCompPage1.addActionListener(new ActionListener() {
+                        @Override
+                        //this button takes the user to the indicated company page
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                JOptionPane.showMessageDialog(frame, list2.get(0).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                            } catch(Exception e0) {
+                                //TODO Auto-generated catch block
+                                e0.printStackTrace();
+                            }
+                        }
+                    });
+                    //get first position title
+                    JLabel firstSearchRole = new JLabel("\n" + list2.get(0).positionName);
+                    //get first position location
+                    JLabel firstSearchLocation = new JLabel("\n"+ list2.get(0).location+"\n");
+                    //adds an apply button for the external application link
+                    JButton firstSearchLink = new JButton("Apply");
+        
+                    //add each componenets to the panel
+                    searchComp1.add(searchCompPage1);
+                    searchComp1.add(firstSearchRole);
+                    searchComp1.add(firstSearchLocation);
+                    firstSearchLink.addActionListener(new ActionListener() {
+                        @Override
+                        //this button directs users to the external application
+                        public void actionPerformed(ActionEvent event) {
+                            try {
+                                openWebpage(new URL(list2.get(0).hyperLink).toURI());
+                            } catch(MalformedURLException | URISyntaxException e) {
+                                //TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    searchComp1.add(firstSearchLink);
+                    
+        
+                    //format the text pane
+                    searchComp1.setPreferredSize(new Dimension(300,100));//size
+                    searchComp1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
+                    //add the pane to the panel
+                    searchedPanel.add(searchComp1);
+                    
+        
+                    //get the listings from the model/controller
+                    //second job listing
+                    JPanel searchComp2 = new JPanel ();
+                    //get the second company name
+                    JButton searchCompPage2 = new JButton(list2.get(1).companyName);
+                    searchCompPage2.addActionListener(new ActionListener() {
+                        @Override
+                        //this button takes the user to the indicated company page
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                JOptionPane.showMessageDialog(frame, list2.get(1).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                            } catch (Exception e1){
+                                //TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            }
+                        }
+                    });
+                    //get the second position title
+                    JLabel secondSearchRole = new JLabel("\n" + list2.get(1).positionName);
+                    //get the second location
+                    JLabel secondSearchLocation = new JLabel("\n"+list2.get(1).location+"\n");
+                    //add an apply button for the external application
+                    JButton secondSearchLink = new JButton("Apply");
+                    
+                    //add each component to the panel
+                    searchComp2.add(searchCompPage1);
+                    searchComp2.add(secondSearchRole);
+                    searchComp2.add(secondSearchLocation);
+                    secondSearchLink.addActionListener(new ActionListener() {
+                        @Override
+                        //this button directs users to the external application
+                        public void actionPerformed(ActionEvent event) {
+                            try {
+                                openWebpage(new URL(list2.get(1).hyperLink).toURI());
+                            } catch(MalformedURLException | URISyntaxException e) {
+                                //TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    //add link to the panel
+                    searchComp2.add(secondSearchLink);
+        
+                    //format the text pane
+                    searchComp2.setPreferredSize(new Dimension(300,100));//size
+                    searchComp2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
+                    //add the pane to the panel
+                    searchedPanel.add(searchComp2);
+        
+        
+                    //get the listings from the model/controller
+                    //third job listing
+                    JPanel searchComp3 = new JPanel ();
+                    //get the third company name
+                    JButton searchCompPage3 = new JButton(list2.get(2).companyName);
+                    searchCompPage3.addActionListener(new ActionListener() {
+                        @Override
+                        //this button opens the indicated compnay page
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                JOptionPane.showMessageDialog(frame, list2.get(2).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                            } catch(Exception e2) {
+                                //TODO Auto-generated catch block
+                                e2.printStackTrace();
+                            }
+                        }
+                    });
+                    //get the third position title
+                    JLabel thirdSearchRole = new JLabel("\n"+ list2.get(2).positionName);
+                    //get the third location
+                    JLabel thirdSearchLocation = new JLabel("\n"+list2.get(2).location+"\n");
+                    //add the apply button for the external link
+                    JButton thirdSearchLink = new JButton("Apply");
+                
+                    //get the listings from the model/controller
+                    searchComp3.add(searchCompPage3);
+                    searchComp3.add(thirdSearchRole);
+                    searchComp3.add(thirdSearchLocation);
+                    thirdSearchLink.addActionListener(new ActionListener() {
+                        @Override
+                        //this button directs users to the external application
+                        public void actionPerformed(ActionEvent event) {
+                            try {
+                                openWebpage(new URL(list2.get(2).hyperLink).toURI());
+                            } catch(MalformedURLException | URISyntaxException e) {
+                                //TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    //add the link to the panel
+                    searchComp3.add(thirdSearchLink);
+                    
+                    //format the text pane
+                    searchComp3.setPreferredSize(new Dimension(300,100));//size
+                    searchComp3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
+                    //add the pane to the panel
+                    searchedPanel.add(searchComp3);
+                    JOptionPane.showMessageDialog(frame, searchedPanel);
+                }
+                else if(item == "Role"){
+                    List<JobListingModel> list3 = new ArrayList<>();
+                    list3 = jsController.searchTitles(jobListing);
+                    //section header with left justification
+                    JPanel searchedPanel = new JPanel();
+                    JLabel searched = new JLabel(jobListing + "Results");
+                    JLabel thisblank = new JLabel("");
+                    JLabel anotherOne = new JLabel("");
+                    searchedPanel.add(searched);
+                    searchedPanel.add(thisblank);
+                    searchedPanel.add(anotherOne);
+                    
+                    //get the listings from the model/controller
+                    //first job listing
+                    JPanel searchComp1 = new JPanel ();
+                    //get first company name
+                    JButton searchCompPage1 = new JButton(list3.get(0).companyName);
+                    searchCompPage1.addActionListener(new ActionListener() {
+                        @Override
+                        //this button takes the user to the indicated company page
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                JOptionPane.showMessageDialog(frame, list3.get(0).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                            } catch(Exception e0) {
+                                //TODO Auto-generated catch block
+                                e0.printStackTrace();
+                            }
+                        }
+                    });
+                    //get first position title
+                    JLabel firstSearchRole = new JLabel("\n" + list3.get(0).positionName);
+                    //get first position location
+                    JLabel firstSearchLocation = new JLabel("\n"+ list3.get(0).location+"\n");
+                    //adds an apply button for the external application link
+                    JButton firstSearchLink = new JButton("Apply");
+        
+                    //add each componenets to the panel
+                    searchComp1.add(searchCompPage1);
+                    searchComp1.add(firstSearchRole);
+                    searchComp1.add(firstSearchLocation);
+                    firstSearchLink.addActionListener(new ActionListener() {
+                        @Override
+                        //this button directs users to the external application
+                        public void actionPerformed(ActionEvent event) {
+                            try {
+                                openWebpage(new URL(list3.get(0).hyperLink).toURI());
+                            } catch(MalformedURLException | URISyntaxException e) {
+                                //TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    searchComp1.add(firstSearchLink);
+                    
+        
+                    //format the text pane
+                    searchComp1.setPreferredSize(new Dimension(300,100));//size
+                    searchComp1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
+                    //add the pane to the panel
+                    searchedPanel.add(searchComp1);
+                    
+        
+                    //get the listings from the model/controller
+                    //second job listing
+                    JPanel searchComp2 = new JPanel ();
+                    //get the second company name
+                    JButton searchCompPage2 = new JButton(list3.get(1).companyName);
+                    searchCompPage2.addActionListener(new ActionListener() {
+                        @Override
+                        //this button takes the user to the indicated company page
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                JOptionPane.showMessageDialog(frame, list3.get(1).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                            } catch (Exception e1){
+                                //TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            }
+                        }
+                    });
+                    //get the second position title
+                    JLabel secondSearchRole = new JLabel("\n" + list3.get(1).positionName);
+                    //get the second location
+                    JLabel secondSearchLocation = new JLabel("\n"+list3.get(1).location+"\n");
+                    //add an apply button for the external application
+                    JButton secondSearchLink = new JButton("Apply");
+                    
+                    //add each component to the panel
+                    searchComp2.add(searchCompPage1);
+                    searchComp2.add(secondSearchRole);
+                    searchComp2.add(secondSearchLocation);
+                    secondSearchLink.addActionListener(new ActionListener() {
+                        @Override
+                        //this button directs users to the external application
+                        public void actionPerformed(ActionEvent event) {
+                            try {
+                                openWebpage(new URL(list3.get(1).hyperLink).toURI());
+                            } catch(MalformedURLException | URISyntaxException e) {
+                                //TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    //add link to the panel
+                    searchComp2.add(secondSearchLink);
+        
+                    //format the text pane
+                    searchComp2.setPreferredSize(new Dimension(300,100));//size
+                    searchComp2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
+                    //add the pane to the panel
+                    searchedPanel.add(searchComp2);
+        
+        
+                    //get the listings from the model/controller
+                    //third job listing
+                    JPanel searchComp3 = new JPanel ();
+                    //get the third company name
+                    JButton searchCompPage3 = new JButton(list3.get(2).companyName);
+                    searchCompPage3.addActionListener(new ActionListener() {
+                        @Override
+                        //this button opens the indicated compnay page
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                JOptionPane.showMessageDialog(frame, list3.get(2).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                            } catch(Exception e2) {
+                                //TODO Auto-generated catch block
+                                e2.printStackTrace();
+                            }
+                        }
+                    });
+                    //get the third position title
+                    JLabel thirdSearchRole = new JLabel("\n"+ list3.get(2).positionName);
+                    //get the third location
+                    JLabel thirdSearchLocation = new JLabel("\n"+list3.get(2).location+"\n");
+                    //add the apply button for the external link
+                    JButton thirdSearchLink = new JButton("Apply");
+                
+                    //get the listings from the model/controller
+                    searchComp3.add(searchCompPage3);
+                    searchComp3.add(thirdSearchRole);
+                    searchComp3.add(thirdSearchLocation);
+                    thirdSearchLink.addActionListener(new ActionListener() {
+                        @Override
+                        //this button directs users to the external application
+                        public void actionPerformed(ActionEvent event) {
+                            try {
+                                openWebpage(new URL(list3.get(2).hyperLink).toURI());
+                            } catch(MalformedURLException | URISyntaxException e) {
+                                //TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    //add the link to the panel
+                    searchComp3.add(thirdSearchLink);
+                    
+                    //format the text pane
+                    searchComp3.setPreferredSize(new Dimension(300,100));//size
+                    searchComp3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
+                    //add the pane to the panel
+                    searchedPanel.add(searchComp3);
+                    JOptionPane.showMessageDialog(frame, searchedPanel);
+                }
+
             }
         });
         //add the profile button, search box, combo box and search button to the panel
@@ -92,7 +574,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         //create panel for job listings
         JPanel jobRecPanel = new JPanel();
         //makes the layout 2 rows and 3 columns
-        jobRecPanel.setLayout(new GridLayout(2,3));
+        jobRecPanel.setLayout(new GridLayout(4,3));
         
 
         //section header with left justification
@@ -107,7 +589,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         //first job listing
         JPanel recComp1 = new JPanel ();
         //get first company name
-        JButton firstCompPage = new JButton(match.get(0).companyName);
+        JButton firstCompPage = new JButton(/*match.get(0).companyName*/);
         firstCompPage.addActionListener(new ActionListener() {
             @Override
             //this button takes the user to the indicated company page
@@ -121,9 +603,9 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
             }
         });
         //get first position title
-        JLabel firstRole = new JLabel("\n" + match.get(0).positionName);
+        JLabel firstRole = new JLabel("\n" /*+ match.get(0).positionName*/);
         //get first position location
-        JLabel firstLocation = new JLabel("\n"+ match.get(0).location+"\n");
+        JLabel firstLocation = new JLabel("\n"/*+ match.get(0).location+"\n"*/);
         //adds an apply button for the external application link
         JButton firstLink = new JButton("Apply");
 
@@ -131,11 +613,10 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         recComp1.add(firstCompPage);
         recComp1.add(firstRole);
         recComp1.add(firstLocation);
-        firstLink.addActionListener(new ActionListener() {
+        /*firstLink.addActionListener(new ActionListener() {
             @Override
             //this button directs users to the external application
             public void actionPerformed(ActionEvent event) {
-                // controller.updateEngagements();
                 try {
                     openWebpage(new URL(match.get(0).hyperLink).toURI());
                 } catch(MalformedURLException | URISyntaxException e) {
@@ -143,7 +624,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
         recComp1.add(firstLink);
         
 
@@ -158,7 +639,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         //second job listing
         JPanel recComp2 = new JPanel ();
         //get the second company name
-        JButton secondCompPage = new JButton(match.get(1).companyName);
+        JButton secondCompPage = new JButton(/*match.get(1).companyName*/);
         secondCompPage.addActionListener(new ActionListener() {
             @Override
             //this button takes the user to the indicated company page
@@ -172,9 +653,9 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
             }
         });
         //get the second position title
-        JLabel secondRole = new JLabel("\n" + match.get(1).positionName);
+        JLabel secondRole = new JLabel("\n" /*+ match.get(1).positionName*/);
         //get the second location
-        JLabel secondLocation = new JLabel("\n"+match.get(1).location+"\n");
+        JLabel secondLocation = new JLabel("\n"/*+match.get(1).location+"\n"*/);
         //add an apply button for the external application
         JButton secondLink = new JButton("Apply");
         
@@ -182,7 +663,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         recComp2.add(secondCompPage);
         recComp2.add(secondRole);
         recComp2.add(secondLocation);
-        secondLink.addActionListener(new ActionListener() {
+        /*secondLink.addActionListener(new ActionListener() {
             @Override
             //this button directs users to the external application
             public void actionPerformed(ActionEvent event) {
@@ -193,7 +674,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
         //add link to the panel
         recComp2.add(secondLink);
 
@@ -208,7 +689,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         //third job listing
         JPanel recComp3 = new JPanel ();
         //get the third company name
-        JButton thirdCompPage = new JButton(match.get(2).companyName);
+        JButton thirdCompPage = new JButton(/*match.get(2).companyName*/);
         thirdCompPage.addActionListener(new ActionListener() {
             @Override
             //this button opens the indicated compnay page
@@ -222,9 +703,9 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
             }
         });
         //get the third position title
-        JLabel thirdRole = new JLabel("\n"+ match.get(2).positionName);
+        JLabel thirdRole = new JLabel("\n"/*+ match.get(2).positionName*/);
         //get the third location
-        JLabel thirdLocation = new JLabel("\n"+match.get(2).location+"\n");
+        JLabel thirdLocation = new JLabel("\n"/*+match.get(2).location+"\n"*/);
         //add the apply button for the external link
         JButton thirdLink = new JButton("Apply");
        
@@ -232,7 +713,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         recComp3.add(thirdCompPage);
         recComp3.add(thirdRole);
         recComp3.add(thirdLocation);
-        thirdLink.addActionListener(new ActionListener() {
+        /*thirdLink.addActionListener(new ActionListener() {
             @Override
             //this button directs users to the external application
             public void actionPerformed(ActionEvent event) {
@@ -243,7 +724,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
         //add the link to the panel
         recComp3.add(thirdLink);
          
@@ -253,6 +734,8 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         //add the pane to the panel
         jobRecPanel.add(recComp3);
     
+        // jobRecPanel.add(searchPanel);
+        
 
         //top rated companies panel with heading left justified
         JPanel topCompPanel = new JPanel();
@@ -354,6 +837,8 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         frame.pack();
     }
 
+    
+
     // method to support opening an external webpage
    public static boolean openWebpage(URI uri) {
     Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
@@ -378,7 +863,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         return false;
     }
 
-    public static void main(String args[]){
+    public static void main(String[] args){
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new JobSeekerHomeView().setVisible(true);
