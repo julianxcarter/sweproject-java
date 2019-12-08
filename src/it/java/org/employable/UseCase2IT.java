@@ -44,7 +44,7 @@ public class UseCase2IT {
   public void testLocationSearch(){
       String location = "Mountain View";
       List<JobListingModel> returnedListingsOfLocation = jobSeekerController.searchLocation(location);
-      Boolean isLocation;
+      Boolean isLocation = false;
       for(JobListingModel job: returnedListingsOfLocation){
           if (job.location == "Mountain View"){
               isLocation = true;
@@ -59,7 +59,7 @@ public class UseCase2IT {
   public void testTitleSearch(){
       String title = "SWE";
       List<JobListingModel> returnedListingsOfTitle = jobSeekerController.searchTitles(title);
-      Boolean isTitle;
+      Boolean isTitle = false;
       for(JobListingModel job: returnedListingsOfTitle){
           if (job.positionName == "SWE"){
               isTitle = true;
