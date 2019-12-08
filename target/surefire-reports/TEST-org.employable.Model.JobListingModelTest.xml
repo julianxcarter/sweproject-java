@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="org.employable.Model.JobListingModelTest" time="9.497" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="org.employable.Model.JobListingModelTest" time="22.917" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="12.0.2+10"/>
@@ -59,8 +59,8 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase classname="org.employable.Model.JobListingModelTest" name="joblistingCreateListing" time="4.116"/>
+  <testcase classname="org.employable.Model.JobListingModelTest" name="joblistingCreateListing" time="10.042"/>
   <testcase classname="org.employable.Model.JobListingModelTest" name="testInstantiation" time="0.004"/>
-  <testcase classname="org.employable.Model.JobListingModelTest" name="joblistingDeleteListing" time="5.373"/>
-  <testcase classname="org.employable.Model.JobListingModelTest" name="testEmptyInstantiation" time="0.004"/>
+  <testcase classname="org.employable.Model.JobListingModelTest" name="joblistingDeleteListing" time="12.862"/>
+  <testcase classname="org.employable.Model.JobListingModelTest" name="testEmptyInstantiation" time="0.009"/>
 </testsuite>

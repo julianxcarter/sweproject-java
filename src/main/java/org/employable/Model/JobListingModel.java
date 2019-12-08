@@ -265,6 +265,7 @@ public void deleteListing() {
   }
 
   public List<JobListingModel> match(List<String> jobSeekerAmenities, String topLocation, String topRole){
+    System.out.println("in match, topLocation: " + topLocation);
     this.mongoClient = new MongoClient(this.uri); // Pointing the mongo client to our mongoDb cluster
     this.database = this.mongoClient.getDatabase("EmployAble"); // Pointing the mongo database to our EmployAble database
 
@@ -272,12 +273,34 @@ public void deleteListing() {
 
     //get listings from the database with the desired locatoin and return them as a list of documents
     FindIterable<Document> iterDoc = collection.find(Filters.eq("location", topLocation)); 
+    System.out.println("top location: " + topLocation);
+
     List<Document> iterDoc2= new ArrayList<Document>();
-    for (Document doc : iterDoc){
-      if (doc.get("title").toString()== topRole){
-        iterDoc2.add(doc);
-      } 
-    }
+    
+    // for (Document doc : iterDoc){
+    //   if (doc.get("title").toString()== topRole){
+    //     iterDoc2.add(doc);
+    //   } 
+    // }
+
+    MongoCursor<Document> cursor = iterDoc.iterator();
+    while (cursor.hasNext()) {
+      Document temp = cursor.next();
+      System.out.println("in while loop: ");
+      System.out.println("MODEL : temp title to string: " + temp.get("title").toString());
+      System.out.println("MODEL : top role: " + topRole);
+      System.out.println("are they equal?: " + topRole.equals(temp.get("title").toString()));
+      // String title = temp.get("title").toString();
+      if (topRole.equals(temp.get("title").toString())) {
+        System.out.println("matching on role: " + temp.get("title").toString());
+      // String company = temp.get("company").toString();
+      // String hyperLink = temp.get("link").toString();
+      // String location = temp.get("location").toString();
+      // String id = temp.get("_id").toString();
+        iterDoc2.add(temp);
+      }
+      }
+
     //FindIterable<Document> iterDoc2 = iterDoc.find(Filters.eq("title", topRole));
     // FindIterable<Document> iterDoc = collection.find(Filters.and(Filters.eq("location", topLocation), Filters.eq("title",
     //   topRole)));
@@ -285,7 +308,8 @@ public void deleteListing() {
     //create list to hold all of the listings returned from the query
     List<JobListingModel> listings = new ArrayList <JobListingModel>();
 
-    //MongoCursor<Document> cursor = iterDoc2.iterator();
+
+
 
     //go through the documents list, converting the attributes to strings to instantiate new job listing then add to joblisting object list
       for (Document doc : iterDoc2) {
@@ -293,9 +317,11 @@ public void deleteListing() {
         String company = doc.get("company").toString();
         String hyperLink = doc.get("link").toString();
         String location = doc.get("location").toString();
+        List<String> amenities = (List<String>) doc.get("ammenities");
+        System.out.println("amenities passed: " + amenities);
         String id = doc.get("_id").toString();
 
-        JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
+        JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location, amenities);
         tempJob.ObjectId = id;
         listings.add(tempJob);
       }
@@ -304,16 +330,22 @@ public void deleteListing() {
       List<JobListingModel> matched = new ArrayList<JobListingModel>();
 
 
+      System.out.println("first job: " + listings.get(0).toString());
     for (JobListingModel job : listings) {
+      System.out.println("in for loop for listings");
       int count = 0;
       List<String> tmpAmenitites = job.amenities;
+      System.out.println("first job amenity: " + job.amenities.get(0));
       //see if all the amenities for the job listing are in the job seeker's amenities list
       for (String amenity: tmpAmenitites){
         if (jobSeekerAmenities.contains(amenity)) {
           count++;
         }
       }
+      System.out.println("count of amenities: " + count);
+      System.out.println("job seeker amenities size: " + jobSeekerAmenities.size());
       if (count == jobSeekerAmenities.size() || count == (jobSeekerAmenities.size()-1)){
+        System.out.println("Job company name for matched: " + job.companyName);
         matched.add(job);
     }
     }

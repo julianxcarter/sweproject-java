@@ -32,14 +32,14 @@ public class CampusView extends javax.swing.JFrame {
         // make sure the page exits when the red x is pressed
         googleNY.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // set the dimmensions of the home page
-        googleNY.setSize(800, 800);
+        googleNY.setSize(700,700);
 
          //create a panel for the page header
          JPanel pageHeader = new JPanel();
          //add the campus location title and format
          JLabel campusTitle = new JLabel("Google New York Office");
          Font titleFont = new Font("Sans-Serif", Font.ITALIC | Font.BOLD, 12);
-         Font font = titleFont.deriveFont(25F);
+         Font font = titleFont.deriveFont(18F);
          campusTitle.setFont(font);
          pageHeader.add(campusTitle);
 
@@ -114,7 +114,7 @@ public class CampusView extends javax.swing.JFrame {
             
             }
          });  
-         amenitiesPanel.add(linkButton, BorderLayout.SOUTH);
+         amenitiesPanel.add(linkButton);
 
         //create empty panels for formatting purposes
         JPanel emptyPanel = new JPanel();
@@ -131,9 +131,17 @@ public class CampusView extends javax.swing.JFrame {
 
         //add the content to a panel
         JPanel pagePanel = new JPanel();
-        pagePanel.setLayout(new BoxLayout(pagePanel, BoxLayout.Y_AXIS));
+        //scrollable pane
+        JScrollPane scrollPane = new JScrollPane(pagePanel);
+        scrollPane.setLayout(new ScrollPaneLayout());
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        //scrollPane.setPreferredSize(new Dimension(250, 250));
+
+        //pagePanel.setLayout(new BoxLayout(pagePanel, BoxLayout.Y_AXIS));
         pagePanel.add(pageHeader);
         pagePanel.add(contentPanel);
+
+        
 
         //add the page panel to the page
         googleNY.add(pagePanel);

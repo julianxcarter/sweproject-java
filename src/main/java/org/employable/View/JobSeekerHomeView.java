@@ -113,7 +113,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
             //this button takes the user to the indicated company page
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JOptionPane.showMessageDialog(frame, match.get(0).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                    new GoogleCompanyView().setVisible(true);
                 } catch(Exception e0) {
                     //TODO Auto-generated catch block
                     e0.printStackTrace();
@@ -159,7 +159,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         JPanel recComp2 = new JPanel ();
         //get the second company name
         JButton secondCompPage = new JButton(match.get(1).companyName);
-        /*googleCompPage.addActionListener(new ActionListener() {
+        secondCompPage.addActionListener(new ActionListener() {
             @Override
             //this button takes the user to the indicated company page
             public void actionPerformed(ActionEvent e) {
@@ -170,7 +170,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                     e1.printStackTrace();
                 }
             }
-        });*/
+        });
         //get the second position title
         JLabel secondRole = new JLabel("\n" + match.get(1).positionName);
         //get the second location
@@ -214,7 +214,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
             //this button opens the indicated compnay page
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JOptionPane.showMessageDialog(frame, match.get(2).companyName+"'s company page is not available at this time. \nPlease try again later.");
+                    new GoogleCompanyView().setVisible(true);
                 } catch(Exception e2) {
                     //TODO Auto-generated catch block
                     e2.printStackTrace();

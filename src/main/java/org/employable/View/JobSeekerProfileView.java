@@ -227,6 +227,7 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
     }
 
     public void save() {
+        System.out.println("in job seeker prof view, first loc: " + myLocations.get(0));
         controller.createJobSeeker(myRoles, myLocations, myAmenities);
         // controller.updateModel();
     }

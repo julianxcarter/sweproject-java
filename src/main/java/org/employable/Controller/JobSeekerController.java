@@ -11,6 +11,9 @@ import java.util.List;
 public class JobSeekerController {
  public JobSeekerModel model;
  JobListingModel listing;
+ public static String topLocation;
+ public static String topRole;
+ public static List<String> amenities = new ArrayList<String>();
  
  public JobSeekerController() {
   // model = new JobSeekerModel();
@@ -63,8 +66,15 @@ public class JobSeekerController {
   }
 
   //create a job seeker
-  public void createJobSeeker(List<String> desiredRoles, List<String> desiredLocations, List<String> amenities) {
+  public void createJobSeeker(List<String> desiredRoles, List<String> desiredLocations, List<String> amenitiesLis) {
     this.model = new JobSeekerModel(desiredRoles, desiredLocations, amenities);
+    topLocation = desiredLocations.get(0);
+    topRole = desiredRoles.get(0);
+    amenities = amenitiesLis;
+
+    System.out.println(desiredRoles.get(0));
+    System.out.println(desiredLocations.get(0));
+    System.out.println(amenities.get(0));
     this.model.createJobSeeker();
   }
 
@@ -96,12 +106,8 @@ public class JobSeekerController {
 
   //method to return the matching results to the job seeker home view
   public List<JobListingModel> newMatch() {
-    //top location
-    String topLocation = model.getTopLocation();
-    //top Role
-    String topRole = model.getTopRole();
     //call method in jobListing Model sending it amenitites, locations, and roles of the jobseeker
-    List<JobListingModel> matched = listing.match(model.getAmenities(), topLocation, topRole);
+    List<JobListingModel> matched = listing.match(amenities, topLocation, topRole);
     //return matched list
     return matched;
   }
