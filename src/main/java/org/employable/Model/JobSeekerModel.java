@@ -32,6 +32,8 @@ public class JobSeekerModel extends ProfileModel {
 
   //Creates an instance of a mongoDb database
   MongoDatabase database;
+
+  public JobSeekerModel() {}
  
   // constructor declaration
   public JobSeekerModel(List<String> desiredRoles, List<String> desiredLocations, List<String> amenities)

@@ -186,9 +186,10 @@ public void deleteListing() {
       String company = temp.get("company").toString();
       String hyperLink = temp.get("link").toString();
       String location = temp.get("location").toString();
+      List<String> amenities = (List<String>) temp.get("ammenities");
       String id = temp.get("_id").toString();
   
-      JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
+      JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location, amenities);
       tempJob.ObjectId = id;
        listings.add(tempJob);
     }
@@ -219,9 +220,10 @@ public void deleteListing() {
       String company = temp.get("company").toString();
       String hyperLink = temp.get("link").toString();
       String location = temp.get("location").toString();
+      List<String> amenities = (List<String>) temp.get("ammenities");
       String id = temp.get("_id").toString();
   
-      JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
+      JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location, amenities);
       tempJob.ObjectId = id;
        listings.add(tempJob);
     }
@@ -252,9 +254,10 @@ public void deleteListing() {
       String company = temp.get("company").toString();
       String hyperLink = temp.get("link").toString();
       String location = temp.get("location").toString();
+      List<String> amenities = (List<String>) temp.get("ammenities");
       String id = temp.get("_id").toString();
   
-      JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location);
+      JobListingModel tempJob = new JobListingModel(title, company, hyperLink, location, amenities);
       tempJob.ObjectId = id;
        listings.add(tempJob);
     }

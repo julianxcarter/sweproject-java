@@ -50,7 +50,7 @@ public class GoogleCompanyView extends javax.swing.JFrame {
             // this button should direct a user to the company's accessibility policy page
             public void actionPerformed(ActionEvent event) {
                 try {
-                    openWebpage(new URL("https://diversity.google/annual-report/#!#_inclusion").toURI());
+                    openWebpage(new URL("https://diversity.google/annual-report").toURI());
                 } catch (MalformedURLException | URISyntaxException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
