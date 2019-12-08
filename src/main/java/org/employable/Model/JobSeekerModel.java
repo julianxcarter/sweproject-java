@@ -7,9 +7,6 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-// import com.mongodb.BasicDBObject;
-import com.mongodb.client.FindIterable; 
-import com.mongodb.client.MongoCursor;
  
 import org.bson.Document;
 import org.bson.types.ObjectId;

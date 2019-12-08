@@ -1,18 +1,7 @@
 package org.employable.Model; //CampusModel is in the model package
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-
-import org.bson.Document;
 
 public class CampusModel extends CompanyModel {
   String campusLocation;
