@@ -34,11 +34,11 @@ public class JobSeekerModel extends ProfileModel {
   MongoDatabase database;
  
   // constructor declaration
-  public JobSeekerModel()
+  public JobSeekerModel(List<String> desiredRoles, List<String> desiredLocations, List<String> amenities)
   {
-    // this.desiredRoles = roles;
-    // this.desiredAmenities = amenities;
-    // this.desiredLocations = locations;
+    this.desiredRoles = desiredRoles;
+    this.desiredAmenities = amenities;
+    this.desiredLocations = desiredLocations;
   }
  
   //method to add role
@@ -126,7 +126,7 @@ public class JobSeekerModel extends ProfileModel {
 
     //Creating the document to be uploaded to the database
     Document doc = new Document("_id", id)
-        .append("name", "cameron")
+        .append("name", "Job Seeker")
         // .append("password", this.password)
         // .append("email", this.email)
         .append("roles", this.desiredRoles)

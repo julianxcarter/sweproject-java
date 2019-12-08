@@ -9,6 +9,7 @@ import org.employable.Controller.JobSeekerController;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -34,7 +35,13 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
 
     final JobSeekerController controller = new JobSeekerController();
 
+    public List<String> myRoles = new ArrayList<String>();
+    public List<String> myLocations = new ArrayList<String>();
+    public List<String> myAmenities = new ArrayList<String>();
+
     public JobSeekerProfileView() throws Exception {
+
+        // final JobSeekerController controller = new JobSeekerController();
 
         // Layout source:
         // https://stackoverflow.com/questions/11790830/setting-jpanel-layout
@@ -58,13 +65,15 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
                 public void itemStateChanged(ItemEvent e) {
                     if (e.getStateChange() == 1) {
                         try {
-                            controller.addAmenity(amenities[j].toString());
+                            myAmenities.add(amenities[j].toString());
+                            // controller.addAmenity(amenities[j].toString());
                         } catch (Exception e1) {
                             e1.printStackTrace();
                         }
                         System.out.println("This is the amenity from the view: " + amenities[j]);
                     } else {
-                        controller.removeAmenity(amenities[j].toString());
+                        myAmenities.remove(amenities[j].toString());
+                        // controller.removeAmenity(amenities[j].toString());
                     }
                 }
             });
@@ -126,7 +135,8 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
                 saveLocButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent event) {
-                        controller.addLocation(userLocations.getSelectedItem().toString());
+                        // controller.addLocation(userLocations.getSelectedItem().toString());
+                        myLocations.add(userLocations.getSelectedItem().toString());
                     }
                 });
 
@@ -177,7 +187,8 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
                 savePosButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent event) {
-                        controller.addPosition(userPositions.getSelectedItem().toString());
+                        // controller.addPosition(userPositions.getSelectedItem().toString());
+                        myRoles.add(userPositions.getSelectedItem().toString());
                     }
                 });
 
@@ -216,7 +227,8 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
     }
 
     public void save() {
-        controller.updateModel();
+        controller.createJobSeeker(myRoles, myLocations, myAmenities);
+        // controller.updateModel();
     }
 
     public static void main(String[] args) {

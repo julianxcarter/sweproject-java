@@ -62,11 +62,16 @@ public class JobSeekerController {
 
   }
 
- //update the model
- public void updateModel() {
-   this.model = new JobSeekerModel();
-   this.model.createJobSeeker();
+  //create a job seeker
+  public void createJobSeeker(List<String> desiredRoles, List<String> desiredLocations, List<String> amenities) {
+    this.model = new JobSeekerModel(desiredRoles, desiredLocations, amenities);
+    this.model.createJobSeeker();
   }
+
+ //update the model
+//  public void updateModel() {
+//    this.model.createJobSeeker();
+//   }
 
   public List<JobListingModel> searchCompanies(String company) {
     List<JobListingModel> listings = listing.getListingsByCompany(company);
