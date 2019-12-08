@@ -1,8 +1,9 @@
 package org.employable.View;
 
+
 import org.employable.Controller.JobSeekerController;
 import org.employable.Model.JobListingModel;
-//import org.employable.Controller.RecruiterController;
+
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -13,25 +14,41 @@ import java.net.URI;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class JobSeekerHomeView extends javax.swing.JFrame{
 
     private static final long serialVersionUID = 1L;
+    //List of search parameters for job listings
     public static String[] searchParamaters = {"Company", "Location", "Role", "Industry"};
+    
+    //create an instance of the job seeker controller
+    final JobSeekerController jsController = new JobSeekerController();
+    //create an instance of the array list
+    List<String> bleh = new ArrayList<String>();
+    //create an instance of the job listing model
+    JobListingModel model = new JobListingModel("bleh", "bleh", "bleh", "bleh", bleh);
 
     // JobSeekerController controller = new JobSeekerController();
 
     public JobSeekerHomeView(){
+        //retrieve the array of matched objects
+        List<JobListingModel> match = jsController.newMatch();
+        for(int i = 0; i< match.size(); i++){
+            System.out.println(match.get(i));
+        }
         //create the frame
         JFrame frame = new JFrame("Home Page");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500,500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//exit when window closes
+        frame.setSize(500,500); //set frame for 500 by 500
 
         //Create search panel
         JPanel panel = new JPanel();
         //Profile button
         JButton profile = new JButton("Profile");
+        //job listing search box
         JTextField universalSearchBox = new JTextField("Search Company", 10);
         //Combo box for search parameters
         JComboBox<String> searchList = new JComboBox<>(searchParamaters);
@@ -42,10 +59,11 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         profile.addActionListener(new ActionListener()
         {
             @Override
+            //this button takes the user to his/her profile
             public void actionPerformed(ActionEvent e)
             {
                 //connect to job seeker profile via the controller
-                //JobSeekerController.loadProfileView();
+                //JobSeekerProfileView userProfile = new JobSeekerProfileView();
                 // display/center the jdialog when the button is pressed
                 JOptionPane.showMessageDialog(frame,"You have chosen to go to your profile.");
             }
@@ -54,6 +72,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         search.addActionListener(new ActionListener()
         {
             @Override
+            //this button allows the user to search for job listings
             public void actionPerformed(ActionEvent e)
             {
                 // display/center the jdialog when the button is pressed
@@ -62,6 +81,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                 JOptionPane.showMessageDialog(frame,"You searched for "+ company);
             }
         });
+        //add the profile button, search box, combo box and search button to the panel
         panel.add(profile);
         panel.add(universalSearchBox);
         panel.add(searchList);
@@ -71,6 +91,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
 
         //create panel for job listings
         JPanel jobRecPanel = new JPanel();
+        //makes the layout 2 rows and 3 columns
         jobRecPanel.setLayout(new GridLayout(2,3));
         
 
@@ -81,61 +102,66 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         jobRecPanel.add(jobListings);
         jobRecPanel.add(blank);
         jobRecPanel.add(anotherBlank);
-
-        //add listing with links
+        
+        //get the listings from the model/controller
         //first job listing
         JPanel recComp1 = new JPanel ();
-        JButton comcastCompPage = new JButton("Comcast");
-        comcastCompPage.addActionListener(new ActionListener() {
+        //get first company name
+        JButton firstCompPage = new JButton(match.get(0).companyName);
+        firstCompPage.addActionListener(new ActionListener() {
             @Override
+            //this button takes the user to the indicated company page
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JOptionPane.showMessageDialog(frame, "Comcast's company page is not available at this time. \nPlease try again later.");
+                    JOptionPane.showMessageDialog(frame, match.get(0).companyName+"'s company page is not available at this time. \nPlease try again later.");
                 } catch(Exception e0) {
                     //TODO Auto-generated catch block
                     e0.printStackTrace();
                 }
             }
         });
-        JLabel comcastRole = new JLabel("\nSoftware Engineer - Xfi Team");
-        JLabel comcastLocation = new JLabel("\nPhiladelphia, PA\n");
-        JButton comcastLink = new JButton("Apply");
-        // recComp1.setEditable(false);//make text box uneditable
-        //recComp1.setPreferredSize(new Dimension(200,100));
-        //get the listings from the model/controller
-        recComp1.add(comcastCompPage);
-        recComp1.add(comcastRole);
-        recComp1.add(comcastLocation);
-        comcastLink.addActionListener(new ActionListener() {
+        //get first position title
+        JLabel firstRole = new JLabel("\n" + match.get(0).positionName);
+        //get first position location
+        JLabel firstLocation = new JLabel("\n"+ match.get(0).location+"\n");
+        //adds an apply button for the external application link
+        JButton firstLink = new JButton("Apply");
+
+        //add each componenets to the panel
+        recComp1.add(firstCompPage);
+        recComp1.add(firstRole);
+        recComp1.add(firstLocation);
+        firstLink.addActionListener(new ActionListener() {
             @Override
             //this button directs users to the external application
             public void actionPerformed(ActionEvent event) {
                 // controller.updateEngagements();
                 try {
-                    openWebpage(new URL("https://jobs.comcast.com").toURI());
+                    openWebpage(new URL(match.get(0).hyperLink).toURI());
                 } catch(MalformedURLException | URISyntaxException e) {
                     //TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
         });
-        recComp1.add(comcastLink);
+        recComp1.add(firstLink);
         
 
-        
         //format the text pane
-        recComp1.setPreferredSize(new Dimension(300,100));
-        recComp1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
+        recComp1.setPreferredSize(new Dimension(300,100));//size
+        recComp1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
         //add the pane to the panel
         jobRecPanel.add(recComp1);
         
 
-        //add listing with links
+        //get the listings from the model/controller
         //second job listing
         JPanel recComp2 = new JPanel ();
-        JButton googleCompPage = new JButton("Google");
-        googleCompPage.addActionListener(new ActionListener() {
+        //get the second company name
+        JButton secondCompPage = new JButton(match.get(1).companyName);
+        /*googleCompPage.addActionListener(new ActionListener() {
             @Override
+            //this button takes the user to the indicated company page
             public void actionPerformed(ActionEvent e) {
                 try {
                     GoogleCompanyView Google = new GoogleCompanyView();
@@ -144,93 +170,103 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                     e1.printStackTrace();
                 }
             }
-        });
-        JLabel googleRole = new JLabel("\nEngineering Residency Program");
-        JLabel googleLocation = new JLabel("\nNew York City, NY\n");
-        JButton googleLink = new JButton("Apply");
-        // recComp1.setEditable(false);//make text box uneditable
-        //recComp2.setPreferredSize(new Dimension(200,100));
-        //get the listings from the model/controller
-        recComp2.add(googleCompPage);
-        recComp2.add(googleRole);
-        recComp2.add(googleLocation);
-        googleLink.addActionListener(new ActionListener() {
+        });*/
+        //get the second position title
+        JLabel secondRole = new JLabel("\n" + match.get(1).positionName);
+        //get the second location
+        JLabel secondLocation = new JLabel("\n"+match.get(1).location+"\n");
+        //add an apply button for the external application
+        JButton secondLink = new JButton("Apply");
+        
+        //add each component to the panel
+        recComp2.add(secondCompPage);
+        recComp2.add(secondRole);
+        recComp2.add(secondLocation);
+        secondLink.addActionListener(new ActionListener() {
             @Override
             //this button directs users to the external application
             public void actionPerformed(ActionEvent event) {
                 try {
-                    openWebpage(new URL("https://careers.google.com/jobs/results/82353156161184454-engineering-resident-university-graduate-fixed-term-employee/").toURI());
+                    openWebpage(new URL(match.get(1).hyperLink).toURI());
                 } catch(MalformedURLException | URISyntaxException e) {
                     //TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
         });
-        recComp2.add(googleLink);
+        //add link to the panel
+        recComp2.add(secondLink);
 
         //format the text pane
-        recComp2.setPreferredSize(new Dimension(300,100));
-        recComp2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
+        recComp2.setPreferredSize(new Dimension(300,100));//size
+        recComp2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
         //add the pane to the panel
         jobRecPanel.add(recComp2);
 
 
-        //add listing with links
+        //get the listings from the model/controller
         //third job listing
         JPanel recComp3 = new JPanel ();
-        JButton adobeCompPage = new JButton("Adobe");
-        adobeCompPage.addActionListener(new ActionListener() {
+        //get the third company name
+        JButton thirdCompPage = new JButton(match.get(2).companyName);
+        thirdCompPage.addActionListener(new ActionListener() {
             @Override
+            //this button opens the indicated compnay page
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JOptionPane.showMessageDialog(frame, "Adobe's company page is not available at this time. \nPlease try again later.");
+                    JOptionPane.showMessageDialog(frame, match.get(2).companyName+"'s company page is not available at this time. \nPlease try again later.");
                 } catch(Exception e2) {
                     //TODO Auto-generated catch block
                     e2.printStackTrace();
                 }
             }
         });
-        JLabel adobeRole = new JLabel("\nDevops Architect & Principal Scientist");
-        JLabel adobeLocation = new JLabel("\nSanJose, CA\n");
-        JButton adobeLink = new JButton("Apply");
-        // recComp1.setEditable(false);//make text box uneditable
-        //recComp3.setPreferredSize(new Dimension(200,100));
+        //get the third position title
+        JLabel thirdRole = new JLabel("\n"+ match.get(2).positionName);
+        //get the third location
+        JLabel thirdLocation = new JLabel("\n"+match.get(2).location+"\n");
+        //add the apply button for the external link
+        JButton thirdLink = new JButton("Apply");
+       
         //get the listings from the model/controller
-        recComp3.add(adobeCompPage);
-        recComp3.add(adobeRole);
-        recComp3.add(adobeLocation);
-        adobeLink.addActionListener(new ActionListener() {
+        recComp3.add(thirdCompPage);
+        recComp3.add(thirdRole);
+        recComp3.add(thirdLocation);
+        thirdLink.addActionListener(new ActionListener() {
             @Override
             //this button directs users to the external application
             public void actionPerformed(ActionEvent event) {
                 try {
-                    openWebpage(new URL("https://adobe.wd5.myworkdayjobs.com/en-US/external_experienced/job/San-Jose/Principal-Scientist_76059").toURI());
+                    openWebpage(new URL(match.get(2).hyperLink).toURI());
                 } catch(MalformedURLException | URISyntaxException e) {
                     //TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
         });
-        recComp3.add(adobeLink);
+        //add the link to the panel
+        recComp3.add(thirdLink);
          
         //format the text pane
-        recComp3.setPreferredSize(new Dimension(300,100));
-        recComp3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
+        recComp3.setPreferredSize(new Dimension(300,100));//size
+        recComp3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//outline color
         //add the pane to the panel
         jobRecPanel.add(recComp3);
     
 
         //top rated companies panel with heading left justified
         JPanel topCompPanel = new JPanel();
+        //set layout to 2 rows and 3 columns
         topCompPanel.setLayout(new GridLayout(2,3));
         JLabel topCompanies = new JLabel("Top Companies");
         JLabel thisBlank = new JLabel("");
         JLabel thatBlank = new JLabel("");
         JPanel topCompany1 = new JPanel();
-        //topCompany1.setEditable(false);//noneditable
+        
         //format area
-        adobeCompPage.addActionListener(new ActionListener() {
+        thirdCompPage.addActionListener(new ActionListener() {
             @Override
+            //this button takes the user to the company page
             public void actionPerformed(ActionEvent e) {
                 try {
                     JOptionPane.showMessageDialog(frame, "Adobe's company page is not available at this time. \nPlease try again later.");
@@ -240,23 +276,22 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                 }
             }
         });
+        //show the company location
         JLabel adobeLocation2 = new JLabel("\nSeattle, WA");
-        topCompany1.setPreferredSize(new Dimension(300,100));
-        topCompany1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
-        //StringBuffer company1 = new StringBuffer();
-        topCompany1.add(adobeCompPage);
+        topCompany1.setPreferredSize(new Dimension(300,100));//format size
+        topCompany1.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//format outline color
+        
+        //add components to the panel
+        topCompany1.add(thirdCompPage);
         topCompany1.add(adobeLocation2);
 
-        //add text to the area
-        //topCompany1.setText(company1.toString());
 
         //second company
         JPanel topCompany2 = new JPanel();
-        //topCompany2.setEditable(false);//noneditable
-        //format area
         JButton pivotalCompPage = new JButton("Pivotal");
         pivotalCompPage.addActionListener(new ActionListener() {
             @Override
+            //this button takes the user to the company page
             public void actionPerformed(ActionEvent e) {
                 try {
                     JOptionPane.showMessageDialog(frame, "Pivotal's company page is not available at this time. \nPlease try again later.");
@@ -266,23 +301,22 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                 }
             }
         });
+        //show the company location
         JLabel pivotalLocation = new JLabel ("\nNew York, NY");
-        topCompany2.setPreferredSize(new Dimension(300,100));
-        topCompany2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
-        //StringBuffer company2 = new StringBuffer();
+        topCompany2.setPreferredSize(new Dimension(300,100));//format size
+        topCompany2.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//format outline color
+        
+        //add component to the panel
         topCompany2.add(pivotalCompPage);
         topCompany2.add(pivotalLocation);
 
-        //add text to the area
-        //topCompany2.setText(company2.toString());
 
         //thrid company
         JPanel topCompany3 = new JPanel();
-        //topCompany3.setEditable(false); //noneditable
-        //format area
         JButton cokeCompPage = new JButton("Coca-Cola");
         cokeCompPage.addActionListener(new ActionListener() {
             @Override
+            //this button takes the user to the company page
             public void actionPerformed(ActionEvent e) {
                 try {
                     JOptionPane.showMessageDialog(frame, "Coca-Cola's company page is not available at this time. \nPlease try again later.");
@@ -292,15 +326,16 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
                 }
             }
         });
+        //show the company location
         JLabel cokeLocation = new JLabel("\nAtlanta, GA");
-        topCompany3.setPreferredSize(new Dimension(300,100));
-        topCompany3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));
-        //StringBuffer company3 = new StringBuffer();
+        topCompany3.setPreferredSize(new Dimension(300,100));//format size
+        topCompany3.setBorder(BorderFactory.createLineBorder(Color.CYAN, 5));//format outline color
+        
+        //add components to panel
         topCompany3.add(cokeCompPage);
         topCompany3.add(cokeLocation);
 
-        //add taxt to the area
-        //topCompany3.setText(company3.toString());
+        
         //add the heading and the companies to the panel
         topCompPanel.add(topCompanies);
         topCompPanel.add(thisBlank);
@@ -310,15 +345,16 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
         topCompPanel.add(topCompany3);
 
         //add all of the panels to the frame and with layout specifications
-        frame.getContentPane().add(BorderLayout.NORTH, panel);
-        frame.getContentPane().add(BorderLayout.WEST, jobRecPanel);
-        frame.getContentPane().add(BorderLayout.SOUTH, topCompPanel);
+        frame.getContentPane().add(BorderLayout.NORTH, panel);//top of the panel
+        frame.getContentPane().add(BorderLayout.WEST, jobRecPanel);//middle of the panel
+        frame.getContentPane().add(BorderLayout.SOUTH, topCompPanel);//bottom of the panels
+
         //make everything visible and pack frame
         frame.setVisible(true);
         frame.pack();
     }
 
-       // method to support opening an external webpage
+    // method to support opening an external webpage
    public static boolean openWebpage(URI uri) {
     Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
     if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
@@ -332,7 +368,7 @@ public class JobSeekerHomeView extends javax.swing.JFrame{
     return false;
 }
 
-    // method to open an external web page
+    // method to open an external webpage
     public static boolean openWebpage(URL url) {
         try {
             return openWebpage(url.toURI());

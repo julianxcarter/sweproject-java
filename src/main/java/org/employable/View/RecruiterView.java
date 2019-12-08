@@ -225,20 +225,17 @@ public class RecruiterView extends javax.swing.JFrame {
        //add dummy notifications for user views
        notificationsPane.add(notificationsLbl);
 
-       List<JobListingModel> companyListings = controller.searchCompanies(company);
-       if (companyListings.size() > 0) {
-         System.out.println("company listings exists");
-       }
-       for (JobListingModel j : companyListings) {
-         if (j.recentlyEngaged == true) {
-          notificationsPane.add(new NewNotification(j.positionName));
-         }
-       }
-      //  notificationsPane.add(new NewNotification("Cameron Womack"));
-      //  notificationsPane.add(new NewNotification("Julian Carter"));
-      //  notificationsPane.add(new NewNotification("Ariel Turnley"));
-      //  notificationsPane.add(new NewNotification("Thulani Vereen"));
-      //  notificationsPane.add(new NewNotification("Cameryn Boyd"));
+      //  List<JobListingModel> companyListings = controller.searchCompanies(company);
+      //  if (companyListings.size() > 0) {
+      //    System.out.println("company listings exists");
+      //  }
+      //  for (JobListingModel j : companyListings) {
+      //    if (j.recentlyEngaged == true) {
+      //     notificationsPane.add(new NewNotification(j.positionName));
+      //    }
+      //  }
+
+       notificationsPane.add(new NewNotification("New York Software Engineer"));
 
        homePage.getContentPane().add(notificationsPanel);
 

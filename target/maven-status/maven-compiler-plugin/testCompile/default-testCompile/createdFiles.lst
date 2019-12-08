@@ -4,6 +4,5 @@ org/employable/Model/ProfileModelTest.class
 org/employable/Model/RecruiterModelTest.class
 org/employable/AppTest.class
 org/employable/TestUtils.class
-org/employable/Controller/JobSeekerControllerTest.class
 org/employable/Model/JobSeekerModelTest.class
 org/employable/UseCase1IT.class

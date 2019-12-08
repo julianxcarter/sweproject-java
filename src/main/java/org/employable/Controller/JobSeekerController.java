@@ -13,7 +13,7 @@ public class JobSeekerController {
  JobListingModel listing;
  
  public JobSeekerController() {
-   model = new JobSeekerModel();
+  // model = new JobSeekerModel();
    List<String> bleh = new ArrayList<String>();
    bleh.add("bleh");
 
@@ -64,7 +64,8 @@ public class JobSeekerController {
 
  //update the model
  public void updateModel() {
-   model.createJobSeeker();
+   this.model = new JobSeekerModel();
+   this.model.createJobSeeker();
   }
 
   public List<JobListingModel> searchCompanies(String company) {

@@ -78,8 +78,8 @@ public class JobSeekerProfileView extends javax.swing.JFrame {
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                JobSeekerHomeView jSeeker = new JobSeekerHomeView();
                 save();
+                JobSeekerHomeView jSeeker = new JobSeekerHomeView();
             }
         });
         savePanel.add(saveButton);

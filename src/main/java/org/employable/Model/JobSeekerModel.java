@@ -151,9 +151,9 @@ public class JobSeekerModel extends ProfileModel {
         .append("name", "cameron")
         // .append("password", password)
         // .append("email", email)
-        .append("roles", desiredRoles)
-        .append("amenities", desiredAmenities)
-        .append("locations", desiredLocations);
+        .append("roles", this.desiredRoles)
+        .append("amenities", this.desiredAmenities)
+        .append("locations", this.desiredLocations);
 
     collection.replaceOne(Filters.eq("name", name), doc); // Replaces the document in the database with the same name
   }
