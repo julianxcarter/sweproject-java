@@ -21,6 +21,8 @@ public class JobSeekerController {
    bleh.add("bleh");
 
    listing = new JobListingModel("bleh", "bleh", "bleh", "bleh", bleh);
+
+   this.model = new JobSeekerModel();
   
   }
  
