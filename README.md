@@ -1,11 +1,9 @@
 ## sweproject-java
 # Job search engine for Software Engineering group project.
 
-#Delegated Tasks: 
 
-![GitHub Logo](
 
-#Technical Contributions and Tasks:
+# Technical Contributions and Tasks:
 
 **Group:** 
 - Consistent biweekly meetings to provide updates and new plans of work 
@@ -43,7 +41,7 @@
 - Debugging matching (with Lani, Julain, Cameron) 
 - Integrating JobSeekerProfileView and JobSeekerHomeView (with Cameron)
 
-**Thulani Vereen: ** 
+**Thulani Vereen:** 
 - ProfileModel
 - RecruiterModel 
 - JobListingModel 
